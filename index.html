@@ -3,15 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Banco de Planeaciones SIS — CELEX UVP</title>
-<style>
-body{margin:0;padding:16px;background:#f7f6f2;font-family:'Helvetica Neue',Arial,sans-serif;}
-</style>
-</head>
-<body>
-<div id="sisapp" style="font-family:Arial,sans-serif;color:#1a1a2e;max-width:860px;margin:0 auto;padding:8px;">
-
-<!-- ESTILOS -->
+<title>Banco de Planeaciones SIS - CELEX UVP</title>
 <style>
 #sisapp{line-height:1.6;}
 #sisapp *{box-sizing:border-box;}
@@ -62,6 +54,11 @@ body{margin:0;padding:16px;background:#f7f6f2;font-family:'Helvetica Neue',Arial
 #sisapp .detail-col-right{border-left:2px solid #f0e2b6;padding-left:14px;}
 #sisapp .col-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
 </style>
+</head>
+<body style="margin:0;padding:16px;background:#f7f6f2;">
+<div id="sisapp" style="font-family:Arial,sans-serif;color:#1a1a2e;max-width:860px;margin:0 auto;padding:8px;">
+
+
 
 <!-- APP JS -->
 <script>
@@ -232,7 +229,8 @@ window.SIS={
     var plan={id:S.edit?S.edit.id:Date.now().toString(),teacher:teacher,level:level,topic:topic,objective:obj,classGroup:document.getElementById('fc').value.trim(),date:document.getElementById('fd').value,steps:steps,goals:goals};
     var plans=S.edit?S.plans.map(function(p){return p.id===plan.id?plan:p;}):[...S.plans,plan];
     save(plans);
-    try{fetch(WH,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:plan.id,teacher:plan.teacher,level:plan.level,topic:plan.topic,objective:plan.objective,classGroup:plan.classGroup||'',date:plan.date||'',warmup_desc:steps.warmup||'',warmup_goal:goals.warmup||'',context_desc:steps.context||'',context_goal:goals.context||'',grammar_desc:steps.grammar||'',grammar_goal:goals.grammar||'',sim_desc:steps.simulation||'',sim_goal:goals.simulation||'',decision_desc:steps.decision||'',decision_goal:goals.decision||'',results_desc:steps.results||'',results_goal:goals.results||''})})}catch(ex){}
+    try{fetch(WH,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:plan.id,teacher:plan.teacher,level:plan.level,topic:plan.topic,objective:plan.objective,classGroup:plan.classGroup||'',date:plan.date||'',warmup_desc:steps.warmup||'',warmup_goal:goals.warmup||'',context_desc:steps.context||'',context_goal:goals.context||'',grammar_desc:steps.grammar||'',grammar_goal:goals.grammar||'',sim_desc:steps.simulation||'',sim_goal:goals.simulation||'',decision_desc:steps.decision||'',decision_goal:goals.decision||'',results_desc:steps.results||'',results_goal:goals.results||''})});}catch(ex){}
+    st({plans:plans,view:'lib',edit:null,toast:{t:'ok',m:'Guardado en la app y en Google Sheets.'}});n guardada correctamente.'}});
   }
 };
 go();

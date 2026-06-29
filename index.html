@@ -1,12 +1,244 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Banco de Planeaciones SIS — CELEX</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Banco de Planeaciones SIS — CELEX UVP</title>
+<style>
+body{margin:0;padding:16px;background:#f7f6f2;font-family:'Helvetica Neue',Arial,sans-serif;}
+</style>
+</head>
+<body>
+<div id="sisapp" style="font-family:Arial,sans-serif;color:#1a1a2e;max-width:860px;margin:0 auto;padding:8px;">
+
+<!-- ESTILOS -->
+<style>
+#sisapp{line-height:1.6;}
+#sisapp *{box-sizing:border-box;}
+#sisapp input,#sisapp select,#sisapp textarea,#sisapp button{font-family:Arial,sans-serif;font-size:14px;}
+#sisapp .hero{background:#2d1f5e;border-radius:14px;padding:24px 28px;margin-bottom:18px;color:#fff;}
+#sisapp .hero-title{font-size:20px;font-weight:800;color:#fff;margin:6px 0 4px;}
+#sisapp .hero-sub{font-size:13px;color:rgba(255,255,255,.72);margin:0;}
+#sisapp .hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#c9a84c;margin-bottom:4px;}
+#sisapp .stats{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+#sisapp .stat{background:rgba(255,255,255,.12);border-radius:8px;padding:8px 14px;text-align:center;}
+#sisapp .stat-n{font-size:18px;font-weight:800;color:#fff;}
+#sisapp .stat-l{font-size:11px;color:rgba(255,255,255,.6);}
+#sisapp .topbar{display:flex;justify-content:flex-end;margin-bottom:14px;}
+#sisapp .btn{display:inline-block;padding:9px 20px;border-radius:30px;font-weight:700;font-size:13px;cursor:pointer;border:none;text-decoration:none;}
+#sisapp .btn-primary{background:#5b4d8a;color:#fff;}
+#sisapp .btn-gold{background:#c9a84c;color:#1a1a2e;}
+#sisapp .btn-outline{background:#fff;color:#5b4d8a;border:2px solid #5b4d8a;}
+#sisapp .btn-danger{background:#fff;color:#c25b3f;border:2px solid #c25b3f;}
+#sisapp .btn-sm{padding:6px 14px;font-size:12px;}
+#sisapp .btn+.btn{margin-left:8px;}
+#sisapp .card{background:#fff;border-radius:10px;border:1.5px solid #e0ddd5;padding:20px 22px;margin-bottom:14px;}
+#sisapp .filters{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;background:#f7f6f2;border-radius:10px;padding:16px;margin-bottom:16px;}
+#sisapp .field-label{display:block;font-size:11px;font-weight:700;color:#5b4d8a;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
+#sisapp .field-input{width:100%;padding:8px 10px;border:1.5px solid #ddd;border-radius:7px;font-size:13px;color:#1a1a2e;background:#fff;}
+#sisapp .field-input:focus{outline:none;border-color:#5b4d8a;}
+#sisapp .plans-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+#sisapp .pcard{background:#fff;border-radius:10px;border:1.5px solid #e0ddd5;overflow:hidden;cursor:pointer;transition:box-shadow .15s;}
+#sisapp .pcard:hover{box-shadow:0 6px 20px rgba(26,26,46,.12);}
+#sisapp .pcard-bar{height:4px;background:linear-gradient(90deg,#5b4d8a,#c9a84c);}
+#sisapp .pcard-body{padding:14px 16px;}
+#sisapp .pcard-foot{padding:8px 16px;background:#f7f6f2;border-top:1px solid #e0ddd5;font-size:11px;color:#888;}
+#sisapp .badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700;margin-right:4px;}
+#sisapp .empty{text-align:center;padding:48px 20px;color:#888;}
+#sisapp .empty-icon{font-size:40px;margin-bottom:10px;}
+#sisapp .step-wrap{background:#fff;border-radius:10px;border:1.5px solid #e0ddd5;overflow:hidden;margin-bottom:10px;}
+#sisapp .step-head{background:#2d1f5e;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;}
+#sisapp .step-title{font-size:13px;font-weight:700;color:#fff;}
+#sisapp .step-time{background:rgba(201,168,76,.3);color:#c9a84c;border-radius:20px;padding:2px 10px;font-size:11px;font-weight:700;}
+#sisapp .step-body{padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+#sisapp .detail-hero{background:#2d1f5e;border-radius:12px;padding:22px 26px;margin-bottom:14px;color:#fff;}
+#sisapp .toast{padding:10px 14px;border-radius:7px;margin-bottom:14px;font-size:13px;font-weight:600;border-left:4px solid;}
+#sisapp .toast-ok{background:#e0f2f2;color:#2d7a7a;border-color:#2d7a7a;}
+#sisapp .toast-err{background:#faeae6;color:#c25b3f;border-color:#c25b3f;}
+#sisapp .form-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+#sisapp .form-grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px;}
+#sisapp .detail-step{background:#fff;border-radius:10px;border:1.5px solid #e0ddd5;overflow:hidden;margin-bottom:10px;}
+#sisapp .detail-step-body{padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+#sisapp .detail-col-right{border-left:2px solid #f0e2b6;padding-left:14px;}
+#sisapp .col-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
+</style>
+
+<!-- APP JS -->
+<script>
+(function(){
+var SK='celex_sis_v3';
+var WH='https://script.google.com/macros/s/AKfycbwshvc64VGc9F5VHbUjCrA54hoaaNbsOYWmUOHsaecNqhfwrU2dl4JXTdo8roFjo1Y8jQ/exec';
+var T=["Rodr&#237;guez Fern&#225;ndez Alejandro","Arcocha Sotomayor Claudia","Ortiz Vargas Claudia","Mota Blanco Edgar","Atenco Mart&#237;nez Javier","Rosas de la Llave Karina","Andrade Parra Martha Irene","Ruiz Gonz&#225;lez Miguel &#193;ngel","Alarc&#243;n Morales Samantha","Vega Rosas Luis Johany","Diaz Felipe Victor Octavio","&#193;lvarez Torres Yuliana","Flores Monroy Bruno","Mart&#237;nez Arenalde Cesar","Aburto Morales Montserrat","S&#225;nchez Garfias Mayanit","Ya&#241;ez Torres Maria Flor","Pablo Garc&#237;a","Rivera Gonz&#225;lez Rosalba","Vazquez D&#237;az Janis","Zurita Juarez Araceli","De La Cruz Del Valle Oscar Ivan","Guzm&#225;n Osorio Jos&#233; Antonio","Jim&#233;nez Flores Vanessa","Rugerio Ochoa Alejandro Carlos","Medel Osorio Gabriel","Merino Casta&#241;eda Jessica","Ramirez Hern&#225;ndez Miriam Andrea","Pineda Jacinto Jessica","Herrera Quiroz Lariza"];
+var L=["I","II","III","IV","V","VI"];
+var ST=[{k:"warmup",l:"1 — Warm up",t:"10 min"},{k:"context",l:"2 — Presentation, vocabulary & context",t:"10–15 min"},{k:"grammar",l:"3 — Applied Grammar",t:"10–15 min"},{k:"simulation",l:"4 — Simulation practice",t:"20–30 min"},{k:"decision",l:"5 — Decision making",t:"10–15 min"},{k:"results",l:"6 — Results",t:"10 min"}];
+var LC={"I":["#2d7a7a","#e0f2f2"],"II":["#5b4d8a","#ede9f7"],"III":["#6b4a00","#f0e2b6"],"IV":["#c25b3f","#faeae6"],"V":["#185fa5","#e6f1fb"],"VI":["#5a2d82","#f3e8ff"]};
+
+function load(){try{var r=localStorage.getItem(SK);return r?JSON.parse(r):[]}catch(e){return[];}}
+function save(p){try{localStorage.setItem(SK,JSON.stringify(p));}catch(e){}}
+function e(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+var S={view:'lib',plans:load(),sel:null,edit:null,fLvl:'',fTch:'',fSrch:'',toast:null};
+function st(p){Object.assign(S,p);go();}
+
+function go(){
+  var app=document.getElementById('sisapp');
+  var h='';
+
+  // HERO
+  var stats=[S.plans.length,[...new Set(S.plans.map(function(p){return p.teacher;}))].length,[...new Set(S.plans.map(function(p){return p.level;}))].length];
+  h+='<div class="hero">';
+  h+='<p class="hero-eyebrow">Universidad del Valle de Puebla · CELEX</p>';
+  h+='<div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;">';
+  h+='<div><div class="hero-title">📚 Banco de Planeaciones SIS</div><p class="hero-sub">Comparte y consulta planeaciones del Modelo SIS · Niveles I–VI</p></div>';
+  h+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">';
+  if(S.view!=='lib') h+='<button class="btn btn-outline btn-sm" style="color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.1);" onclick="SIS.go(\'lib\')">← Volver</button>';
+  if(S.view==='lib') h+='<button class="btn btn-gold btn-sm" onclick="SIS.go(\'form\')">+ Nueva planeaci&#243;n</button>';
+  h+='</div></div>';
+  h+='<div class="stats">';
+  [['Planeaciones',stats[0]],['Docentes',stats[1]],['Niveles',stats[2]]].forEach(function(s){
+    h+='<div class="stat"><div class="stat-n">'+s[1]+'</div><div class="stat-l">'+s[0]+'</div></div>';
+  });
+  h+='</div></div>';
+
+  if(S.toast) h+='<div class="toast '+(S.toast.t==='ok'?'toast-ok':'toast-err')+'">'+S.toast.m+'</div>';
+
+  if(S.view==='lib') h+=lib();
+  else if(S.view==='form') h+=form();
+  else if(S.view==='det') h+=det();
+
+  app.innerHTML=h;
+}
+
+function lib(){
+  var h='';
+  h+='<div class="filters">';
+  h+='<div><label class="field-label">🔍 Buscar</label><input class="field-input" placeholder="Tema, docente..." value="'+e(S.fSrch)+'" oninput="SIS.filt(\'s\',this.value)"/></div>';
+  h+='<div><label class="field-label">Nivel</label><select class="field-input" onchange="SIS.filt(\'l\',this.value)">';
+  h+='<option value="">Todos los niveles</option>';
+  L.forEach(function(l){h+='<option value="Nivel '+l+'"'+(S.fLvl==='Nivel '+l?' selected':'')+'>Nivel '+l+'</option>';});
+  h+='</select></div>';
+  h+='<div><label class="field-label">Docente</label><select class="field-input" onchange="SIS.filt(\'t\',this.value)">';
+  h+='<option value="">Todos los docentes</option>';
+  T.forEach(function(t){h+='<option value="'+e(t)+'"'+(S.fTch===t?' selected':'')+'>'+e(t)+'</option>';});
+  h+='</select></div></div>';
+
+  var fp=S.plans.filter(function(p){
+    return (!S.fLvl||p.level===S.fLvl)&&(!S.fTch||p.teacher===S.fTch)&&(!S.fSrch||p.topic.toLowerCase().includes(S.fSrch.toLowerCase())||p.teacher.toLowerCase().includes(S.fSrch.toLowerCase()));
+  });
+
+  if(!fp.length){
+    h+='<div class="empty"><div class="empty-icon">📂</div>';
+    h+='<strong style="font-size:15px;display:block;margin-bottom:6px;color:#1a1a2e;">'+(S.plans.length===0?'A&#250;n no hay planeaciones guardadas':'Sin resultados')+'</strong>';
+    if(!S.plans.length) h+='<button class="btn btn-primary" style="margin-top:10px;" onclick="SIS.go(\'form\')">+ Agregar primera planeaci&#243;n</button>';
+    h+='</div>';
+  } else {
+    h+='<div class="plans-grid">';
+    fp.forEach(function(p){
+      var lc=LC[p.level.replace('Nivel ','')] || ['#5b4d8a','#ede9f7'];
+      h+='<div class="pcard" onclick="SIS.sel(\''+p.id+'\')">';
+      h+='<div class="pcard-bar"></div><div class="pcard-body">';
+      h+='<div style="margin-bottom:8px;"><span class="badge" style="background:'+lc[1]+';color:'+lc[0]+';">'+e(p.level)+'</span>';
+      if(p.date) h+='<span class="badge" style="background:#f7f6f2;color:#555;">'+e(p.date)+'</span>';
+      h+='</div>';
+      h+='<div style="font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:4px;">'+e(p.topic||'Sin tema')+'</div>';
+      h+='<div style="font-size:12px;color:#555;margin-bottom:6px;">👩‍🏫 '+e(p.teacher)+'</div>';
+      h+='<div style="font-size:12px;color:#666;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">'+e(p.objective||'Sin objetivo')+'</div>';
+      h+='</div><div class="pcard-foot">Ver planeaci&#243;n completa →</div></div>';
+    });
+    h+='</div>';
+  }
+  return h;
+}
+
+function form(){
+  var p=S.edit||{id:Date.now().toString(),teacher:'',level:'',topic:'',objective:'',classGroup:'',date:'',steps:{warmup:'',context:'',grammar:'',simulation:'',decision:'',results:''},goals:{warmup:'',context:'',grammar:'',simulation:'',decision:'',results:''}};
+  var h='<div class="card">';
+  h+='<div style="font-size:15px;font-weight:700;color:#1a1a2e;margin-bottom:16px;">📋 '+(S.edit?'Editar planeaci&#243;n':'Nueva planeaci&#243;n')+'</div>';
+  h+='<div class="form-grid3">';
+  h+='<div><label class="field-label">Docente *</label><select class="field-input" id="ft"><option value="">— Selecciona —</option>';
+  T.forEach(function(t){h+='<option'+(p.teacher===t?' selected':'')+'>'+e(t)+'</option>';});
+  h+='</select></div>';
+  h+='<div><label class="field-label">Nivel *</label><select class="field-input" id="fl"><option value="">— Selecciona —</option>';
+  L.forEach(function(l){h+='<option value="Nivel '+l+'"'+(p.level==='Nivel '+l?' selected':'')+'>Nivel '+l+'</option>';});
+  h+='</select></div>';
+  h+='<div><label class="field-label">Clase / Grupo</label><input class="field-input" id="fc" value="'+e(p.classGroup)+'" placeholder="Ej. A · Lunes 8am"/></div>';
+  h+='</div><div class="form-grid2">';
+  h+='<div><label class="field-label">Tema *</label><input class="field-input" id="fto" value="'+e(p.topic)+'" placeholder="Ej. Passive Voice — Present"/></div>';
+  h+='<div><label class="field-label">Fecha</label><input class="field-input" id="fd" type="date" value="'+e(p.date)+'"/></div>';
+  h+='</div>';
+  h+='<div style="margin-bottom:14px;"><label class="field-label">Objetivo de la sesi&#243;n *</label><textarea class="field-input" id="fo" rows="2" placeholder="&#191;Qu&#233; habilidad comunicativa desarrollar&#225;n los estudiantes?">'+e(p.objective)+'</textarea></div>';
+  h+='</div>';
+  h+='<div style="display:flex;align-items:center;gap:12px;margin:16px 0 12px;"><div style="flex:1;height:1px;background:#e0ddd5;"></div><span style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#c9a84c;background:#fff;padding:3px 12px;border:1px solid #f0e2b6;border-radius:20px;white-space:nowrap;">Pasos de la sesi&#243;n — 90 min</span><div style="flex:1;height:1px;background:#e0ddd5;"></div></div>';
+  ST.forEach(function(s){
+    h+='<div class="step-wrap"><div class="step-head"><span class="step-title">'+s.l+'</span><span class="step-time">'+s.t+'</span></div>';
+    h+='<div class="step-body">';
+    h+='<div><label class="field-label" style="color:#555;">Descripci&#243;n</label><textarea class="field-input" id="fs'+s.k+'" rows="3" placeholder="&#191;Qu&#233; har&#225;n los estudiantes?">'+e(p.steps[s.k])+'</textarea></div>';
+    h+='<div><label class="field-label" style="color:#555;">Objetivo / Interacci&#243;n / Recursos</label><textarea class="field-input" id="fg'+s.k+'" rows="3" placeholder="Ej. S-S · Tarjetas de rol">'+e(p.goals[s.k])+'</textarea></div>';
+    h+='</div></div>';
+  });
+  h+='<div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;">';
+  h+='<button class="btn btn-primary" onclick="SIS.save()">💾 Guardar planeaci&#243;n</button>';
+  h+='<button class="btn btn-outline" onclick="SIS.go(\'lib\')">Cancelar</button>';
+  h+='</div>';
+  return h;
+}
+
+function det(){
+  var p=S.sel; if(!p) return '';
+  var lc=LC[p.level.replace('Nivel ','')] || ['#5b4d8a','#ede9f7'];
+  var h='<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">';
+  h+='<button class="btn btn-outline btn-sm" onclick="SIS.go(\'lib\')">← Volver</button>';
+  h+='<button class="btn btn-primary btn-sm" onclick="SIS.edit()">✏️ Editar</button>';
+  h+='<button class="btn btn-danger btn-sm" onclick="SIS.del()">🗑 Eliminar</button>';
+  h+='</div>';
+  h+='<div class="detail-hero">';
+  h+='<div style="margin-bottom:8px;"><span class="badge" style="background:'+lc[1]+';color:'+lc[0]+';">'+e(p.level)+'</span>';
+  if(p.classGroup) h+='<span class="badge" style="background:rgba(255,255,255,.15);color:#fff;">'+e(p.classGroup)+'</span>';
+  if(p.date) h+='<span class="badge" style="background:rgba(201,168,76,.25);color:#c9a84c;">'+e(p.date)+'</span>';
+  h+='</div>';
+  h+='<div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:4px;">'+e(p.topic)+'</div>';
+  h+='<div style="font-size:13px;color:rgba(255,255,255,.7);margin-bottom:12px;">👩‍🏫 '+e(p.teacher)+'</div>';
+  h+='<div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px 14px;">';
+  h+='<div style="font-size:10px;font-weight:700;color:#c9a84c;text-transform:uppercase;margin-bottom:4px;">Objetivo</div>';
+  h+='<div style="font-size:13px;color:rgba(255,255,255,.9);">'+e(p.objective)+'</div></div></div>';
+  ST.forEach(function(s){
+    h+='<div class="detail-step"><div class="step-head"><span class="step-title">'+s.l+'</span><span class="step-time">'+s.t+'</span></div>';
+    h+='<div class="detail-step-body">';
+    h+='<div><div class="col-label" style="color:#5b4d8a;">Descripci&#243;n</div><div style="font-size:13px;color:'+(p.steps[s.k]?'#444':'#bbb')+';font-style:'+(p.steps[s.k]?'normal':'italic')+';">'+e(p.steps[s.k]||'Sin descripci&#243;n')+'</div></div>';
+    h+='<div class="detail-col-right"><div class="col-label" style="color:#6b4a00;">Objetivo / Interacci&#243;n / Recursos</div><div style="font-size:13px;color:'+(p.goals[s.k]?'#444':'#bbb')+';font-style:'+(p.goals[s.k]?'normal':'italic')+';">'+e(p.goals[s.k]||'Sin datos')+'</div></div>';
+    h+='</div></div>';
+  });
+  return h;
+}
+
+window.SIS={
+  go:function(v){st({view:v,toast:null,edit:null});},
+  filt:function(k,v){var p={toast:null};if(k==='s')p.fSrch=v;if(k==='l')p.fLvl=v;if(k==='t')p.fTch=v;st(p);},
+  sel:function(id){var p=S.plans.find(function(x){return x.id===id;});st({view:'det',sel:p,toast:null});},
+  edit:function(){st({view:'form',edit:S.sel,toast:null});},
+  del:function(){
+    if(!confirm('&#191;Eliminar "'+S.sel.topic+'"?')) return;
+    var plans=S.plans.filter(function(p){return p.id!==S.sel.id;});
+    save(plans);st({plans:plans,view:'lib',sel:null,toast:{t:'ok',m:'✅ Planeaci&#243;n eliminada.'}});
+  },
+  save:function(){
+    var teacher=document.getElementById('ft').value;
+    var level=document.getElementById('fl').value;
+    var topic=document.getElementById('fto').value.trim();
+    var obj=document.getElementById('fo').value.trim();
+    if(!teacher||!level||!topic||!obj){st({toast:{t:'err',m:'⚠️ Completa los campos obligatorios (*)'}});return;}
+    var steps={};var goals={};
+    ST.forEach(function(s){steps[s.k]=document.getElementById('fs'+s.k).value.trim();goals[s.k]=document.getElementById('fg'+s.k).value.trim();});
+    var plan={id:S.edit?S.edit.id:Date.now().toString(),teacher:teacher,level:level,topic:topic,objective:obj,classGroup:document.getElementById('fc').value.trim(),date:document.getElementById('fd').value,steps:steps,goals:goals};
+    var plans=S.edit?S.plans.map(function(p){return p.id===plan.id?plan:p;}):[...S.plans,plan];
+    save(plans);
+    try{fetch(WH,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:plan.id,teacher:plan.teacher,level:plan.level,topic:plan.topic,objective:plan.objective,classGroup:plan.classGroup||'',date:plan.date||'',warmup_desc:steps.warmup||'',warmup_goal:goals.warmup||'',context_desc:steps.context||'',context_goal:goals.context||'',grammar_desc:steps.grammar||'',grammar_goal:goals.grammar||'',sim_desc:steps.simulation||'',sim_goal:goals.simulation||'',decision_desc:steps.decision||'',decision_goal:goals.decision||'',results_desc:steps.results||'',results_goal:goals.results||''})})}catch(ex){}
+  }
+};
+go();
+})();
+</script>
+</div>
+
+</body>
 </html>

@@ -94,7 +94,7 @@ function savePlans(plans) {
 // 2. Pega el código del doPost() que aparece al final de este archivo
 // 3. Implementa como aplicación web → cualquier usuario puede acceder
 // 4. Copia la URL del webhook y pégala en SHEETS_WEBHOOK_URL abajo
-const SHEETS_WEBHOOK_URL = "TU_URL_DE_APPS_SCRIPT_AQUI";
+const SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwshvc64VGc9F5VHbUjCrA54hoaaNbsOYWmUOHsaecNqhfwrU2dl4JXTdo8roFjo1Y8jQ/exec";
 
 async function sendToSheets(plan) {
   if (SHEETS_WEBHOOK_URL === "TU_URL_DE_APPS_SCRIPT_AQUI") return { ok: false, msg: "Webhook no configurado" };

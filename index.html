@@ -453,7 +453,18 @@ var SIS = {
     if(!currentId) return;
     var plans = loadPlans();
     var plan = plans.find(function(p){ return p.id===currentId; });
-    if(!confirm('¿Eliminar "'+plan.topic+'"?')) return;
+    if(!plan) return;
+
+    var input = prompt('Para eliminar esta planeación, escribe exactamente el nombre del docente que la creó:\n\n"'+plan.teacher+'"');
+    if(input===null) return; // cancelado
+
+    var normalize = function(s){ return s.trim().toLowerCase().replace(/\s+/g,' '); };
+    if(normalize(input) !== normalize(plan.teacher)){
+      toast('⚠️ El nombre no coincide. Solo el docente que creó esta planeación puede eliminarla.', 'err');
+      return;
+    }
+
+    if(!confirm('¿Confirmas eliminar "'+plan.topic+'"? Esta acción no se puede deshacer.')) return;
     savePlans(plans.filter(function(p){ return p.id!==currentId; }));
     toast('Planeación eliminada.', 'ok');
     this.goLib();

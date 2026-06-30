@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Capacitación Docente – Modelo SIS | UVP 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+  /* ===== DESIGN TOKENS ===== */
+  :root {
+    --ink:        #1a1a2e;
+    --ink-light:  #3d3d5c;
+    --surface:    #f7f6f2;
+    --white:      #ffffff;
+    --gold:       #c9a84c;
+    --gold-light: #f0e2b6;
+    --violet:     #5b4d8a;
+    --violet-mid: #7b6daa;
+    --violet-pale:#ede9f7;
+    --teal:       #2d7a7a;
+    --teal-pale:  #e0f2f2;
+    --coral:      #c25b3f;
+    --coral-pale: #faeae6;
+    --border:     #e0ddd5;
+    --radius-sm:  6px;
+    --radius-md:  12px;
+    --radius-lg:  20px;
+    --shadow-sm:  0 2px 8px rgba(26,26,46,.08);
+    --shadow-md:  0 6px 24px rgba(26,26,46,.12);
+  }
+
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f7f6f2;
+    color: #1a1a2e;
+    line-height: 1.7;
+    font-size: 16px;
+  }
+  h1, h2, h3, h4 { font-family: 'DM Serif Display', serif; font-weight: 400; line-height: 1.2; }
+  a { color: #5b4d8a; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img { max-width: 100%; }
+
+  /* ===== COURSE HEADER ===== */
+  .course-hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #5b4d8a 100%);
+    color: #ffffff;
+    padding: 64px 40px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .course-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .course-hero .eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase; color: #c9a84c; margin-bottom: 16px;
+  }
+  .course-hero h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 16px; }
+  .course-hero .subtitle {
+    font-size: 1.05rem; opacity: .82; max-width: 640px; margin-bottom: 28px;
+  }
+  .course-meta {
+    display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px;
+  }
+  .meta-chip {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 40px;
+    padding: 6px 16px;
+    font-size: .8rem; font-weight: 500;
+  }
+
+  /* ===== NAVIGATION ===== */
+  .nav-bar {
+    background: #ffffff;
+    border-bottom: 2px solid #c9a84c;
+    position: sticky; top: 0; z-index: 100;
+    padding: 0 40px;
+    display: flex; gap: 0; overflow-x: auto;
+  }
+  .nav-bar a {
+    display: block;
+    padding: 16px 18px;
+    font-size: .82rem; font-weight: 600;
+    color: #3d3d5c;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all .2s;
+  }
+  .nav-bar a:hover, .nav-bar a.active {
+    color: #5b4d8a;
+    border-bottom-color: #5b4d8a;
+    text-decoration: none;
+  }
+
+  /* ===== LAYOUT ===== */
+  .wrapper { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  /* ===== MODULE SECTION ===== */
+  .module-section {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid #e0ddd5;
+  }
+  .module-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #ede9f7;
+    color: #5b4d8a;
+    border-radius: 40px;
+    padding: 5px 16px;
+    font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .module-label .mod-num {
+    background: #5b4d8a;
+    color: #fff;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .7rem; font-weight: 800;
+  }
+  .module-section h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 8px; }
+  .module-desc { color: #3d3d5c; font-size: .97rem; margin-bottom: 32px; max-width: 680px; }
+
+  /* ===== CONTENT CARD ===== */
+  .card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(26,26,46,.08);
+    padding: 28px 32px;
+    margin-bottom: 24px;
+  }
+  .card-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px;
+  }
+  .card-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .icon-read   { background: #e0f2f2;   color: #2d7a7a; }
+  .icon-quiz   { background: #f0e2b6;   color: #8a6b00; }
+  .icon-task   { background: #faeae6;   color: #c25b3f; }
+  .icon-info   { background: #ede9f7;  color: #5b4d8a; }
+  .icon-model  { background: #eaf6ea;             color: #2d7a4f; }
+
+  .card-header h3 { font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; }
+  .card p, .card li { font-size: .95rem; color: #3d3d5c; }
+  .card ul, .card ol { padding-left: 20px; }
+  .card li { margin-bottom: 6px; }
+
+  /* ===== READING BOX ===== */
+  .reading-block {
+    background: #ede9f7;
+    border-left: 4px solid #5b4d8a;
+    border-radius: 0 6px 6px 0;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .reading-block h4 { font-family: 'Inter', sans-serif; font-size: .9rem; font-weight: 700; color: #5b4d8a; margin-bottom: 8px; }
+  .reading-block p { font-size: .92rem; color: #1a1a2e; }
+
+  /* ===== TABLE ===== */
+  .data-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+  .data-table th {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 10px 14px;
+    text-align: left; font-weight: 600;
+  }
+  .data-table td { padding: 10px 14px; border-bottom: 1px solid #e0ddd5; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:nth-child(even) td { background: #f7f6f2; }
+
+  /* ===== STEPS / TIMELINE ===== */
+  .steps { list-style: none; padding: 0; }
+  .steps li {
+    display: flex; gap: 16px; margin-bottom: 20px; align-items: flex-start;
+  }
+  .step-num {
+    background: #c9a84c;
+    color: #1a1a2e;
+    min-width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .8rem; font-weight: 800; flex-shrink: 0; margin-top: 2px;
+  }
+  .step-content strong { display: block; font-size: .95rem; font-weight: 700; color: #1a1a2e; }
+  .step-content span { font-size: .88rem; color: #3d3d5c; }
+
+  /* ===== QUIZ STYLES ===== */
+  .quiz-container {
+    background: #ffffff;
+    border: 2px solid #f0e2b6;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .quiz-header {
+    background: linear-gradient(90deg, #1a1a2e 0%, #5b4d8a 100%);
+    padding: 20px 28px;
+    color: #fff;
+  }
+  .quiz-header h3 { font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; }
+  .quiz-header p { font-size: .82rem; opacity: .8; margin-top: 4px; }
+  .quiz-body { padding: 24px 28px; }
+
+  .q-item { margin-bottom: 28px; }
+  .q-item:last-child { margin-bottom: 0; }
+  .q-text {
+    font-size: .95rem; font-weight: 600; color: #1a1a2e;
+    margin-bottom: 12px;
+    padding: 12px 16px;
+    background: #f7f6f2;
+    border-radius: 6px;
+    border-left: 3px solid #c9a84c;
+  }
+  .q-num { color: #c9a84c; font-weight: 800; margin-right: 6px; }
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .option-label {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 14px;
+    border: 1.5px solid #e0ddd5;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all .18s;
+    font-size: .92rem;
+  }
+  .option-label:hover { border-color: #7b6daa; background: #ede9f7; }
+  .option-label input[type="radio"] { margin-top: 2px; accent-color: #5b4d8a; }
+  .option-label.correct { border-color: #2d7a7a; background: #e0f2f2; }
+  .option-label.incorrect { border-color: #c25b3f; background: #faeae6; }
+
+  /* Dropdown quiz */
+  .dd-scenario {
+    background: #f7f6f2;
+    border: 1px solid #e0ddd5;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .dd-scenario-header {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 16px 20px;
+    font-weight: 700; font-size: .92rem;
+  }
+  .dd-scenario-context {
+    padding: 16px 20px;
+    font-style: italic;
+    font-size: .9rem;
+    color: #3d3d5c;
+    background: #ede9f7;
+    border-bottom: 1px solid #e0ddd5;
+  }
+  .dd-participants {
+    padding: 12px 20px;
+    display: flex; flex-wrap: wrap; gap: 8px;
+    border-bottom: 1px solid #e0ddd5;
+  }
+  .participant-chip {
+    background: #f0e2b6;
+    color: #1a1a2e;
+    border-radius: 40px;
+    padding: 4px 12px;
+    font-size: .78rem; font-weight: 600;
+  }
+  .dd-grid { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .dd-row {
+    display: grid; grid-template-columns: 180px 1fr;
+    align-items: center; gap: 12px;
+  }
+  .dd-label {
+    font-size: .82rem; font-weight: 700; color: #5b4d8a;
+    text-transform: uppercase; letter-spacing: .05em;
+  }
+  .dd-select {
+    padding: 9px 12px;
+    border: 1.5px solid #e0ddd5;
+    border-radius: 6px;
+    font-size: .9rem;
+    font-family: 'Inter', sans-serif;
+    background: #fff;
+    color: #1a1a2e;
+    cursor: pointer;
+    width: 100%;
+    transition: border-color .2s;
+  }
+  .dd-select:focus { outline: none; border-color: #5b4d8a; }
+  .dd-select.correct { border-color: #2d7a7a; background: #e0f2f2; }
+  .dd-select.incorrect { border-color: #c25b3f; background: #faeae6; }
+
+  /* Quiz button */
+  .quiz-btn {
+    margin-top: 20px;
+    padding: 12px 28px;
+    background: #5b4d8a;
+    color: #fff;
+    border: none; border-radius: 40px;
+    font-size: .9rem; font-weight: 700;
+    cursor: pointer; transition: background .2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .quiz-btn:hover { background: #1a1a2e; }
+  .quiz-result {
+    margin-top: 16px;
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-size: .92rem; font-weight: 600;
+    display: none;
+  }
+  .quiz-result.show { display: block; }
+  .quiz-result.pass { background: #e0f2f2; color: #2d7a7a; border-left: 4px solid #2d7a7a; }
+  .quiz-result.fail { background: #faeae6; color: #c25b3f; border-left: 4px solid #c25b3f; }
+
+  /* ===== REFLECTION EXERCISE ===== */
+  .reflection-box {
+    background: linear-gradient(135deg, #ede9f7 0%, #fff 100%);
+    border: 1.5px solid #7b6daa;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+  }
+  .reflection-box h4 {
+    font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700;
+    color: #5b4d8a; margin-bottom: 12px;
+  }
+  .reflection-prompt {
+    font-size: .93rem; color: #1a1a2e; margin-bottom: 14px; font-weight: 500;
+  }
+  .reflection-textarea {
+    width: 100%; min-height: 110px;
+    border: 1.5px solid #e0ddd5;
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: .9rem; color: #1a1a2e;
+    resize: vertical; background: #fff;
+    transition: border-color .2s;
+  }
+  .reflection-textarea:focus { outline: none; border-color: #5b4d8a; }
+  .reflection-hint { font-size: .8rem; color: #3d3d5c; margin-top: 6px; }
+  .save-btn {
+    margin-top: 12px;
+    padding: 9px 22px;
+    background: #5b4d8a;
+    color: #fff; border: none; border-radius: 40px;
+    font-size: .85rem; font-weight: 600; cursor: pointer;
+    font-family: 'Inter', sans-serif; transition: background .2s;
+  }
+  .save-btn:hover { background: #1a1a2e; }
+
+  /* ===== INFOGRAPHIC FRAME ===== */
+  .infographic-frame {
+    border: 2px solid #f0e2b6;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 24px 0;
+    box-shadow: 0 6px 24px rgba(26,26,46,.12);
+  }
+  .infographic-frame img { display: block; width: 100%; }
+
+  /* ===== TWO-COL ===== */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } .dd-row { grid-template-columns: 1fr; } }
+
+  /* ===== HIGHLIGHT BOX ===== */
+  .highlight-box {
+    background: #f0e2b6;
+    border-left: 4px solid #c9a84c;
+    border-radius: 0 6px 6px 0;
+    padding: 18px 22px;
+    margin: 16px 0;
+    font-size: .93rem; color: #1a1a2e;
+  }
+  .highlight-box strong { color: #6b4a00; }
+
+  /* ===== SCENARIO EXAMPLE ===== */
+  .example-card {
+    border: 1.5px solid #e0ddd5;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 18px;
+  }
+  .example-card-head {
+    background: #1a1a2e;
+    color: #c9a84c;
+    padding: 12px 18px;
+    font-size: .85rem; font-weight: 700;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .example-card-body { padding: 18px; background: #fff; }
+  .example-card-body p { font-size: .9rem; color: #3d3d5c; margin-bottom: 8px; }
+  .example-card-body p:last-child { margin-bottom: 0; }
+  .example-card-body strong { color: #1a1a2e; }
+
+  /* ===== SECTION DIVIDER ===== */
+  .section-divider {
+    display: flex; align-items: center; gap: 14px; margin: 32px 0 24px;
+  }
+  .section-divider::before, .section-divider::after {
+    content: ''; flex: 1; height: 1px; background: #e0ddd5;
+  }
+  .section-divider span {
+    font-size: .78rem; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: #c9a84c;
+    background: #ffffff; padding: 4px 12px;
+    border: 1px solid #f0e2b6; border-radius: 40px;
+  }
+
+  /* ===== BADGE ===== */
+  .badge {
+    display: inline-block;
+    padding: 3px 10px; border-radius: 40px;
+    font-size: .72rem; font-weight: 700; letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+  .badge-violet { background: #ede9f7; color: #5b4d8a; }
+  .badge-teal   { background: #e0f2f2;   color: #2d7a7a; }
+  .badge-gold   { background: #f0e2b6;   color: #6b4a00; }
+  .badge-coral  { background: #faeae6;   color: #c25b3f; }
+
+  /* ===== FOOTER ===== */
+  .course-footer {
+    background: #1a1a2e;
+    color: rgba(255,255,255,.5);
+    padding: 32px 40px;
+    font-size: .82rem;
+    text-align: center;
+    margin-top: 80px;
+  }
+  .course-footer strong { color: #c9a84c; }
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header class="course-hero">
+  <div class="wrapper">
+    <p class="eyebrow">Universidad del Valle de Puebla · 2026</p>
+    <h1>Capacitación Docente<br>Modelo SIS</h1>
+    <p class="subtitle">Social · Interactivo · Situacional — Curso de formación para docentes del Programa de Inglés de Nivel Superior.</p>
+    <div class="course-meta">
+      <span class="meta-chip">📚 7 Módulos</span>
+      <span class="meta-chip">🎯 Coordinación Académica de Idiomas</span>
+      <span class="meta-chip">📅 Implementación A26-E27</span>
+      <span class="meta-chip">👩‍🏫 Conducido por Mtra. Larisa Herrera</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== NAV ===================== -->
+<nav class="nav-bar">
+  <a href="#modulo1">I — Modelo SIS</a>
+  <a href="#modulo2">II — Planeación</a>
+  <a href="#modulo3">III — Contexto Social</a>
+  <a href="#modulo4">IV — Evaluación</a>
+  <a href="#modulo5">V — Gestión del Aula</a>
+  <a href="#modulo6">VI — Materiales</a>
+  <a href="#modulo7">VII — Implementación</a>
+</nav>
+
+<!-- ============================================================
+     MÓDULO 1 — EL MODELO SIS: LECTURAS + QUIZ
+     ============================================================ -->
+<section id="modulo1" class="module-section">
+<div class="wrapper">
+
+  <span class="module-label"><span class="mod-num">1</span>Módulo Uno</span>
+  <h2>El Modelo SIS — Fundamentos y Marco Conceptual</h2>
+  <p class="module-desc">Lee los textos de referencia sobre el Modelo SIS y verifica tu comprensión con el quiz al final de la sección.</p>
+
+  <!-- LECTURA 1 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-read">📖</div>
+      <h3>Lectura 1 — ¿Qué es el Modelo SIS?</h3>
+    </div>
+    <div class="reading-block">
+      <h4>Definición y Origen</h4>
+      <p>El Modelo de Enseñanza <strong>Social-Interactivo-Situacional (SIS)</strong> es una propuesta pedagógica desarrollada por la Coordinación Académica de Idiomas de la Universidad del Valle de Puebla. Integra principios de la lingüística aplicada, la psicolingüística, la sociosemiótica y la sociolingüística para priorizar el <em>uso real y funcional del idioma</em> en situaciones contextualizadas.</p>
+    </div>
+    <div class="reading-block">
+      <h4>Sus Tres Pilares</h4>
+      <p><strong>Social:</strong> El aprendizaje ocurre a través de interacciones entre personas con roles sociales definidos. El estudiante no aprende el idioma de forma aislada; lo adquiere en contacto con otros.<br><br>
+      <strong>Interactivo:</strong> La comunicación es el eje central. Las actividades están diseñadas para que los estudiantes produzcan lenguaje de manera constante, no para que lo reciban pasivamente.<br><br>
+      <strong>Situacional:</strong> El contenido lingüístico siempre está anclado en una situación concreta: personal, académica o profesional. El contexto le da sentido al idioma.</p>
+    </div>
+    <div class="reading-block">
+      <h4>Diferencia con Enfoques Tradicionales</h4>
+      <p>A diferencia de los métodos centrados en la gramática explícita o en la memorización de vocabulario, el modelo SIS incorpora también componentes del <strong>Aprendizaje Basado en Problemas (Problem-Based Learning)</strong>. Esto significa que los estudiantes resuelven situaciones reales empleando el idioma como herramienta, lo que genera un aprendizaje más significativo y duradero.</p>
+    </div>
+  </div>
+
+  <!-- LECTURA 2 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-read">📖</div>
+      <h3>Lectura 2 — Bases Teóricas del Modelo SIS</h3>
+    </div>
+    <div class="reading-block">
+      <h4>Psicolingüística</h4>
+      <p>El SIS reconoce que la adquisición del lenguaje es un proceso cognitivo que se activa de manera más eficiente cuando el input lingüístico es <em>comprensible, relevante y repetido en contexto</em>. El cerebro construye redes de significado cuando el lenguaje tiene una función real.</p>
+    </div>
+    <div class="reading-block">
+      <h4>Sociosemiótica</h4>
+      <p>Los signos lingüísticos adquieren significado según el contexto social en que se usan. El SIS diseña sus actividades para que los estudiantes experimenten cómo el mismo enunciado puede tener distintas funciones dependiendo del rol social, la situación y la intención comunicativa.</p>
+    </div>
+    <div class="reading-block">
+      <h4>Sociolingüística</h4>
+      <p>El idioma varía según quién habla, con quién y en qué contexto. El SIS prepara a los estudiantes para adaptarse lingüísticamente: no solo aprender "el inglés", sino usar el registro apropiado en cada situación social.</p>
+    </div>
+    <div class="highlight-box">
+      <strong>Punto clave:</strong> El modelo SIS no sustituye los programas académicos vigentes. Aplica sobre los mismos contenidos una <strong>reorganización pedagógica y operativa</strong> que privilegia la interacción comunicativa sobre la exposición pasiva al contenido.
+    </div>
+  </div>
+
+  <!-- LECTURA 3 — Parámetros operativos -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-info">🏫</div>
+      <h3>Lectura 3 — Parámetros Operativos de Implementación</h3>
+    </div>
+    <p style="margin-bottom:16px;">Según el documento de propuesta de implementación del modelo SIS (Coordinación Académica de Idiomas, Mayo 2026), los criterios operativos base son los siguientes:</p>
+    <div style="overflow-x:auto;">
+    <table class="data-table">
+      <thead><tr><th>Parámetro</th><th>Especificación</th></tr></thead>
+      <tbody>
+        <tr><td>Capacidad promedio por grupo</td><td>16 a 20 estudiantes (hasta 20 en casos especiales)</td></tr>
+        <tr><td>Duración de cada sesión</td><td>90 minutos (1 hora 30 minutos)</td></tr>
+        <tr><td>Número de franjas horarias matutinas</td><td>5 franjas</td></tr>
+        <tr><td>Salones requeridos por franja</td><td>24 aulas por franja horaria</td></tr>
+        <tr><td>Operación vespertina (5.° y 6.° Semestre)</td><td>2 sesiones de 90 min. por semana</td></tr>
+        <tr><td>Distribución vespertina</td><td>Lunes-Martes / Miércoles-Jueves</td></tr>
+        <tr><td>Carga horaria nuevo modelo (SIS)</td><td>7.5 horas semanales — desde semestre A26-E27</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="highlight-box" style="margin-top:16px;">
+      <strong>Nota importante:</strong> Los programas académicos actualmente en liquidación <strong>no se modifican</strong> en cuanto a carga horaria. El cambio es exclusivamente metodológico. Los nuevos programas inician con la carga de 7.5 hrs/semana bajo el esquema SIS.
+    </div>
+  </div>
+
+  <!-- INFOGRAFÍA -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-model">🗺️</div>
+      <h3>Infografía — Nuevo Modelo de Clases de Idioma UVP 2026</h3>
+    </div>
+    <p style="margin-bottom:14px; font-size:12px; color:#3d3d5c;">Consulta la infografía oficial del modelo para una visión integral de su estructura, dinámica de sesión y criterios de evaluación.</p>
+    <div class="infographic-frame">
+      <img src="/mnt/user-data/uploads/infografia_modelo_SIS__1_.png" alt="Infografía Modelo SIS UVP 2026"/>
+    </div>
+  </div>
+
+  <!-- ====== QUIZ MÓDULO 1 ====== -->
+  <div class="section-divider"><span>Quiz — Módulo 1</span></div>
+
+  <div class="quiz-container" id="quiz1">
+    <div class="quiz-header">
+      <h3>📝 Quiz de Comprensión — Modelo SIS</h3>
+      <p>Selecciona la mejor respuesta para cada pregunta. Necesitas 70% para avanzar.</p>
+    </div>
+    <div class="quiz-body">
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">1.</span>¿Cuáles son los tres pilares que dan nombre al Modelo SIS?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q1" value="a"/> Social, Inteligente, Situacional</label>
+          <label class="option-label"><input type="radio" name="q1" value="b"/> Social, Interactivo, Situacional</label>
+          <label class="option-label"><input type="radio" name="q1" value="c"/> Semiótico, Interactivo, Situacional</label>
+          <label class="option-label"><input type="radio" name="q1" value="d"/> Social, Interactivo, Sistemático</label>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">2.</span>¿Qué disciplinas conforman las bases teóricas del modelo SIS?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q2" value="a"/> Gramática, Fonética y Traducción</label>
+          <label class="option-label"><input type="radio" name="q2" value="b"/> Psicolingüística, Sociosemiótica y Sociolingüística</label>
+          <label class="option-label"><input type="radio" name="q2" value="c"/> Conductismo, Cognitivismo y Humanismo</label>
+          <label class="option-label"><input type="radio" name="q2" value="d"/> Lingüística estructural, Pragmática y Morfología</label>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">3.</span>¿Qué implica el componente PBL (Problem-Based Learning) dentro del modelo SIS?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q3" value="a"/> Los estudiantes memorizan listas de vocabulario para resolver problemas gramaticales</label>
+          <label class="option-label"><input type="radio" name="q3" value="b"/> Los docentes presentan problemas teóricos que los alumnos discuten en casa</label>
+          <label class="option-label"><input type="radio" name="q3" value="c"/> Los estudiantes resuelven situaciones reales usando el idioma como herramienta funcional</label>
+          <label class="option-label"><input type="radio" name="q3" value="d"/> Los problemas son ejercicios de gramática con corrección inmediata</label>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">4.</span>Según los parámetros operativos, ¿cuál es la duración de cada sesión de clase bajo el modelo SIS?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q4" value="a"/> 60 minutos</label>
+          <label class="option-label"><input type="radio" name="q4" value="b"/> 45 minutos</label>
+          <label class="option-label"><input type="radio" name="q4" value="c"/> 90 minutos</label>
+          <label class="option-label"><input type="radio" name="q4" value="d"/> 120 minutos</label>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">5.</span>¿Qué ocurre con los programas académicos actualmente en liquidación al implementarse el modelo SIS?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q5" value="a"/> Se sustituyen completamente por el nuevo programa SIS</label>
+          <label class="option-label"><input type="radio" name="q5" value="b"/> Se modifica la carga horaria pero no los contenidos</label>
+          <label class="option-label"><input type="radio" name="q5" value="c"/> No se modifica la carga horaria; solo cambia la metodología</label>
+          <label class="option-label"><input type="radio" name="q5" value="d"/> Se cancelan y los alumnos pasan directamente al nuevo programa</label>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">6.</span>¿Cuál es el porcentaje de asistencia puntual requerido para acreditar bajo el modelo SIS?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q6" value="a"/> 75%</label>
+          <label class="option-label"><input type="radio" name="q6" value="b"/> 80%</label>
+          <label class="option-label"><input type="radio" name="q6" value="c"/> 85%</label>
+          <label class="option-label"><input type="radio" name="q6" value="d"/> 90%</label>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">7.</span>¿Qué proceso se establece durante la semana de inducción para los alumnos de nuevo ingreso?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q7" value="a"/> Un examen de gramática escrito únicamente</label>
+          <label class="option-label"><input type="radio" name="q7" value="b"/> Un diagnóstico integral: valoración escrita + valoración de producción oral</label>
+          <label class="option-label"><input type="radio" name="q7" value="c"/> Una entrevista personal con el coordinador</label>
+          <label class="option-label"><input type="radio" name="q7" value="d"/> Un examen de traducción y vocabulario básico</label>
+        </div>
+      </div>
+
+      <button class="quiz-btn" onclick="checkQuiz('quiz1', {q1:'b',q2:'b',q3:'c',q4:'c',q5:'c',q6:'c',q7:'b'}, 5)">Verificar respuestas</button>
+      <div class="quiz-result" id="quiz1-result"></div>
+    </div>
+  </div>
+
+</div><!-- /wrapper -->
+</section><!-- /módulo 1 -->
+
+
+<!-- ============================================================
+     MÓDULO 2 — MODELO DE PLANEACIÓN (LESSON PLAN SIS)
+     ============================================================ -->
+<section id="modulo2" class="module-section">
+<div class="wrapper">
+
+  <span class="module-label"><span class="mod-num">2</span>Módulo Dos</span>
+  <h2>Modelo de Planeación — La Sesión SIS en Acción</h2>
+  <p class="module-desc">Aprende la estructura del nuevo modelo de clases de idiomas, explora ejemplos reales de lesson plans y verifica tu comprensión con el quiz y el ejercicio de reflexión.</p>
+
+  <!-- 2.1 NUEVO MODELO DE CLASES -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-model">🏗️</div>
+      <h3>2.1 — El Nuevo Modelo de Clases de Idiomas UVP</h3>
+    </div>
+    <p style="margin-bottom:18px; font-size:12px;">La sesión SIS está compuesta por <strong>7 pasos secuenciados</strong> en 90 minutos. Cada paso tiene un propósito comunicativo claro y construye sobre el anterior. La sesión no es lineal en contenidos: es <em>progresiva en complejidad interactiva</em>.</p>
+
+    <ul class="steps">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Warm-up · Presentación Lingüística <span class="badge badge-gold" style="margin-left:8px;">15 min</span></strong>
+          <span>Presentación y demostración de información lingüística. Pase de lista. Activación de esquemas previos. Interacción T→S.</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Context · Material Audiovisual <span class="badge badge-gold" style="margin-left:8px;">5 min</span></strong>
+          <span>Análisis de material escrito o audiovisual como base para la interacción verbal. El contexto sitúa al alumno en la situación real.</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Pre-task · Preparación <span class="badge badge-gold" style="margin-left:8px;">10 min</span></strong>
+          <span>Preparación para la aplicación efectiva e inmediata de los conocimientos adquiridos. Los equipos organizan su estrategia.</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>Tasks · Simulación y Argumentación <span class="badge badge-coral" style="margin-left:8px;">20 min</span></strong>
+          <span>Prácticas de simulación alumno-alumno en situaciones de vida diaria. Mínimo 2 tareas secuenciadas. Máximo nivel de interacción.</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <strong>Post-task · Toma de Decisiones <span class="badge badge-gold" style="margin-left:8px;">10 min</span></strong>
+          <span>Interacción verbal alumno-alumno orientada a la toma de decisiones conjuntas. La gramática y el vocabulario sirven a la decisión.</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <strong>Wrap-up · Expresión Oral-Escrita <span class="badge badge-coral" style="margin-left:8px;">20 min</span></strong>
+          <span>Reporte de decisiones con precisión y fluidez en la lengua meta. Los equipos comparten sus productos y reciben retroalimentación.</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">7</div>
+        <div class="step-content">
+          <strong>Follow-up · Orientación <span class="badge badge-gold" style="margin-left:8px;">10 min</span></strong>
+          <span>Comentarios, retroalimentación y orientación cuando se requiera. Corrección de errores según nivel. Asignación de tarea.</span>
+        </div>
+      </li>
+    </ul>
+
+    <div class="highlight-box" style="margin-top:8px;">
+      <strong>Principio guía:</strong> El docente <em>no hace exposiciones largas de contenido</em>. Los estudiantes están hablando la mayor parte del tiempo. El docente guía, monitorea y retroalimenta. Las actividades están desvinculadas del uso del idioma distinto al de la clase.
+    </div>
+  </div>
+
+  <!-- 2.2 EJEMPLOS DE LESSON PLAN -->
+  <div class="section-divider"><span>Ejemplos de Lesson Plan</span></div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-model">📋</div>
+      <h3>Ejemplo 1 — Passive Voice (Nivel IV)</h3>
+    </div>
+    <p style="margin-bottom:14px; font-size:12px; color:#3d3d5c;">Docente: Larisa Herrera Quiroz | Objetivo: Dar importancia al receptor de una acción | Tema: Voz Pasiva (presente)</p>
+    <div style="overflow-x:auto;">
+    <table class="data-table">
+      <thead><tr><th>Paso y Tiempo</th><th>Descripción</th><th>Interacción</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1 – Warm-up</strong><br>10 min</td><td>¿Haces ejercicio? ¿Tienes membresía en un gimnasio? Pase de lista.</td><td>T→S</td></tr>
+        <tr><td><strong>2 – Context</strong><br>10-15 min</td><td>Lectura de anuncios de gimnasios. Equipos de 4 identifican qué ofrecen y qué podrían mejorar.</td><td>T→grupo / S-S</td></tr>
+        <tr><td><strong>3 – Pre-task</strong><br>10-15 min</td><td>Preparan un discurso de bienvenida usando voz pasiva: "A private area is provided…"</td><td>Equipos</td></tr>
+        <tr><td><strong>4 – Simulation</strong><br>20-30 min</td><td>2 miembros son "espías" (clientes ficticios), 2 se quedan como asesores. Rotan entre equipos recabando información.</td><td>S-S</td></tr>
+        <tr><td><strong>5 – Post-task</strong><br>10-15 min</td><td>Regresan a su equipo, comparan información y diseñan un anuncio borrador.</td><td>Equipos</td></tr>
+        <tr><td><strong>6 – Wrap-up</strong><br>10 min</td><td>Publican el borrador. Leen los de otros equipos y votan por el mejor.</td><td>Individual / Grupal</td></tr>
+        <tr><td><strong>7 – Follow-up</strong><br>10 min</td><td>Identifican voz pasiva en el primer anuncio. Tarea: traer el anuncio mañana con diseño.</td><td>Individual</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-model">📋</div>
+      <h3>Ejemplo 2 — Need to / Have to (Nivel I)</h3>
+    </div>
+    <p style="margin-bottom:14px; font-size:12px; color:#3d3d5c;">Docente: Larisa Herrera Quiroz | Objetivo: Usar estructura para hablar de necesidades y consejos fuertes | Tema: Need to / Have to (afirmativo)</p>
+    <div style="overflow-x:auto;">
+    <table class="data-table">
+      <thead><tr><th>Paso y Tiempo</th><th>Descripción</th><th>Interacción</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1 – Warm-up</strong><br>10 min</td><td>¿Cómo te sientes hoy? Sin repetir palabras. ¿Es importante trabajar las emociones?</td><td>T→grupo</td></tr>
+        <tr><td><strong>2 – Context</strong><br>10-15 min</td><td>Explicación de Need to / Have to. Grupos asignados: pacientes, mejores amigos, psicólogos, psiquiatras.</td><td>Equipos de 4</td></tr>
+        <tr><td><strong>3 – Pre-task</strong><br>10-15 min</td><td>Cada grupo escribe ideas sobre lo que tiene/necesita hacer desde su rol asignado.</td><td>Equipos</td></tr>
+        <tr><td><strong>4 – Simulation</strong><br>20-30 min</td><td>Rotación de interacciones: amigo con problema & mejor amigo; psicólogos & psiquiatras; cruces entre grupos.</td><td>S-S (6 combinaciones)</td></tr>
+        <tr><td><strong>5 – Post-task</strong><br>10-15 min</td><td>Cada grupo decide qué necesita/tiene que hacer según lo escuchado de los otros grupos.</td><td>S-S</td></tr>
+        <tr><td><strong>6 – Wrap-up</strong><br>10 min</td><td>Comparten decisiones finales con toda la clase. Acuerdan o discrepan.</td><td>Grupal</td></tr>
+        <tr><td><strong>7 – Follow-up</strong><br>10 min</td><td>¿Qué tienes/necesitas hacer en situaciones similares? Corrección de errores si es necesario. Tarea.</td><td>Individual / T→grupo</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- QUIZ MÓDULO 2 -->
+  <div class="section-divider"><span>Quiz — Módulo 2</span></div>
+
+  <div class="quiz-container" id="quiz2">
+    <div class="quiz-header">
+      <h3>📝 Quiz — Aspectos Clave del Modelo de Planeación SIS</h3>
+      <p>Verifica que los aspectos clave de la sesión SIS quedaron claros.</p>
+    </div>
+    <div class="quiz-body">
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">1.</span>¿Cuántos pasos componen la sesión SIS de 90 minutos?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q2_1" value="a"/> 5 pasos</label>
+          <label class="option-label"><input type="radio" name="q2_1" value="b"/> 6 pasos</label>
+          <label class="option-label"><input type="radio" name="q2_1" value="c"/> 7 pasos</label>
+          <label class="option-label"><input type="radio" name="q2_1" value="d"/> 8 pasos</label>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">2.</span>El paso 4 (Tasks / Simulación) es el de mayor duración en la sesión. ¿Cuántos minutos tiene asignados y cuál es su principal característica?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q2_2" value="a"/> 10 min — el docente explica el tema central</label>
+          <label class="option-label"><input type="radio" name="q2_2" value="b"/> 20 min — prácticas de simulación alumno-alumno, mínimo 2 tareas secuenciadas</label>
+          <label class="option-label"><input type="radio" name="q2_2" value="c"/> 30 min — el alumno realiza ejercicios individuales en silencio</label>
+          <label class="option-label"><input type="radio" name="q2_2" value="d"/> 15 min — el docente modela la actividad para el grupo</label>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">3.</span>En el ejemplo del Nivel IV (Passive Voice), ¿cuál fue la estrategia de simulación en el paso 4?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q2_3" value="a"/> Los alumnos hicieron un examen escrito de comprensión lectora</label>
+          <label class="option-label"><input type="radio" name="q2_3" value="b"/> El docente presentó diapositivas sobre los gimnasios</label>
+          <label class="option-label"><input type="radio" name="q2_3" value="c"/> 2 miembros del equipo actuaron como espías (clientes ficticios) y visitaron a otros equipos</label>
+          <label class="option-label"><input type="radio" name="q2_3" value="d"/> Los alumnos memorizaron oraciones con voz pasiva</label>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">4.</span>¿Qué debe EVITAR el docente en el modelo SIS según sus principios fundamentales?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q2_4" value="a"/> Dar retroalimentación positiva a los estudiantes</label>
+          <label class="option-label"><input type="radio" name="q2_4" value="b"/> Hacer exposiciones largas de contenido por parte del docente</label>
+          <label class="option-label"><input type="radio" name="q2_4" value="c"/> Pedir a los alumnos que trabajen en equipos</label>
+          <label class="option-label"><input type="radio" name="q2_4" value="d"/> Corregir errores orales en casos graves según el nivel</label>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">5.</span>En el ejemplo de Nivel I (Need to / Have to), los estudiantes asumieron roles sociales distintos. ¿Qué grupos se formaron?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q2_5" value="a"/> Maestros, estudiantes, directores y padres de familia</label>
+          <label class="option-label"><input type="radio" name="q2_5" value="b"/> Pacientes, mejores amigos, psicólogos y psiquiatras</label>
+          <label class="option-label"><input type="radio" name="q2_5" value="c"/> Jefes, empleados, clientes y proveedores</label>
+          <label class="option-label"><input type="radio" name="q2_5" value="d"/> Vendedores, compradores, gerentes y técnicos</label>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">6.</span>¿Qué ocurre en el paso 6 (Wrap-up) de la sesión SIS?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q2_6" value="a"/> El docente da una explicación gramatical de cierre</label>
+          <label class="option-label"><input type="radio" name="q2_6" value="b"/> Los estudiantes hacen una actividad de lectura silenciosa</label>
+          <label class="option-label"><input type="radio" name="q2_6" value="c"/> Los equipos reportan decisiones con precisión y fluidez en la lengua meta</label>
+          <label class="option-label"><input type="radio" name="q2_6" value="d"/> Se asigna la tarea del siguiente día</label>
+        </div>
+      </div>
+
+      <button class="quiz-btn" onclick="checkQuiz('quiz2', {q2_1:'c',q2_2:'b',q2_3:'c',q2_4:'b',q2_5:'b',q2_6:'c'}, 4)">Verificar respuestas</button>
+      <div class="quiz-result" id="quiz2-result"></div>
+    </div>
+  </div>
+
+  <!-- EJERCICIO DE REFLEXIÓN -->
+  <div class="section-divider"><span>Ejercicio de Reflexión — Módulo 2</span></div>
+
+  <div class="reflection-box">
+    <h4>🪞 Reflexión Docente — El Modelo SIS y mi Práctica</h4>
+    <p class="reflection-prompt">Instrucciones: Reflexiona sobre las siguientes preguntas y registra tus respuestas. No hay respuestas incorrectas — el objetivo es conectar el modelo con tu experiencia docente real.</p>
+
+    <p style="font-size:12px; font-weight:600; color:#5b4d8a; margin-top:16px; margin-bottom:8px;">1. ¿En qué aspectos de tu práctica actual ya se parece al modelo SIS y en cuáles tendrás que hacer ajustes?</p>
+    <textarea class="reflection-textarea" id="ref2_1" placeholder="Escribe aquí tu reflexión... (Por ejemplo: En mi clase de Nivel II ya uso actividades en parejas, pero el docente generalmente habla más de 15 minutos seguidos. Tendré que redistribuir los tiempos de cada etapa.)"></textarea>
+    <p class="reflection-hint">💡 Considera: los 7 pasos, los tiempos, el rol del docente como guía y no expositor.</p>
+
+    <p style="font-size:12px; font-weight:600; color:#5b4d8a; margin-top:20px; margin-bottom:8px;">2. ¿Cómo diseñarías un Pre-task (Paso 3) para que los estudiantes se preparen para la simulación sin que el docente lo resuelva por ellos?</p>
+    <textarea class="reflection-textarea" id="ref2_2" placeholder="Escribe aquí tu propuesta de Pre-task para una clase de tu nivel..."></textarea>
+    <p class="reflection-hint">💡 Piensa: ¿qué información mínima necesitan los estudiantes para entrar a la simulación con confianza pero sin dependencia del docente?</p>
+
+    <p style="font-size:12px; font-weight:600; color:#5b4d8a; margin-top:20px; margin-bottom:8px;">3. En la sesión SIS, los alumnos asumen <em>roles sociales</em>. ¿Qué ventajas y posibles dificultades ves al implementar esto en tu grupo específico?</p>
+    <textarea class="reflection-textarea" id="ref2_3" placeholder="Describe las ventajas para tus alumnos y también los retos prácticos que anticipas..."></textarea>
+    <p class="reflection-hint">💡 Considera el nivel de inglés de tu grupo, el tamaño del grupo y la dinámica que ya tienen establecida.</p>
+
+    <button class="save-btn" onclick="saveReflection()">💾 Guardar mis reflexiones</button>
+    <div id="save-confirm" style="display:none; margin-top:10px; font-size:12px; color:#2d7a7a; font-weight:600;">✅ Reflexiones guardadas. Puedes copiarlas para tu portafolio docente.</div>
+  </div>
+
+</div><!-- /wrapper -->
+</section><!-- /módulo 2 -->
+
+
+<!-- ============================================================
+     MÓDULO 3 — CONTEXTO, LO SOCIAL Y LA INTERACCIÓN
+     ============================================================ -->
+<section id="modulo3" class="module-section">
+<div class="wrapper">
+
+  <span class="module-label"><span class="mod-num">3</span>Módulo Tres</span>
+  <h2>El Contexto, lo Social y la Interacción</h2>
+  <p class="module-desc">Comprende cómo el contexto y los roles sociales estructuran el lenguaje, y practica su identificación con tres ejemplos comentados y un quiz interactivo de dropdown.</p>
+
+  <!-- 3.1 MARCO CONCEPTUAL -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-info">🌐</div>
+      <h3>3.1 — ¿Por qué el Contexto Define el Lenguaje?</h3>
+    </div>
+    <p style="margin-bottom:14px; font-size:12px;">En el modelo SIS, la interacción no ocurre en el vacío. Siempre está anclada en tres elementos inseparables:</p>
+    <div class="two-col">
+      <div class="reading-block">
+        <h4>🧑‍🤝‍🧑 Rol Social</h4>
+        <p>Quién es cada persona en la sociedad en relación con los demás. El rol determina las expectativas comunicativas: un médico habla diferente a un paciente que a un colega; un gerente comunica distinto a un empleado que a un cliente.</p>
+      </div>
+      <div class="reading-block">
+        <h4>🔗 Puente de Interacción</h4>
+        <p>La función comunicativa que conecta a los participantes: negociar, informar, diagnosticar, argumentar, resolver, apoyar. Es la <em>intención</em> detrás del lenguaje — lo que hace que una misma oración signifique algo diferente en cada contexto.</p>
+      </div>
+    </div>
+    <div class="reading-block" style="margin-top:4px;">
+      <h4>📍 Situación</h4>
+      <p>El evento o contexto específico en que ocurre la interacción. No es suficiente con saber que dos personas "hablan"; hay que saber <em>dónde, cuándo y por qué</em>. La situación activa el registro lingüístico apropiado.</p>
+    </div>
+    <div class="highlight-box" style="margin-top:16px;">
+      <strong>Para el docente SIS:</strong> Cada actividad de clase debe especificar los tres elementos: ¿quiénes son los participantes (roles)?, ¿con qué intención interactúan (puente)?, ¿en qué evento concreto ocurre (situación)? Sin estos tres elementos, la simulación pierde autenticidad.
+    </div>
+  </div>
+
+  <!-- 3.2 TRES EJEMPLOS -->
+  <div class="section-divider"><span>3 Ejemplos Analizados</span></div>
+
+  <div class="example-card">
+    <div class="example-card-head">
+      <span>🏥</span> Ejemplo 1 — Consulta Hospitalaria con Familiar
+    </div>
+    <div class="example-card-body">
+      <p><strong>Situación:</strong> Un paciente llega a urgencias con síntomas severos. El médico consulta a un especialista por videollamada mientras una enfermera asiste y un familiar espera con preguntas.</p>
+      <p><strong>Roles sociales:</strong> Paciente · Médico · Especialista (remoto) · Enfermera y familiar. Cada uno tiene un lugar definido en la jerarquía del sistema de salud.</p>
+      <p><strong>Puente de interacción:</strong> Diagnóstico / Instrucciones / Apoyo. El médico diagnostica, da indicaciones; la enfermera ejecuta y apoya; el familiar busca comprensión emocional.</p>
+      <p><strong>Aplicación en clase:</strong> El docente asigna estos 4 roles a los estudiantes y construye la tarea de simulación: "Un paciente llega con fiebre alta y confusión. Cada quien actúa desde su rol durante 5 minutos."</p>
+      <p><strong>Lenguaje activado:</strong> Terminología médica básica, lenguaje de instrucción (<em>you need to, you have to, make sure you…</em>), lenguaje de apoyo emocional (<em>don't worry, everything will be fine…</em>), preguntas de clarificación.</p>
+    </div>
+  </div>
+
+  <div class="example-card">
+    <div class="example-card-head">
+      <span>🏢</span> Ejemplo 2 — Reunión Corporativa de Política de RRHH
+    </div>
+    <div class="example-card-body">
+      <p><strong>Situación:</strong> Un CEO presenta una nueva política de RRHH a trabajadores. Dos representantes sindicales están presentes para negociar términos; un asesor legal toma nota.</p>
+      <p><strong>Roles sociales:</strong> CEO · Trabajadores · Representantes sindicales · Asesor legal. Las diferencias de poder y responsabilidad son evidentes y moldean el lenguaje.</p>
+      <p><strong>Puente de interacción:</strong> Negociación / Informar. El CEO informa; los representantes negocian; el asesor observa y documenta.</p>
+      <p><strong>Aplicación en clase:</strong> "La empresa va a implementar un nuevo horario flexible. En grupos de 4, representen esta reunión: CEO explica los beneficios, trabajadores expresan preocupaciones, sindicato negocia condiciones, legal verifica lo que se puede acordar."</p>
+      <p><strong>Lenguaje activado:</strong> Vocabulario de negocios y trabajo, expresiones de acuerdo y desacuerdo (<em>I agree with…, however, we propose…</em>), lenguaje formal de negociación, condicionales (<em>if we implement this, employees would…</em>).</p>
+    </div>
+  </div>
+
+  <div class="example-card">
+    <div class="example-card-head">
+      <span>🏠</span> Ejemplo 3 — Conflicto de Tareas del Hogar en Familia
+    </div>
+    <div class="example-card-body">
+      <p><strong>Situación:</strong> Dos hermanos discuten sobre las responsabilidades del hogar frente a sus padres. Un padre media mientras el otro establece la regla final sobre la distribución de tareas.</p>
+      <p><strong>Roles sociales:</strong> Hermano 1 · Hermano 2 · Padre (mediador) · Madre (autoridad). Es una unidad familiar con jerarquías distintas dentro de un mismo espacio afectivo.</p>
+      <p><strong>Puente de interacción:</strong> Disputa / Resolución / Acuerdo. Los hermanos disputan; un padre media; el otro impone autoridad con cariño.</p>
+      <p><strong>Aplicación en clase:</strong> "Tienen 3 minutos para negociar quién limpia qué en casa. Hermano 1 odia lavar los platos. Hermano 2 detesta barrer. Los padres tienen que llegar a un acuerdo justo." — Nivel básico: presente simple. Nivel intermedio: modales de obligación y sugerencia. Nivel avanzado: condicionales y pasiva.</p>
+      <p><strong>Lenguaje activado:</strong> Expresiones cotidianas del hogar, lenguaje de queja y justificación (<em>it's not fair…, I always have to…</em>), lenguaje de mediación (<em>let's find a solution, what if you…</em>), acuerdos familiares.</p>
+    </div>
+  </div>
+
+  <!-- QUIZ DROPDOWN — SOCIAL ROLES -->
+  <div class="section-divider"><span>Quiz Dropdown — Roles Sociales, Puentes e Interacción</span></div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-quiz">🎯</div>
+      <h3>Actividad — Identificar Roles Sociales, Puentes de Interacción y Situaciones</h3>
+    </div>
+    <p style="margin-bottom:6px; font-size:12px;"><strong>Instrucciones:</strong> Para cada escenario, selecciona la opción correcta en cada uno de los tres elementos usando el menú desplegable. Al finalizar, presiona "Verificar" para ver tu resultado.</p>
+    <p style="margin-bottom:20px; font-size:12px; color:#3d3d5c;">Cada escenario tiene 4 participantes. Identifica: Rol Social · Puente de Interacción · Situación.</p>
+
+    <!-- Scenario 1 -->
+    <div class="dd-scenario" id="dd-s1">
+      <div class="dd-scenario-header">📋 Escenario 1 — Reunión Corporativa de Política</div>
+      <div class="dd-scenario-context">"Un CEO presenta una nueva política de RRHH a un grupo de trabajadores. Dos representantes sindicales están presentes para negociar términos, mientras un asesor legal escucha y toma nota."</div>
+      <div class="dd-participants">
+        <span class="participant-chip">CEO</span>
+        <span class="participant-chip">Trabajadores</span>
+        <span class="participant-chip">Representantes sindicales</span>
+        <span class="participant-chip">Asesor legal</span>
+      </div>
+      <div class="dd-grid">
+        <div class="dd-row">
+          <span class="dd-label">Rol Social</span>
+          <select class="dd-select" id="s1-role">
+            <option value="">— Selecciona —</option>
+            <option value="a">a) CEO – trabajadores – rep. sindicales – asesor legal</option>
+            <option value="b">b) CEO y trabajadores únicamente</option>
+            <option value="c">c) Rep. sindicales y asesor legal</option>
+            <option value="d">d) Departamento de RRHH</option>
+          </select>
+        </div>
+        <div class="dd-row">
+          <span class="dd-label">Puente de Interacción</span>
+          <select class="dd-select" id="s1-bridge">
+            <option value="">— Selecciona —</option>
+            <option value="a">a) Negociación / Informar</option>
+            <option value="b">b) Disputa / Acuerdo</option>
+            <option value="c">c) Instrucciones / Consejo</option>
+            <option value="d">d) Coaching / Retroalimentación</option>
+          </select>
+        </div>
+        <div class="dd-row">
+          <span class="dd-label">Situación</span>
+          <select class="dd-select" id="s1-sit">
+            <option value="">— Selecciona —</option>
+            <option value="a">a) Presentar nueva política de RRHH con supervisión sindical</option>
+            <option value="b">b) Despedir a un empleado</option>
+            <option value="c">c) Organizar la fiesta de la empresa</option>
+            <option value="d">d) Discutir el lanzamiento de un producto</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scenario 2 -->
+    <div class="dd-scenario" id="dd-s2">
+      <div class="dd-scenario-header">🏥 Escenario 2 — Consulta Hospitalaria</div>
+      <div class="dd-scenario-context">"Un paciente llega al hospital con síntomas severos. El médico consulta a un especialista por videollamada mientras una enfermera asiste y un familiar espera con preguntas."</div>
+      <div class="dd-participants">
+        <span class="participant-chip">Paciente</span>
+        <span class="participant-chip">Médico</span>
+        <span class="participant-chip">Especialista (remoto)</span>
+        <span class="participant-chip">Enfermera & familiar</span>
+      </div>
+      <div class="dd-grid">
+        <div class="dd-row">
+          <span class="dd-label">Rol Social</span>
+          <select class="dd-select" id="s2-role">
+            <option value="">— Selecciona —</option>
+            <option value="a">a) Paciente – médico – especialista – enfermera/familiar</option>
+            <option value="b">b) Médico – enfermera únicamente</option>
+            <option value="c">c) Paciente – familiar</option>
+            <option value="d">d) Especialista – médico únicamente</option>
+          </select>
+        </div>
+        <div class="dd-row">
+          <span class="dd-label">Puente de Interacción</span>
+          <select class="dd-select" id="s2-bridge">
+            <option value="">— Selecciona —</option>
+            <option value="a">a) Diagnóstico / Instrucciones / Apoyo</option>
+            <option value="b">b) Acuerdo / Reconocimiento</option>
+            <option value="c">c) Consejo / Rechazo</option>
+            <option value="d">d) Coaching / Retroalimentación</option>
+          </select>
+        </div>
+        <div class="dd-row">
+          <span class="dd-label">Situación</span>
+          <select class="dd-select" id="s2-sit">
+            <option value="">— Selecciona —</option>
+            <option value="a">a) Solicitar segunda opinión con familiar presente</option>
+            <option value="b">b) Comprar medicamento en farmacia</option>
+            <option value="c">c) Programar un chequeo rutinario</option>
+            <option value="d">d) Interpretar un análisis de laboratorio solo</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scenario 3 -->
+    <div class="dd-scenario" id="dd-s3">
+      <div class="dd-scenario-header">🏠 Escenario 3 — Conflicto de Tareas del Hogar</div>
+      <div class="dd-scenario-context">"Dos hermanos discuten sobre las responsabilidades del hogar frente a sus padres. Un padre media mientras el otro establece la regla final sobre la distribución de tareas."</div>
+      <div class="dd-participants">
+        <span class="participant-chip">Hermano 1</span>
+        <span class="participant-chip">Hermano 2</span>
+        <span class="participant-chip">Padre (mediador)</span>
+        <span class="participant-chip">Madre (autoridad)</span>
+      </div>
+      <div class="dd-grid">
+        <div class="dd-row">
+          <span class="dd-label">Rol Social</span>
+          <select class="dd-select" id="s3-role">
+            <option value="">— Selecciona —</option>
+            <option value="a">a) Hermanos – padre – madre (unidad familiar)</option>
+            <option value="b">b) Hermanos únicamente</option>
+            <option value="c">c) Padres únicamente</option>
+            <option value="d">d) Hermanos – maestro – asesor</option>
+          </select>
+        </div>
+        <div class="dd-row">
+          <span class="dd-label">Puente de Interacción</span>
+          <select class="dd-select" id="s3-bridge">
+            <option value="">— Selecciona —</option>
+            <option value="a">a) Disputa / Resolución / Acuerdo</option>
+            <option value="b">b) Coaching / Retroalimentación</option>
+            <option value="c">c) Instrucciones / Rechazo</option>
+            <option value="d">d) Presentación / Informar</option>
+          </select>
+        </div>
+        <div class="dd-row">
+          <span class="dd-label">Situación</span>
+          <select class="dd-select" id="s3-sit">
+            <option value="">— Selecciona —</option>
+            <option value="a">a) Distribuir tareas del hogar con mediación parental</option>
+            <option value="b">b) Organizar vacaciones familiares</option>
+            <option value="c">c) Culparse mutuamente en la escuela</option>
+            <option value="d">d) Discutir planes de viaje</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scenario 4 -->
+    <div class="dd-scenario" id="dd-s4">
+      <div class="dd-scenario-header">🛒 Escenario 4 — Escalación de Queja de Producto</div>
+      <div class="dd-scenario-context">"Un cliente devuelve un teléfono defectuoso en una tienda. El vendedor escucha, consulta al gerente y un especialista técnico prueba el dispositivo mientras otros clientes esperan."</div>
+      <div class="dd-participants">
+        <span class="participant-chip">Cliente</span>
+        <span class="participant-chip">Vendedor</span>
+        <span class="participant-chip">Gerente</span>
+        <span class="participant-chip">Especialista técnico</span>
+      </div>
+      <div class="dd-grid">
+        <div class="dd-row">
+          <span class="dd-label">Rol Social</span>
+          <select class="dd-select" id="s4-role">
+            <option value="">— Selecciona —</option>
+            <option value="a">a) Cliente – vendedor – gerente – especialista técnico</option>
+            <option value="b">b) Cliente – vendedor únicamente</option>
+            <option value="c">c) Gerente – especialista únicamente</option>
+            <option value="d">d) Cliente – especialista</option>
+          </select>
+        </div>
+        <div class="dd-row">
+          <span class="dd-label">Puente de Interacción</span>
+          <select class="dd-select" id="s4-bridge">
+            <option value="">— Selecciona —</option>
+            <option value="a">a) Argumento / Consejo / Resolución</option>
+            <option value="b">b) Coaching / Retroalimentación</option>
+            <option value="c">c) Diagnóstico / Instrucciones</option>
+            <option value="d">d) Negociación / Informar</option>
+          </select>
+        </div>
+        <div class="dd-row">
+          <span class="dd-label">Situación</span>
+          <select class="dd-select" id="s4-sit">
+            <option value="">— Selecciona —</option>
+            <option value="a">a) Reclamar producto con escalación gerencial</option>
+            <option value="b">b) Pedir recomendación de regalo de cumpleaños</option>
+            <option value="c">c) Abrir una cuenta bancaria</option>
+            <option value="d">d) Comprar un teléfono nuevo</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <button class="quiz-btn" onclick="checkDropdown()">Verificar todas las respuestas</button>
+    <div class="quiz-result" id="dd-result"></div>
+  </div>
+
+</div><!-- /wrapper -->
+</section><!-- /módulo 3 -->
+
+
+<!-- ============================================================
+     MÓDULO 4 — EVALUACIÓN Y ACREDITACIÓN
+     ============================================================ -->
+<section id="modulo4" class="module-section">
+<div class="wrapper">
+
+  <span class="module-label"><span class="mod-num">4</span>Módulo Cuatro</span>
+  <h2>Evaluación por Desempeño y Competencias</h2>
+  <p class="module-desc">Conoce los criterios de evaluación del modelo SIS y cómo alinear tus instrumentos de evaluación con los principios del modelo.</p>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-info">📊</div>
+      <h3>4.1 — Estructura de Evaluación por Parcial</h3>
+    </div>
+    <div class="two-col">
+      <div>
+        <h4 style="font-family:Inter; font-size:12px; font-weight:700; margin-bottom:10px; color:#5b4d8a;">Distribución de Calificación</h4>
+        <div class="reading-block">
+          <h4>Interacción Oral — 60%</h4>
+          <p>Evaluada durante las simulaciones y actividades de toma de decisiones. No es un examen oral aislado; es el desempeño sostenido durante la sesión.</p>
+        </div>
+        <div class="reading-block">
+          <h4>Gramática Aplicada — 40%</h4>
+          <p>Evaluada a través de la producción escrita y oral en contexto, no en ejercicios descontextualizados. La gramática sirve a la comunicación.</p>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-family:Inter; font-size:12px; font-weight:700; margin-bottom:10px; color:#5b4d8a;">Criterios de Acreditación</h4>
+        <div style="background:#ede9f7; border-radius:12px; padding:20px; text-align:center; margin-bottom:12px;">
+          <div style="font-size:28px; font-weight:800; color:#5b4d8a; font-family:'DM Serif Display',serif;">85%</div>
+          <div style="font-size:12px; font-weight:600; color:#3d3d5c;">de asistencia puntual requerida</div>
+        </div>
+        <ul style="font-size:12px; color:#3d3d5c; padding-left:18px;">
+          <li>Accuracy · Fluency · Vocabulary · Pronunciation · Listening</li>
+          <li>Grammar · Reading · Writing (en 2 parciales orales y escritos)</li>
+          <li>Participación en demostración final obligatoria</li>
+          <li>Sin demostración final: calificación 0</li>
+        </ul>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:16px;">
+      <strong>Calificación ordinaria:</strong> Promedio simple de los 3 parciales, siempre que se presente la demostración final. La interacción oral y la participación activa son el centro de la evaluación — no la memorización de reglas.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-task">🎤</div>
+      <h3>4.2 — Habilidades y Funciones Evaluadas</h3>
+    </div>
+    <p style="margin-bottom:14px; font-size:12px;">El modelo SIS trabaja las siguientes <strong>funciones del lenguaje</strong> que el docente debe incorporar en sus planeaciones y evaluar durante las simulaciones:</p>
+    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;">
+      <span class="badge badge-violet" style="font-size:12px; padding:5px 12px;">Informar</span>
+      <span class="badge badge-violet" style="font-size:12px; padding:5px 12px;">Explicar</span>
+      <span class="badge badge-violet" style="font-size:12px; padding:5px 12px;">Persuadir</span>
+      <span class="badge badge-violet" style="font-size:12px; padding:5px 12px;">Solicitar</span>
+      <span class="badge badge-teal" style="font-size:12px; padding:5px 12px;">Argumentar</span>
+      <span class="badge badge-teal" style="font-size:12px; padding:5px 12px;">Negociar</span>
+      <span class="badge badge-teal" style="font-size:12px; padding:5px 12px;">Aconsejar</span>
+      <span class="badge badge-gold" style="font-size:12px; padding:5px 12px;">Suponer</span>
+      <span class="badge badge-gold" style="font-size:12px; padding:5px 12px;">Comparar</span>
+      <span class="badge badge-gold" style="font-size:12px; padding:5px 12px;">Proponer</span>
+      <span class="badge badge-coral" style="font-size:12px; padding:5px 12px;">Reprochar</span>
+      <span class="badge badge-coral" style="font-size:12px; padding:5px 12px;">Imaginar</span>
+    </div>
+    <p style="font-size:12px; color:#3d3d5c;">El docente planea sus actividades identificando qué función lingüística principal activará cada paso de la sesión. Esto garantiza variedad funcional a lo largo del semestre y progresión comunicativa.</p>
+  </div>
+
+</div>
+</section>
+
+
+<!-- ============================================================
+     MÓDULO 5 — GESTIÓN DE SESIONES INTERACTIVAS
+     ============================================================ -->
+<section id="modulo5" class="module-section">
+<div class="wrapper">
+
+  <span class="module-label"><span class="mod-num">5</span>Módulo Cinco</span>
+  <h2>Gestión de Sesiones Interactivas y Colaborativas</h2>
+  <p class="module-desc">Estrategias prácticas para conducir grupos de 16-20 estudiantes en sesiones de alta interacción oral bajo el modelo SIS.</p>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-model">🧩</div>
+      <h3>5.1 — Principios de Gestión SIS</h3>
+    </div>
+    <div class="two-col">
+      <div>
+        <h4 style="font-family:Inter; font-size:12px; font-weight:700; color:#2d7a7a; margin-bottom:10px; text-transform:uppercase; letter-spacing:.05em;">✅ PROMOVER</h4>
+        <ul style="font-size:12px; color:#3d3d5c; padding-left:18px;">
+          <li>Interacción social situacional variada entre estudiantes</li>
+          <li>Uso constante del idioma en todo momento</li>
+          <li>Todos haciendo algo en todo momento</li>
+          <li>Secuencias didácticas enlazadas (cada sesión, base de la siguiente)</li>
+          <li>Ambiente de confianza, incluso para cometer errores</li>
+          <li>Retroalimentación positiva + estrategias claras de mejora</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="font-family:Inter; font-size:12px; font-weight:700; color:#c25b3f; margin-bottom:10px; text-transform:uppercase; letter-spacing:.05em;">❌ EVITAR</h4>
+        <ul style="font-size:12px; color:#3d3d5c; padding-left:18px;">
+          <li>Exposiciones de contenido por parte de los estudiantes</li>
+          <li>Actividades individuales de larga duración</li>
+          <li>Uso de otro idioma distinto al de la clase</li>
+          <li>Retroalimentación centrada únicamente en errores</li>
+          <li>Actividades desvinculadas entre sí</li>
+          <li>Interrumpir errores orales salvo en casos graves según el nivel</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-task">👥</div>
+      <h3>5.2 — Formación y Rotación de Grupos</h3>
+    </div>
+    <p style="font-size:12px; color:#3d3d5c; margin-bottom:14px;">El modelo SIS opera principalmente en equipos de 4 estudiantes. La dinámica de rotación permite que cada alumno interactúe con todos sus compañeros durante la simulación (paso 4), generando exposición variada a distintos registros y roles.</p>
+    <div class="reading-block">
+      <h4>Estrategia de "Espías" (Nivel IV — Gymnasium)</h4>
+      <p>2 miembros de cada equipo rotan como clientes ficticios (espías) hacia otros equipos. Los otros 2 permanecen como asesores. Después de 5 minutos por equipo, todos regresan con información real recabada en el idioma meta. Esta técnica maximiza el tiempo de habla de cada estudiante.</p>
+    </div>
+    <div class="reading-block">
+      <h4>Estrategia de "Rotación de Roles Cruzados" (Nivel I — Emociones)</h4>
+      <p>6 combinaciones de interacción: amigo-psicólogo, paciente-amigo, paciente-psiquiatra, etc. Cada combinación activa una función lingüística diferente con el mismo contenido gramatical. La gramática se practica 6 veces sin repetir el mismo ejercicio.</p>
+    </div>
+  </div>
+
+</div>
+</section>
+
+
+<!-- ============================================================
+     MÓDULO 6 — MATERIALES Y RECURSOS
+     ============================================================ -->
+<section id="modulo6" class="module-section">
+<div class="wrapper">
+
+  <span class="module-label"><span class="mod-num">6</span>Módulo Seis</span>
+  <h2>Materiales y Dinámicas de Aprendizaje Interactivo</h2>
+  <p class="module-desc">Selección, diseño y uso de materiales auténticos y recursos que apoyen el modelo SIS en el aula.</p>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-read">📎</div>
+      <h3>6.1 — Tipos de Materiales en el Modelo SIS</h3>
+    </div>
+    <div style="overflow-x:auto;">
+    <table class="data-table">
+      <thead><tr><th>Tipo de Material</th><th>Paso SIS</th><th>Función</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td>Audiovisual (video, podcast)</td><td>2 – Context</td><td>Activar el contexto situacional</td><td>Video de una negociación en oficina</td></tr>
+        <tr><td>Material auténtico impreso</td><td>2 – Context</td><td>Proveer input real del idioma</td><td>Anuncio de gimnasio, menú de restaurante</td></tr>
+        <tr><td>Tarjetas de rol</td><td>3 – Pre-task</td><td>Asignar identidad y función social</td><td>"Eres el gerente de ventas. Tu objetivo es…"</td></tr>
+        <tr><td>Hojas de trabajo colaborativo</td><td>4 – Simulation</td><td>Registrar información durante la tarea</td><td>Tabla para anotar las ofertas de otros equipos</td></tr>
+        <tr><td>Borrador / Post-it / Pizarrón</td><td>5 – Post-task</td><td>Materializar la toma de decisiones</td><td>Diseño del anuncio del gimnasio</td></tr>
+        <tr><td>Rúbrica de autoevaluación</td><td>6 – Wrap-up</td><td>Metacognición sobre el desempeño oral</td><td>"¿Usé el vocabulario clave? ¿Fui claro?"</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="highlight-box" style="margin-top:16px;">
+      <strong>Criterio de selección:</strong> El material debe ser el <em>detonante</em> de la interacción, no el centro de atención. Si los estudiantes están mirando el material más de 5 minutos sin hablar, hay que ajustar el diseño de la actividad.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-quiz">🗓️</div>
+      <h3>6.2 — Estructura del Semestre (3 Unidades)</h3>
+    </div>
+    <p style="font-size:12px; color:#3d3d5c; margin-bottom:14px;">El programa de idiomas SIS se organiza en 3 unidades con 3 períodos de examen. Cada unidad enlaza sus sesiones de forma que la última sesión de una unidad prepara el contexto de la siguiente.</p>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+      <div style="background:#ede9f7; border-radius:12px; padding:18px; text-align:center;">
+        <div style="font-size:20px; font-weight:800; color:#5b4d8a;">I</div>
+        <div style="font-size:12px; font-weight:600; color:#1a1a2e;">Unidad 1</div>
+        <div style="font-size:12px; color:#3d3d5c; margin-top:4px;">Contextos personales y cotidianos</div>
+      </div>
+      <div style="background:#f0e2b6; border-radius:12px; padding:18px; text-align:center;">
+        <div style="font-size:20px; font-weight:800; color:#6b4a00;">II</div>
+        <div style="font-size:12px; font-weight:600; color:#1a1a2e;">Unidad 2</div>
+        <div style="font-size:12px; color:#3d3d5c; margin-top:4px;">Contextos académicos y comunitarios</div>
+      </div>
+      <div style="background:#e0f2f2; border-radius:12px; padding:18px; text-align:center;">
+        <div style="font-size:20px; font-weight:800; color:#2d7a7a;">III</div>
+        <div style="font-size:12px; font-weight:600; color:#1a1a2e;">Unidad 3</div>
+        <div style="font-size:12px; color:#3d3d5c; margin-top:4px;">Contextos profesionales y formales</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+
+<!-- ============================================================
+     MÓDULO 7 — IMPLEMENTACIÓN Y DIAGNÓSTICO
+     ============================================================ -->
+<section id="modulo7" class="module-section">
+<div class="wrapper">
+
+  <span class="module-label"><span class="mod-num">7</span>Módulo Siete</span>
+  <h2>Implementación, Diagnóstico y Acompañamiento</h2>
+  <p class="module-desc">Conoce el proceso de implementación institucional del modelo SIS, el proceso de diagnóstico de alumnos y el acompañamiento docente previsto.</p>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-info">🗓️</div>
+      <h3>7.1 — Ruta de Implementación A26-E27</h3>
+    </div>
+    <ul class="steps">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Capacitación Docente</strong>
+          <span>Conducida por la Mtra. Larisa Herrera con el respaldo de la Coordinación Académica de Idiomas. Cubre planeación didáctica, evaluación por desempeño, gestión de sesiones y estrategias comunicativas.</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Semana de Inducción — Diagnóstico Integral</strong>
+          <span>Aplicación del instrumento de diagnóstico de habilidades integrales a toda la población de nuevo ingreso. Incluye valoración escrita + entrevista de producción oral.</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Clasificación y Asignación de Grupos</strong>
+          <span>Basada en fluidez discursiva, capacidad de intercambio comunicativo, eficiencia en escucha activa y expresión verbal espontánea. Optimiza la exactitud en asignación de niveles.</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>Inicio del Nuevo Programa SIS</strong>
+          <span>Estudiantes que inician su primer nivel de inglés en A26-E27 son asignados con carga horaria de 7.5 hrs/semana bajo el nuevo esquema SIS. Los programas en liquidación continúan con metodología SIS sin cambio de carga horaria.</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <strong>Acompañamiento y Seguimiento Continuo</strong>
+          <span>La Coordinación Académica de Idiomas da seguimiento al proceso de implementación. Los docentes documentan sus planeaciones y participan en sesiones de retroalimentación entre pares.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-task">🎓</div>
+      <h3>7.2 — Temáticas de Capacitación Docente</h3>
+    </div>
+    <div style="overflow-x:auto;">
+    <table class="data-table">
+      <thead><tr><th>#</th><th>Temática</th><th>Relación con el Modelo SIS</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Planeación didáctica basada en contextos sociales, interactivos y situacionales</td><td>Diseño de los 7 pasos con propósito comunicativo claro</td></tr>
+        <tr><td>2</td><td>Evaluación por desempeño y competencias del idioma</td><td>Rúbricas de interacción oral y producción en contexto</td></tr>
+        <tr><td>3</td><td>Gestión de sesiones interactivas y colaborativas</td><td>Formación de grupos, rotación de roles y monitoreo</td></tr>
+        <tr><td>4</td><td>Estrategias comunicativas centradas en el estudiante</td><td>Técnicas para maximizar el tiempo de habla del alumno</td></tr>
+        <tr><td>5</td><td>Uso de materiales y dinámicas de aprendizaje interactivo</td><td>Selección y diseño de materiales auténticos y detonantes</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-quiz">🧠</div>
+      <h3>7.3 — Quiz de Cierre del Curso</h3>
+    </div>
+    <p style="font-size:12px; color:#3d3d5c; margin-bottom:0;">Antes de concluir, verifica tu comprensión global del curso con el quiz integrador.</p>
+  </div>
+
+  <!-- QUIZ CIERRE -->
+  <div class="quiz-container" id="quiz7">
+    <div class="quiz-header">
+      <h3>🏁 Quiz de Cierre — Implementación y Curso Completo</h3>
+      <p>Preguntas integradoras de todos los módulos. Se requiere 80% para completar el curso.</p>
+    </div>
+    <div class="quiz-body">
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">1.</span>¿Quién conduce el proceso de capacitación docente para la implementación del modelo SIS?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q7_1" value="a"/> El Rector de la universidad</label>
+          <label class="option-label"><input type="radio" name="q7_1" value="b"/> La Mtra. Larisa Herrera con el respaldo de la Coordinación Académica de Idiomas</label>
+          <label class="option-label"><input type="radio" name="q7_1" value="c"/> El Departamento de Recursos Humanos</label>
+          <label class="option-label"><input type="radio" name="q7_1" value="d"/> Un consultor externo de metodología</label>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">2.</span>¿Cuál de los siguientes NO es un criterio de clasificación de alumnos en el diagnóstico de nuevo ingreso?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q7_2" value="a"/> Fluidez discursiva</label>
+          <label class="option-label"><input type="radio" name="q7_2" value="b"/> Capacidad de intercambio comunicativo</label>
+          <label class="option-label"><input type="radio" name="q7_2" value="c"/> Promedio académico de preparatoria</label>
+          <label class="option-label"><input type="radio" name="q7_2" value="d"/> Eficiencia en escucha activa</label>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">3.</span>Un estudiante del 5.° semestre turno vespertino bajo el modelo SIS tendrá:</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q7_3" value="a"/> 3 sesiones de 60 minutos por semana</label>
+          <label class="option-label"><input type="radio" name="q7_3" value="b"/> 2 sesiones de 90 minutos por semana (Lunes-Martes o Miércoles-Jueves)</label>
+          <label class="option-label"><input type="radio" name="q7_3" value="c"/> 1 sesión de 3 horas por semana</label>
+          <label class="option-label"><input type="radio" name="q7_3" value="d"/> 4 sesiones de 45 minutos por semana</label>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">4.</span>En el modelo SIS, ¿cuál paso de la sesión tiene mayor tiempo asignado junto con el Wrap-up?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q7_4" value="a"/> Paso 1 – Warm-up</label>
+          <label class="option-label"><input type="radio" name="q7_4" value="b"/> Paso 2 – Context</label>
+          <label class="option-label"><input type="radio" name="q7_4" value="c"/> Paso 4 – Tasks / Simulación (20 min) y Paso 6 – Wrap-up (20 min)</label>
+          <label class="option-label"><input type="radio" name="q7_4" value="d"/> Paso 3 – Pre-task y Paso 5 – Post-task</label>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">5.</span>¿Cuál es el elemento que le da sentido y autenticidad a cualquier actividad de simulación en el modelo SIS?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q7_5" value="a"/> El uso de tecnología y multimedia en la clase</label>
+          <label class="option-label"><input type="radio" name="q7_5" value="b"/> La combinación de: rol social + puente de interacción + situación concreta</label>
+          <label class="option-label"><input type="radio" name="q7_5" value="c"/> La complejidad gramatical de la actividad</label>
+          <label class="option-label"><input type="radio" name="q7_5" value="d"/> El número de estudiantes en el grupo</label>
+        </div>
+      </div>
+
+      <button class="quiz-btn" onclick="checkQuiz('quiz7', {q7_1:'b',q7_2:'c',q7_3:'b',q7_4:'c',q7_5:'b'}, 4)">Verificar y finalizar curso</button>
+      <div class="quiz-result" id="quiz7-result"></div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="course-footer">
+  <p><strong>Capacitación Docente — Modelo SIS</strong> · Universidad del Valle de Puebla · 2026</p>
+  <p style="margin-top:6px;">Elaborado por la Coordinación Académica de Idiomas · Conducido por Mtra. Larisa Herrera Quiroz</p>
+  <p style="margin-top:6px;">Implementación a partir del 2.° semestre 2025 · Contenidos en inglés a partir del 5.° semestre (planes rediseñados)</p>
+</footer>
+
+
+<!-- ===================== SCRIPTS ===================== -->
+<script>
+/* ---- QUIZ CHECKER (Radio-based) ---- */
+function checkQuiz(quizId, answers, minCorrect) {
+  const quiz = document.getElementById(quizId);
+  const resultEl = document.getElementById(quizId + '-result');
+  let correct = 0;
+  let total = Object.keys(answers).length;
+
+  for (const [name, correctVal] of Object.entries(answers)) {
+    const selected = quiz.querySelector(`input[name="${name}"]:checked`);
+    const options = quiz.querySelectorAll(`input[name="${name}"]`);
+
+    options.forEach(opt => {
+      const label = opt.parentElement;
+      label.classList.remove('correct', 'incorrect');
+    });
+
+    if (selected) {
+      const selectedLabel = selected.parentElement;
+      if (selected.value === correctVal) {
+        correct++;
+        selectedLabel.classList.add('correct');
+      } else {
+        selectedLabel.classList.add('incorrect');
+        // Mark correct
+        options.forEach(opt => {
+          if (opt.value === correctVal) opt.parentElement.classList.add('correct');
+        });
+      }
+    } else {
+      // No answer selected — mark correct
+      options.forEach(opt => {
+        if (opt.value === correctVal) opt.parentElement.classList.add('correct');
+      });
+    }
+  }
+
+  resultEl.classList.remove('pass', 'fail');
+  resultEl.classList.add('show');
+  if (correct >= minCorrect) {
+    resultEl.classList.add('pass');
+    resultEl.innerHTML = `✅ ¡Excelente! Obtuviste ${correct} de ${total} respuestas correctas. Puedes avanzar al siguiente módulo.`;
+  } else {
+    resultEl.classList.add('fail');
+    resultEl.innerHTML = `🔄 Obtuviste ${correct} de ${total} respuestas correctas. Necesitas al menos ${minCorrect} para avanzar. Revisa las lecturas e inténtalo de nuevo.`;
+  }
+}
+
+/* ---- DROPDOWN QUIZ CHECKER ---- */
+const ddAnswers = {
+  's1-role': 'a', 's1-bridge': 'a', 's1-sit': 'a',
+  's2-role': 'a', 's2-bridge': 'a', 's2-sit': 'a',
+  's3-role': 'a', 's3-bridge': 'a', 's3-sit': 'a',
+  's4-role': 'a', 's4-bridge': 'a', 's4-sit': 'a'
+};
+
+function checkDropdown() {
+  let correct = 0;
+  const total = Object.keys(ddAnswers).length;
+
+  for (const [id, correctVal] of Object.entries(ddAnswers)) {
+    const sel = document.getElementById(id);
+    if (!sel) continue;
+    sel.classList.remove('correct', 'incorrect');
+    if (sel.value === correctVal) {
+      sel.classList.add('correct');
+      correct++;
+    } else {
+      sel.classList.add('incorrect');
+    }
+  }
+
+  const resultEl = document.getElementById('dd-result');
+  resultEl.classList.remove('pass', 'fail');
+  resultEl.classList.add('show');
+  if (correct >= 10) {
+    resultEl.classList.add('pass');
+    resultEl.innerHTML = `✅ ¡Muy bien! ${correct} de ${total} respuestas correctas. Los elementos en verde están correctos.`;
+  } else {
+    resultEl.classList.add('fail');
+    resultEl.innerHTML = `🔄 ${correct} de ${total} respuestas correctas. Los elementos en rojo necesitan revisión. Vuelve a leer los escenarios y sus explicaciones.`;
+  }
+}
+
+/* ---- REFLECTION SAVE ---- */
+function saveReflection() {
+  const r1 = document.getElementById('ref2_1').value;
+  const r2 = document.getElementById('ref2_2').value;
+  const r3 = document.getElementById('ref2_3').value;
+  if (!r1 && !r2 && !r3) {
+    alert('Por favor escribe al menos una reflexión antes de guardar.');
+    return;
+  }
+  document.getElementById('save-confirm').style.display = 'block';
+}
+
+/* ---- NAV ACTIVE STATE ---- */
+const sections = document.querySelectorAll('.module-section');
+const navLinks = document.querySelectorAll('.nav-bar a');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + entry.target.id) {
+          link.classList.add('active');
+        }
+      });
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

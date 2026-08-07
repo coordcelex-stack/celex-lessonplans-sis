@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 
 // ── PALETA CELEX ──────────────────────────────────────────────
@@ -67,7 +66,6 @@ const TEACHERS = [
   "Contreras Rodríguez Citlali Abigail",
   "Guerrero Cortés Uriel Joshue",
   "Rodríguez López Sandra",
-  "Mota Blanco Edgar",
   "Vázquez Contreras Diana Fernanda",
   "Torres Martínez Juan Guillermo",
   "Escalona Méndez Berenice",
@@ -77,7 +75,7 @@ const TEACHERS = [
   "González Sandoval Zaira María",
 ];
 
-const LEVELS = ["const LEVELS = 
+const LEVELS = [
   "I — S (Starter)",
   "II — E (Elementary)",
   "III — P (Pre-intermediate)",
@@ -87,82 +85,107 @@ const LEVELS = ["const LEVELS =
 ];
 
 const STEPS = [
-  { key: "warmup",      label: "1 — Warm up",                        time: "10 mins." },
-  { key: "context",     label: "2 — Presentation, vocabulary & context", time: "10–15 mins." },
-  { key: "grammar",     label: "3 — Applied Grammar",                time: "10–15 mins." },
-  { key: "simulation",  label: "4 — Simulation practice",            time: "20–30 mins." },
-  { key: "decision",    label: "5 — Decision making",                time: "10–15 mins." },
-  { key: "results",     label: "6 — Results",                        time: "10 mins." },
+  { key: "warmup",     label: "1 — Warm up",                           time: "10 mins." },
+  { key: "context",    label: "2 — Presentation, vocabulary & context", time: "10–15 mins." },
+  { key: "grammar",    label: "3 — Applied Grammar",                   time: "10–15 mins." },
+  { key: "simulation", label: "4 — Simulation practice",               time: "20–30 mins." },
+  { key: "decision",   label: "5 — Decision making",                   time: "10–15 mins." },
+  { key: "results",    label: "6 — Results",                           time: "10 mins." },
 ];
 
 const EMPTY_PLAN = {
-  id: "",
-  teacher: "",
-  level: "",
-  topic: "",
-  objective: "",
-  classGroup: "",
-  date: "",
+  id: "", teacher: "", level: "", topic: "", objective: "",
+  classGroup: "", date: "",
   steps: { warmup:"", context:"", grammar:"", simulation:"", decision:"", results:"" },
   goals: { warmup:"", context:"", grammar:"", simulation:"", decision:"", results:"" },
 };
 
-// ── STORAGE KEY ───────────────────────────────────────────────
-const STORAGE_KEY = "celex_lesson_plans_v1";
+// ── GOOGLE SHEETS (fuente de verdad compartida) ───────────────
+const SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwshvc64VGc9F5VHbUjCrA54hoaaNbsOYWmUOHsaecNqhfwrU2dl4JXTdo8roFjo1Y8jQ/exec";
 
-function loadPlans() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch { return []; }
+// ── SEMANA ACTUAL ─────────────────────────────────────────────
+// Devuelve la clave de la semana en curso: "2026-W32"
+// El domingo cierra la semana (getDay()==0), se avanza a la siguiente.
+function getCurrentWeekKey() {
+  const now = new Date();
+  // Si hoy es domingo (0), avanzar al lunes para no mostrar nada
+  const day = now.getDay();
+  const d = new Date(now);
+  if (day === 0) d.setDate(d.getDate() + 1); // lunes siguiente
+  // Número de semana ISO
+  const jan4 = new Date(d.getFullYear(), 0, 4);
+  const weekNum = Math.ceil(((d - jan4) / 86400000 + jan4.getDay() + 1) / 7);
+  return `${d.getFullYear()}-W${String(weekNum).padStart(2, "0")}`;
 }
 
-function savePlans(plans) {
+function getWeekRange(weekKey) {
+  const [year, w] = weekKey.split("-W");
+  const jan4 = new Date(Number(year), 0, 4);
+  const weekStart = new Date(jan4);
+  weekStart.setDate(jan4.getDate() - jan4.getDay() + 1 + (Number(w) - 1) * 7);
+  const weekEnd = new Date(weekStart);
+  weekEnd.setDate(weekStart.getDate() + 5); // viernes
+  const fmt = d => d.toLocaleDateString("es-MX", { day: "numeric", month: "short" });
+  return `${fmt(weekStart)} – ${fmt(weekEnd)}`;
+}
+
+function isSunday() {
+  return new Date().getDay() === 0;
+}
+
+// ── STORAGE LOCAL (caché) ─────────────────────────────────────
+const STORAGE_KEY = "celex_lesson_plans_v2";
+
+function loadLocalPlans() {
+  try { const r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : []; }
+  catch { return []; }
+}
+function saveLocalPlans(plans) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(plans)); } catch {}
 }
 
-// ── GOOGLE SHEETS EXPORT ──────────────────────────────────────
-// Instrucciones para configurar el webhook en Google Sheets:
-// 1. Abre Google Sheets → Extensiones → Apps Script
-// 2. Pega el código del doPost() que aparece al final de este archivo
-// 3. Implementa como aplicación web → cualquier usuario puede acceder
-// 4. Copia la URL del webhook y pégala en SHEETS_WEBHOOK_URL abajo
-const SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwshvc64VGc9F5VHbUjCrA54hoaaNbsOYWmUOHsaecNqhfwrU2dl4JXTdo8roFjo1Y8jQ/exec";
+// ── SHEETS API ────────────────────────────────────────────────
+async function fetchAllPlans() {
+  try {
+    const r = await fetch(SHEETS_WEBHOOK_URL + "?action=getAll");
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const data = await r.json();
+    return Array.isArray(data) ? data : [];
+  } catch { return null; } // null = error de red
+}
 
 async function sendToSheets(plan) {
-  if (SHEETS_WEBHOOK_URL === "TU_URL_DE_APPS_SCRIPT_AQUI") return { ok: false, msg: "Webhook no configurado" };
   try {
     await fetch(SHEETS_WEBHOOK_URL, {
-      method: "POST",
-      mode: "no-cors",
+      method: "POST", mode: "no-cors",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        id: plan.id,
-        teacher: plan.teacher,
-        level: plan.level,
-        topic: plan.topic,
-        objective: plan.objective,
-        classGroup: plan.classGroup,
-        date: plan.date,
-        warmup_desc: plan.steps.warmup,
-        warmup_goal: plan.goals.warmup,
-        context_desc: plan.steps.context,
-        context_goal: plan.goals.context,
-        grammar_desc: plan.steps.grammar,
-        grammar_goal: plan.goals.grammar,
-        simulation_desc: plan.steps.simulation,
-        simulation_goal: plan.goals.simulation,
-        decision_desc: plan.steps.decision,
-        decision_goal: plan.goals.decision,
-        results_desc: plan.steps.results,
-        results_goal: plan.goals.results,
+        action: "save",
+        id: plan.id, teacher: plan.teacher, level: plan.level,
+        topic: plan.topic, objective: plan.objective,
+        classGroup: plan.classGroup, date: plan.date,
+        weekKey: getCurrentWeekKey(),
+        warmup_desc: plan.steps.warmup,     warmup_goal: plan.goals.warmup,
+        context_desc: plan.steps.context,   context_goal: plan.goals.context,
+        grammar_desc: plan.steps.grammar,   grammar_goal: plan.goals.grammar,
+        simulation_desc: plan.steps.simulation, simulation_goal: plan.goals.simulation,
+        decision_desc: plan.steps.decision, decision_goal: plan.goals.decision,
+        results_desc: plan.steps.results,   results_goal: plan.goals.results,
         timestamp: new Date().toISOString(),
       }),
     });
     return { ok: true };
-  } catch (e) {
-    return { ok: false, msg: e.message };
-  }
+  } catch (e) { return { ok: false, msg: e.message }; }
+}
+
+async function deleteFromSheets(planId) {
+  try {
+    await fetch(SHEETS_WEBHOOK_URL, {
+      method: "POST", mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "delete", id: planId }),
+    });
+  } catch {}
 }
 
 // ── COMPONENTES UI ────────────────────────────────────────────
@@ -176,16 +199,17 @@ function Badge({ children, color = C.violet, bg = C.violetPale }) {
 }
 
 function LevelBadge({ level }) {
-  const colors = {
-    "I":   [C.teal,   C.tealPale],
-    "II":  [C.violet, C.violetPale],
+  const map = {
+    "I":   [C.teal,    C.tealPale],
+    "II":  [C.violet,  C.violetPale],
     "III": ["#6b4a00", C.goldLight],
-    "IV":  [C.coral,  C.coralPale],
-    "V":   ["#2d5c7a","#e0f0f8"],
-    "VI":  ["#5a2d82","#f3e8ff"],
+    "IV":  [C.coral,   C.coralPale],
+    "V":   ["#2d5c7a", "#e0f0f8"],
+    "VI":  ["#5a2d82", "#f3e8ff"],
   };
-  const [c, bg] = colors[level] || [C.violet, C.violetPale];
-  return <Badge color={c} bg={bg}>Nivel {level}</Badge>;
+  const key = (level || "").replace(/Nivel\s*/,"").split(" ")[0];
+  const [c, bg] = map[key] || [C.violet, C.violetPale];
+  return <Badge color={c} bg={bg}>Nivel {key}</Badge>;
 }
 
 function Card({ children, style = {} }) {
@@ -223,8 +247,9 @@ function Select({ label, value, onChange, options, placeholder, required }) {
       </label>
       <select value={value} onChange={e => onChange(e.target.value)}
         style={{ width: "100%", padding: "9px 12px", border: `1.5px solid ${C.border}`,
-          borderRadius: 8, fontFamily: "inherit", fontSize: ".92rem", color: value ? C.ink : "#999",
-          background: C.white, boxSizing: "border-box", cursor: "pointer" }}>
+          borderRadius: 8, fontFamily: "inherit", fontSize: ".92rem",
+          color: value ? C.ink : "#999", background: C.white,
+          boxSizing: "border-box", cursor: "pointer" }}>
         <option value="">{placeholder}</option>
         {options.map(o => <option key={o} value={o}>{o}</option>)}
       </select>
@@ -249,11 +274,11 @@ function Textarea({ label, value, onChange, placeholder, hint }) {
 
 function Btn({ children, onClick, variant = "primary", small = false, disabled = false }) {
   const styles = {
-    primary:  { background: `linear-gradient(135deg,${C.violet},${C.violetMid})`, color: C.white, border: "none" },
-    gold:     { background: `linear-gradient(135deg,${C.gold},#e0c068)`, color: C.ink, border: "none" },
-    outline:  { background: "transparent", color: C.violet, border: `1.5px solid ${C.violet}` },
-    danger:   { background: "transparent", color: C.coral, border: `1.5px solid ${C.coral}` },
-    teal:     { background: `linear-gradient(135deg,${C.teal},#3d9090)`, color: C.white, border: "none" },
+    primary: { background: `linear-gradient(135deg,${C.violet},${C.violetMid})`, color: C.white, border: "none" },
+    gold:    { background: `linear-gradient(135deg,${C.gold},#e0c068)`, color: C.ink, border: "none" },
+    outline: { background: "transparent", color: C.violet, border: `1.5px solid ${C.violet}` },
+    danger:  { background: "transparent", color: C.coral, border: `1.5px solid ${C.coral}` },
+    teal:    { background: `linear-gradient(135deg,${C.teal},#3d9090)`, color: C.white, border: "none" },
   };
   return (
     <button onClick={onClick} disabled={disabled}
@@ -280,6 +305,29 @@ function Divider({ label }) {
   );
 }
 
+// ── BANNER DOMINGO ────────────────────────────────────────────
+function SundayBanner() {
+  return (
+    <div style={{ background: `linear-gradient(135deg,${C.ink},${C.violet})`,
+      borderRadius: 14, padding: "40px 32px", textAlign: "center", margin: "32px 0" }}>
+      <div style={{ fontSize: "3rem", marginBottom: 12 }}>📅</div>
+      <h2 style={{ color: C.white, fontSize: "1.3rem", fontWeight: 800, margin: "0 0 10px" }}>
+        Las planeaciones de esta semana están cerradas
+      </h2>
+      <p style={{ color: "rgba(255,255,255,.72)", fontSize: ".95rem", margin: "0 0 18px", maxWidth: 480, marginLeft: "auto", marginRight: "auto" }}>
+        Los domingos ocultamos las planeaciones de la semana que termina.
+        Las nuevas planeaciones estarán disponibles a partir del <strong style={{ color: C.gold }}>lunes</strong>.
+      </p>
+      <div style={{ background: "rgba(201,168,76,.2)", border: `1px solid rgba(201,168,76,.4)`,
+        borderRadius: 8, padding: "10px 20px", display: "inline-block" }}>
+        <span style={{ color: C.gold, fontWeight: 700, fontSize: ".88rem" }}>
+          🌅 Vuelve mañana para ver las planeaciones de la nueva semana
+        </span>
+      </div>
+    </div>
+  );
+}
+
 // ── VISTA: FORMULARIO ─────────────────────────────────────────
 function FormView({ onSave, editPlan }) {
   const [plan, setPlan] = useState(editPlan || { ...EMPTY_PLAN, id: Date.now().toString() });
@@ -289,7 +337,6 @@ function FormView({ onSave, editPlan }) {
   const set = (field, val) => setPlan(p => ({ ...p, [field]: val }));
   const setStep = (key, val) => setPlan(p => ({ ...p, steps: { ...p.steps, [key]: val } }));
   const setGoal = (key, val) => setPlan(p => ({ ...p, goals: { ...p.goals, [key]: val } }));
-
   const isValid = plan.teacher && plan.level && plan.topic && plan.objective;
 
   async function handleSave() {
@@ -300,20 +347,17 @@ function FormView({ onSave, editPlan }) {
     setToast({
       type: "success",
       msg: result.ok
-        ? "✅ Planeación guardada en la app y enviada a Google Sheets."
-        : "✅ Planeación guardada en la app. " + (SHEETS_WEBHOOK_URL === "TU_URL_DE_APPS_SCRIPT_AQUI"
-            ? "Configura el webhook para sincronizar con Google Sheets."
-            : "No se pudo conectar con Google Sheets — revisa el webhook."),
+        ? "✅ Planeación guardada y compartida con todo el equipo."
+        : "✅ Planeación guardada localmente. Revisa la conexión con Google Sheets.",
     });
     setSaving(false);
   }
 
   return (
     <div>
-      {/* toast */}
       {toast && (
-        <div onClick={() => setToast(null)} style={{
-          padding: "12px 18px", borderRadius: 8, marginBottom: 18, cursor: "pointer",
+        <div onClick={() => setToast(null)} style={{ padding: "12px 18px", borderRadius: 8,
+          marginBottom: 18, cursor: "pointer",
           background: toast.type === "success" ? C.tealPale : C.coralPale,
           borderLeft: `4px solid ${toast.type === "success" ? C.teal : C.coral}`,
           color: toast.type === "success" ? C.teal : C.coral, fontWeight: 600, fontSize: ".9rem" }}>
@@ -342,8 +386,7 @@ function FormView({ onSave, editPlan }) {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 16px" }}>
           <Input label="Tema" value={plan.topic} onChange={v => set("topic", v)}
             placeholder="Ej. Passive Voice — Present" required />
-          <Input label="Fecha" value={plan.date} onChange={v => set("date", v)}
-            type="date" />
+          <Input label="Fecha" value={plan.date} onChange={v => set("date", v)} type="date" />
         </div>
 
         <Textarea label="Objetivo de la sesión *" value={plan.objective}
@@ -357,12 +400,11 @@ function FormView({ onSave, editPlan }) {
       {STEPS.map(step => (
         <div key={step.key} style={{ background: C.white, borderRadius: 12,
           boxShadow: "0 2px 8px rgba(26,26,46,.08)", marginBottom: 14, overflow: "hidden" }}>
-          {/* header del paso */}
           <div style={{ background: `linear-gradient(135deg,${C.ink} 0%,${C.violet} 100%)`,
             padding: "10px 20px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <span style={{ fontSize: ".88rem", fontWeight: 700, color: C.white }}>{step.label}</span>
             <span style={{ background: "rgba(201,168,76,.25)", color: C.gold,
-              border: `1px solid rgba(201,168,76,.4)`, borderRadius: 40,
+              border: "1px solid rgba(201,168,76,.4)", borderRadius: 40,
               padding: "2px 10px", fontSize: ".72rem", fontWeight: 700 }}>{step.time}</span>
           </div>
           <div style={{ padding: "16px 20px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
@@ -378,7 +420,7 @@ function FormView({ onSave, editPlan }) {
 
       <div style={{ display: "flex", gap: 12, marginTop: 8, flexWrap: "wrap" }}>
         <Btn onClick={handleSave} disabled={saving} variant="primary">
-          {saving ? "Guardando…" : "💾 Guardar planeación"}
+          {saving ? "Guardando…" : "💾 Guardar y compartir con el equipo"}
         </Btn>
         <Btn onClick={() => onSave(null)} variant="outline">Cancelar</Btn>
       </div>
@@ -386,7 +428,7 @@ function FormView({ onSave, editPlan }) {
   );
 }
 
-// ── VISTA: DETALLE DE PLANEACIÓN ──────────────────────────────
+// ── VISTA: DETALLE ────────────────────────────────────────────
 function DetailView({ plan, onBack, onEdit, onDelete }) {
   return (
     <div>
@@ -396,7 +438,6 @@ function DetailView({ plan, onBack, onEdit, onDelete }) {
         <Btn onClick={onDelete} variant="danger" small>🗑 Eliminar</Btn>
       </div>
 
-      {/* encabezado */}
       <div style={{ background: `linear-gradient(135deg,${C.ink} 0%,${C.violet} 100%)`,
         borderRadius: 16, padding: "28px 32px", marginBottom: 20, position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, opacity: .04,
@@ -404,7 +445,7 @@ function DetailView({ plan, onBack, onEdit, onDelete }) {
         <div style={{ height: 3, width: 48, background: `linear-gradient(90deg,${C.gold},${C.goldLight})`,
           borderRadius: 2, marginBottom: 16 }} />
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 12 }}>
-          <LevelBadge level={plan.level.replace("Nivel ","")} />
+          <LevelBadge level={plan.level} />
           {plan.classGroup && <Badge color={C.inkLight} bg="rgba(255,255,255,.12)">{plan.classGroup}</Badge>}
           {plan.date && <Badge color={C.gold} bg="rgba(201,168,76,.18)">{plan.date}</Badge>}
         </div>
@@ -419,7 +460,6 @@ function DetailView({ plan, onBack, onEdit, onDelete }) {
         </div>
       </div>
 
-      {/* pasos */}
       {STEPS.map(step => (
         <div key={step.key} style={{ background: C.white, borderRadius: 12,
           boxShadow: "0 2px 8px rgba(26,26,46,.08)", marginBottom: 14, overflow: "hidden" }}>
@@ -427,7 +467,7 @@ function DetailView({ plan, onBack, onEdit, onDelete }) {
             padding: "10px 20px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <span style={{ fontSize: ".88rem", fontWeight: 700, color: C.white }}>{step.label}</span>
             <span style={{ background: "rgba(201,168,76,.25)", color: C.gold,
-              border: `1px solid rgba(201,168,76,.4)`, borderRadius: 40,
+              border: "1px solid rgba(201,168,76,.4)", borderRadius: 40,
               padding: "2px 10px", fontSize: ".72rem", fontWeight: 700 }}>{step.time}</span>
           </div>
           <div style={{ padding: "16px 20px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
@@ -455,23 +495,59 @@ function DetailView({ plan, onBack, onEdit, onDelete }) {
 }
 
 // ── VISTA: BIBLIOTECA ─────────────────────────────────────────
-function LibraryView({ plans, onNew, onSelect }) {
+function LibraryView({ plans, onNew, onSelect, weekKey, loading, networkError }) {
   const [filterLevel, setFilterLevel] = useState("");
   const [filterTeacher, setFilterTeacher] = useState("");
   const [search, setSearch] = useState("");
 
-  const filtered = plans.filter(p => {
-    const lvl = !filterLevel || p.level === filterLevel;
-    const tch = !filterTeacher || p.teacher === filterTeacher;
-    const srch = !search || p.topic.toLowerCase().includes(search.toLowerCase())
-      || p.teacher.toLowerCase().includes(search.toLowerCase())
-      || p.objective.toLowerCase().includes(search.toLowerCase());
+  // Filtrar solo planeaciones de la semana actual
+  const weekPlans = plans.filter(p => !p.weekKey || p.weekKey === weekKey);
+
+  const filtered = weekPlans.filter(p => {
+    const lvl  = !filterLevel   || p.level === filterLevel;
+    const tch  = !filterTeacher || p.teacher === filterTeacher;
+    const srch = !search
+      || p.topic?.toLowerCase().includes(search.toLowerCase())
+      || p.teacher?.toLowerCase().includes(search.toLowerCase())
+      || p.objective?.toLowerCase().includes(search.toLowerCase());
     return lvl && tch && srch;
   });
 
+  const weekRange = getWeekRange(weekKey);
+
   return (
     <div>
-      {/* filtros */}
+      {/* Banner de semana */}
+      <div style={{ background: `linear-gradient(135deg,${C.ink},${C.violet})`,
+        borderRadius: 12, padding: "14px 20px", marginBottom: 18,
+        display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 10 }}>
+        <div>
+          <p style={{ margin: 0, fontSize: ".72rem", fontWeight: 700, color: C.gold,
+            textTransform: "uppercase", letterSpacing: ".08em" }}>Semana activa</p>
+          <p style={{ margin: "2px 0 0", fontSize: ".95rem", color: C.white, fontWeight: 600 }}>
+            📅 {weekRange}
+          </p>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          {loading && <span style={{ fontSize: ".8rem", color: "rgba(255,255,255,.6)" }}>⟳ Actualizando…</span>}
+          {networkError && (
+            <span style={{ fontSize: ".78rem", background: "rgba(194,91,63,.25)",
+              color: "#ffb3a0", border: "1px solid rgba(194,91,63,.4)",
+              borderRadius: 40, padding: "3px 10px" }}>
+              Sin conexión — mostrando caché local
+            </span>
+          )}
+          {!networkError && !loading && (
+            <span style={{ fontSize: ".78rem", background: "rgba(45,122,122,.25)",
+              color: "#90e0d0", border: "1px solid rgba(45,122,122,.4)",
+              borderRadius: 40, padding: "3px 10px" }}>
+              ✓ Sincronizado con el equipo
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Filtros */}
       <Card style={{ padding: "18px 22px", marginBottom: 20 }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
           <div>
@@ -516,12 +592,16 @@ function LibraryView({ plans, onNew, onSelect }) {
         <div style={{ textAlign: "center", padding: "56px 20px", color: C.inkLight }}>
           <div style={{ fontSize: "3rem", marginBottom: 12 }}>📂</div>
           <p style={{ fontWeight: 700, fontSize: "1rem", color: C.ink, marginBottom: 6 }}>
-            {plans.length === 0 ? "Aún no hay planeaciones guardadas" : "No hay resultados para este filtro"}
+            {weekPlans.length === 0
+              ? "Aún no hay planeaciones esta semana"
+              : "No hay resultados para este filtro"}
           </p>
           <p style={{ fontSize: ".88rem" }}>
-            {plans.length === 0 ? "Sé el primero en agregar una planeación." : "Intenta con otros filtros."}
+            {weekPlans.length === 0
+              ? "Sé el primero en compartir una planeación esta semana."
+              : "Intenta con otros filtros."}
           </p>
-          {plans.length === 0 && (
+          {weekPlans.length === 0 && (
             <div style={{ marginTop: 16 }}>
               <Btn onClick={onNew} variant="primary">+ Nueva planeación</Btn>
             </div>
@@ -536,12 +616,12 @@ function LibraryView({ plans, onNew, onSelect }) {
                 transition: "transform .15s, box-shadow .15s" }}
               onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)";
                 e.currentTarget.style.boxShadow = "0 8px 24px rgba(26,26,46,.14)"; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = "0 2px 8px rgba(26,26,46,.08)"; }}>
-              {/* color bar */}
+              onMouseLeave={e => { e.currentTarget.style.transform = "";
+                e.currentTarget.style.boxShadow = "0 2px 8px rgba(26,26,46,.08)"; }}>
               <div style={{ height: 4, background: `linear-gradient(90deg,${C.violet},${C.gold})` }} />
               <div style={{ padding: "18px 20px" }}>
                 <div style={{ display: "flex", gap: 6, marginBottom: 10, flexWrap: "wrap" }}>
-                  <LevelBadge level={plan.level.replace("Nivel ","")} />
+                  <LevelBadge level={plan.level} />
                   {plan.date && <Badge color={C.inkLight} bg={C.surface}>{plan.date}</Badge>}
                 </div>
                 <h4 style={{ fontSize: ".97rem", fontWeight: 800, color: C.ink, margin: "0 0 6px" }}>
@@ -570,19 +650,41 @@ function LibraryView({ plans, onNew, onSelect }) {
 
 // ── APP PRINCIPAL ─────────────────────────────────────────────
 export default function App() {
-  const [plans, setPlans] = useState([]);
-  const [view, setView] = useState("library"); // library | form | detail
+  const [plans, setPlans]       = useState([]);
+  const [view, setView]         = useState("library");
   const [selected, setSelected] = useState(null);
-  const [editing, setEditing] = useState(null);
+  const [editing, setEditing]   = useState(null);
+  const [loading, setLoading]   = useState(true);
+  const [networkError, setNetworkError] = useState(false);
 
-  useEffect(() => { setPlans(loadPlans()); }, []);
+  const weekKey = getCurrentWeekKey();
+  const sunday  = isSunday();
+
+  // Cargar planeaciones al montar: primero caché local, luego Sheets
+  useEffect(() => {
+    const local = loadLocalPlans();
+    if (local.length) setPlans(local);
+
+    fetchAllPlans().then(remote => {
+      if (remote) {
+        setPlans(remote);
+        saveLocalPlans(remote);
+        setNetworkError(false);
+      } else {
+        setNetworkError(true);
+      }
+      setLoading(false);
+    });
+  }, []);
 
   function handleSave(plan) {
     if (!plan) { setView("library"); setEditing(null); return; }
     setPlans(prev => {
       const exists = prev.find(p => p.id === plan.id);
-      const next = exists ? prev.map(p => p.id === plan.id ? plan : p) : [...prev, plan];
-      savePlans(next);
+      const next = exists
+        ? prev.map(p => p.id === plan.id ? plan : p)
+        : [...prev, plan];
+      saveLocalPlans(next);
       return next;
     });
     setView("library");
@@ -591,16 +693,24 @@ export default function App() {
 
   function handleDelete(plan) {
     if (!window.confirm(`¿Eliminar la planeación "${plan.topic}"? Esta acción no se puede deshacer.`)) return;
-    setPlans(prev => { const next = prev.filter(p => p.id !== plan.id); savePlans(next); return next; });
+    deleteFromSheets(plan.id);
+    setPlans(prev => {
+      const next = prev.filter(p => p.id !== plan.id);
+      saveLocalPlans(next);
+      return next;
+    });
     setView("library");
     setSelected(null);
   }
 
-  return (
-    <div style={{ fontFamily: "'Helvetica Neue',Arial,sans-serif", background: C.surface,
-      minHeight: "100vh", color: C.ink }}>
+  // Planeaciones visibles de la semana actual
+  const weekPlans = plans.filter(p => !p.weekKey || p.weekKey === weekKey);
 
-      {/* ── HEADER ── */}
+  return (
+    <div style={{ fontFamily: "'Helvetica Neue',Arial,sans-serif",
+      background: C.surface, minHeight: "100vh", color: C.ink }}>
+
+      {/* HEADER */}
       <div style={{ background: `linear-gradient(135deg,${C.ink} 0%,${C.violet} 100%)`,
         padding: "28px 32px 24px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, opacity: .04,
@@ -610,7 +720,8 @@ export default function App() {
             textTransform: "uppercase", color: C.gold, margin: "0 0 6px" }}>
             Universidad del Valle de Puebla · CELEX
           </p>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between",
+            flexWrap: "wrap", gap: 12 }}>
             <div>
               <h1 style={{ fontSize: "1.5rem", fontWeight: 800, color: C.white, margin: "0 0 4px" }}>
                 📚 Banco de Planeaciones SIS
@@ -622,11 +733,9 @@ export default function App() {
             <div style={{ display: "flex", gap: 10 }}>
               {view !== "library" && (
                 <Btn onClick={() => { setView("library"); setEditing(null); setSelected(null); }}
-                  variant="outline" small>
-                  ← Biblioteca
-                </Btn>
+                  variant="outline" small>← Biblioteca</Btn>
               )}
-              {view === "library" && (
+              {view === "library" && !sunday && (
                 <Btn onClick={() => { setEditing(null); setView("form"); }} variant="gold" small>
                   + Nueva planeación
                 </Btn>
@@ -634,12 +743,12 @@ export default function App() {
             </div>
           </div>
 
-          {/* stats */}
+          {/* Stats */}
           <div style={{ display: "flex", gap: 16, marginTop: 16, flexWrap: "wrap" }}>
             {[
-              { label: "Planeaciones", val: plans.length },
-              { label: "Docentes activos", val: [...new Set(plans.map(p => p.teacher))].length },
-              { label: "Niveles cubiertos", val: [...new Set(plans.map(p => p.level))].length },
+              { label: "Esta semana", val: sunday ? "—" : weekPlans.length },
+              { label: "Docentes activos", val: [...new Set(weekPlans.map(p => p.teacher))].length },
+              { label: "Niveles cubiertos", val: [...new Set(weekPlans.map(p => p.level))].length },
             ].map(s => (
               <div key={s.label} style={{ background: "rgba(255,255,255,.1)",
                 border: "1px solid rgba(255,255,255,.15)", borderRadius: 8, padding: "8px 16px" }}>
@@ -651,44 +760,59 @@ export default function App() {
         </div>
       </div>
 
-      {/* ── NAV TABS ── */}
-      {view === "library" && (
+      {/* NAV TABS */}
+      {view === "library" && !sunday && (
         <div style={{ background: C.white, borderBottom: `2px solid ${C.gold}`,
           display: "flex", padding: "0 32px", overflowX: "auto" }}>
           {["Todas", ...LEVELS.map(l => `Nivel ${l}`)].map(tab => {
-            const count = tab === "Todas" ? plans.length : plans.filter(p => p.level === tab).length;
+            const count = tab === "Todas"
+              ? weekPlans.length
+              : weekPlans.filter(p => p.level === tab).length;
             return (
-              <button key={tab} style={{ padding: "14px 16px", border: "none", background: "transparent",
-                fontSize: ".82rem", fontWeight: 600, color: C.inkLight, cursor: "pointer",
-                borderBottom: `3px solid transparent`, whiteSpace: "nowrap", fontFamily: "inherit" }}
+              <button key={tab} style={{ padding: "14px 16px", border: "none",
+                background: "transparent", fontSize: ".82rem", fontWeight: 600,
+                color: C.inkLight, cursor: "pointer", borderBottom: "3px solid transparent",
+                whiteSpace: "nowrap", fontFamily: "inherit" }}
                 onMouseEnter={e => e.currentTarget.style.color = C.violet}
                 onMouseLeave={e => e.currentTarget.style.color = C.inkLight}>
-                {tab} <span style={{ background: C.violetPale, color: C.violet, borderRadius: 40,
-                  padding: "1px 7px", fontSize: ".72rem", marginLeft: 4 }}>{count}</span>
+                {tab} <span style={{ background: C.violetPale, color: C.violet,
+                  borderRadius: 40, padding: "1px 7px", fontSize: ".72rem", marginLeft: 4 }}>
+                  {count}
+                </span>
               </button>
             );
           })}
         </div>
       )}
 
-      {/* ── CONTENIDO ── */}
+      {/* CONTENIDO */}
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "28px 24px" }}>
-        {view === "library" && (
-          <LibraryView plans={plans} onNew={() => { setEditing(null); setView("form"); }}
-            onSelect={p => { setSelected(p); setView("detail"); }} />
-        )}
-        {view === "form" && (
-          <FormView onSave={handleSave} editPlan={editing} />
-        )}
-        {view === "detail" && selected && (
-          <DetailView plan={selected}
-            onBack={() => { setView("library"); setSelected(null); }}
-            onEdit={() => { setEditing(selected); setView("form"); }}
-            onDelete={() => handleDelete(selected)} />
+        {sunday ? (
+          <SundayBanner />
+        ) : (
+          <>
+            {view === "library" && (
+              <LibraryView
+                plans={plans}
+                weekKey={weekKey}
+                loading={loading}
+                networkError={networkError}
+                onNew={() => { setEditing(null); setView("form"); }}
+                onSelect={p => { setSelected(p); setView("detail"); }}
+              />
+            )}
+            {view === "form" && (
+              <FormView onSave={handleSave} editPlan={editing} />
+            )}
+            {view === "detail" && selected && (
+              <DetailView plan={selected}
+                onBack={() => { setView("library"); setSelected(null); }}
+                onEdit={() => { setEditing(selected); setView("form"); }}
+                onDelete={() => handleDelete(selected)} />
+            )}
+          </>
         )}
       </div>
-
     </div>
   );
-  
 }

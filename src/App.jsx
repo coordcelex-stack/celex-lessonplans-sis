@@ -76,7 +76,14 @@ const TEACHERS = [
   "González Sandoval Zaira María",
 ];
 
-const LEVELS = ["I", "II", "III", "IV", "V", "VI"];
+const LEVELS = ["const LEVELS = 
+  "I — S (Starter)",
+  "II — E (Elementary)",
+  "III — P (Pre-intermediate)",
+  "IV — I (Intermediate)",
+  "V — U (Upper intermediate)",
+  "VI — L (Lower advanced)",
+];
 
 const STEPS = [
   { key: "warmup",      label: "1 — Warm up",                        time: "10 mins." },

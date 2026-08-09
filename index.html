@@ -1,577 +1,90 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Banco de Planeaciones SIS — CELEX UVP</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: Arial, sans-serif; background: #f4f3ef; color: #1a1a2e; min-height: 100vh; }
+UNIVERSIDAD DEL VALLE DE PUEBLA · CELEX
+📚 Banco de Planeaciones SIS
+Comparte y consulta planeaciones del Modelo SIS con todo el equipo docente.
++ Nueva planeación
+0
+Esta semana
+0
+Docentes activos
+0
+Niveles cubiertos
+5
+Máx. por docente
+SEMANA ACTIVA
+📅 Cargando...
+⟳ Conectando...
+Todas 0
+Nivel I — S 0
+Nivel II — E 0
+Nivel III — P 0
+Nivel IV — I 0
+Nivel V — U 0
+Nivel VI — L 0
+🔍 BUSCAR
+NIVEL
+            Todos los niveles
+            Nivel I — S (Starter)
+            Nivel II — E (Elementary)
+            Nivel III — P (Pre-intermediate)
+            Nivel IV — I (Intermediate)
+            Nivel V — U (Upper intermediate)
+            Nivel VI — L (Lower advanced)
+          
+DOCENTE
+            Todos los docentes
+            Rodríguez Fernández Alejandro
+            Arcocha Sotomayor Claudia
+            Ortiz Vargas Claudia
+            Mota Blanco Edgar
+            Atenco Martínez Javier
+            Rosas de la Llave Karina
+            Andrade Parra Martha Irene
+            Ruiz González Miguel Ángel
+            Alarcón Morales Samantha
+            Vega Rosas Luis Johany
+            Diaz Felipe Victor Octavio
+            Álvarez Torres Yuliana
+            Flores Monroy Bruno
+            Martínez Arenalde Cesar
+            Aburto Morales Montserrat
+            Sánchez Garfias Mayanit
+            Yañez Torres Maria Flor
+            Pablo García
+            Rivera González Rosalba
+            Vazquez Díaz Janis
+            Zurita Juarez Araceli
+            De La Cruz Del Valle Oscar Ivan
+            Guzmán Osorio José Antonio
+            Jiménez Flores Vanessa
+            Rugerio Ochoa Alejandro Carlos
+            Medel Osorio Gabriel
+            Merino Castañeda Jessica
+            Ramirez Hernández Miriam Andrea
+            Pineda Jacinto Jessica
+            Herrera Quiroz Lariza
+            Castillo Soto Astrid
+            Hernández Moreno Daniela
+            Cossio Chavero Diana Claudia
+            Serrano Hernández Miriam
+            Salazar Ponce Rosalba
+            Flores Guzmán Adriana Emilia
+            Montebello Correa Mar
+            Pérez Cortés Yulissa
+            Xicotencatl Díaz Diana
+            Luna Martínez Héctor Rubén
+            Torres Soriano Verónica
+            Alarcón Hernández Brayan Eduardo
+            Guds Esperanza Anouska
+            Sandoval Román Brenda Mariana
+            Contreras Rodríguez Citlali Abigail
+            Guerrero Cortés Uriel Joshue
+            Rodríguez López Sandra
+            Vázquez Contreras Diana Fernanda
+            Torres Martínez Juan Guillermo
+            Escalona Méndez Berenice
+            García Sánchez Sergio
+            Durana Hernández Guadalupe
+            García Solís Paola
+            González Sandoval Zaira María
+          
 
-  /* HEADER */
-  .header { background: linear-gradient(135deg, #1a1a2e 0%, #5b4d8a 100%); padding: 28px 32px; }
-  .header-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #c9a84c; display: block; margin-bottom: 6px; }
-  .header-title { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 4px; }
-  .header-sub { font-size: 13px; color: rgba(255,255,255,.7); margin-bottom: 16px; }
-  .header-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
-  .stats { display: flex; gap: 12px; flex-wrap: wrap; }
-  .stat { background: rgba(255,255,255,.12); border-radius: 8px; padding: 8px 16px; text-align: center; }
-  .stat-n { font-size: 18px; font-weight: 800; color: #fff; display: block; }
-  .stat-l { font-size: 11px; color: rgba(255,255,255,.6); display: block; }
-
-  /* BUTTONS */
-  .btn { padding: 9px 20px; border-radius: 30px; font-weight: 700; font-size: 13px; cursor: pointer; border: none; font-family: Arial, sans-serif; display: inline-block; }
-  .btn-gold { background: #c9a84c; color: #1a1a2e; }
-  .btn-violet { background: #5b4d8a; color: #fff; }
-  .btn-outline { background: transparent; color: #5b4d8a; border: 2px solid #5b4d8a; }
-  .btn-red { background: transparent; color: #c25b3f; border: 2px solid #c25b3f; }
-  .btn-sm { padding: 6px 14px; font-size: 12px; }
-  .btn-ghost { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.3); }
-  .btn + .btn { margin-left: 8px; }
-
-  /* MAIN */
-  .main { max-width: 900px; margin: 0 auto; padding: 24px 20px; }
-
-  /* FILTERS */
-  .filters { background: #fff; border-radius: 10px; border: 1px solid #e0ddd5; padding: 16px; margin-bottom: 18px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-  .flabel { display: block; font-size: 11px; font-weight: 700; color: #5b4d8a; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 5px; }
-  .finput { width: 100%; padding: 8px 10px; border: 1.5px solid #ddd; border-radius: 7px; font-size: 13px; color: #1a1a2e; background: #fff; font-family: Arial, sans-serif; }
-  .finput:focus { outline: none; border-color: #5b4d8a; }
-
-  /* PLAN CARDS */
-  .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .pcard { background: #fff; border-radius: 10px; border: 1.5px solid #e0ddd5; overflow: hidden; cursor: pointer; transition: box-shadow .15s, transform .15s; }
-  .pcard:hover { box-shadow: 0 6px 20px rgba(26,26,46,.12); transform: translateY(-2px); }
-  .pcard-bar { height: 4px; background: linear-gradient(90deg, #5b4d8a, #c9a84c); }
-  .pcard-body { padding: 14px 16px; }
-  .pcard-foot { padding: 8px 16px; background: #f4f3ef; border-top: 1px solid #e0ddd5; font-size: 11px; color: #888; }
-  .badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-right: 4px; margin-bottom: 6px; }
-  .badge-I   { background: #e0f2f2; color: #2d7a7a; }
-  .badge-II  { background: #ede9f7; color: #5b4d8a; }
-  .badge-III { background: #f0e2b6; color: #6b4a00; }
-  .badge-IV  { background: #faeae6; color: #c25b3f; }
-  .badge-V   { background: #e6f1fb; color: #185fa5; }
-  .badge-VI  { background: #f3e8ff; color: #5a2d82; }
-  .badge-gray { background: #f4f3ef; color: #555; }
-
-  /* EMPTY */
-  .empty { text-align: center; padding: 48px 20px; color: #888; }
-  .empty-icon { font-size: 40px; display: block; margin-bottom: 10px; }
-  .empty-title { font-size: 15px; font-weight: 700; color: #1a1a2e; display: block; margin-bottom: 8px; }
-
-  /* FORM */
-  .form-card { background: #fff; border-radius: 10px; border: 1px solid #e0ddd5; padding: 20px 24px; margin-bottom: 14px; }
-  .form-title { font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 16px; }
-  .form-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-  .form-grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-  .field { margin-bottom: 0; }
-  .field label { display: block; font-size: 11px; font-weight: 700; color: #5b4d8a; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
-  .field input, .field select, .field textarea { width: 100%; padding: 9px 11px; border: 1.5px solid #ddd; border-radius: 7px; font-size: 13px; color: #1a1a2e; background: #fff; font-family: Arial, sans-serif; }
-  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: #5b4d8a; }
-  .required { color: #c25b3f; }
-
-  /* STEP BLOCK */
-  .step-block { background: #fff; border-radius: 10px; border: 1px solid #e0ddd5; overflow: hidden; margin-bottom: 10px; }
-  .step-head { background: linear-gradient(135deg, #1a1a2e, #5b4d8a); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
-  .step-name { font-size: 13px; font-weight: 700; color: #fff; }
-  .step-time { background: rgba(201,168,76,.3); color: #c9a84c; border-radius: 20px; padding: 2px 10px; font-size: 11px; font-weight: 700; }
-  .step-body { padding: 14px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-  /* DIVIDER */
-  .divider { display: flex; align-items: center; gap: 12px; margin: 18px 0 14px; }
-  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #e0ddd5; }
-  .divider span { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #c9a84c; background: #f4f3ef; padding: 3px 12px; border: 1px solid #f0e2b6; border-radius: 20px; white-space: nowrap; }
-
-  /* DETAIL */
-  .detail-hero { background: linear-gradient(135deg, #1a1a2e, #5b4d8a); border-radius: 12px; padding: 22px 26px; margin-bottom: 14px; }
-  .detail-topic { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 4px; }
-  .detail-teacher { font-size: 13px; color: rgba(255,255,255,.7); margin-bottom: 12px; }
-  .detail-obj-box { background: rgba(255,255,255,.1); border-radius: 8px; padding: 12px 14px; }
-  .detail-obj-label { font-size: 10px; font-weight: 700; color: #c9a84c; text-transform: uppercase; display: block; margin-bottom: 4px; }
-  .detail-obj-text { font-size: 13px; color: rgba(255,255,255,.9); }
-  .detail-step { background: #fff; border-radius: 10px; border: 1px solid #e0ddd5; overflow: hidden; margin-bottom: 10px; }
-  .detail-step-body { padding: 14px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .detail-col-right { border-left: 2px solid #f0e2b6; padding-left: 14px; }
-  .col-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; display: block; }
-  .col-val { font-size: 13px; }
-
-  /* TOAST */
-  .toast { padding: 11px 16px; border-radius: 8px; margin-bottom: 14px; font-size: 13px; font-weight: 600; border-left: 4px solid; display: none; }
-  .toast.show { display: block; }
-  .toast-ok { background: #e0f2f2; color: #2d7a7a; border-color: #2d7a7a; }
-  .toast-err { background: #faeae6; color: #c25b3f; border-color: #c25b3f; }
-
-  /* ACTION ROW */
-  .action-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
-
-  @media (max-width: 600px) {
-    .filters { grid-template-columns: 1fr; }
-    .cards-grid { grid-template-columns: 1fr; }
-    .form-grid2, .form-grid3 { grid-template-columns: 1fr; }
-    .step-body, .detail-step-body { grid-template-columns: 1fr; }
-    .detail-col-right { border-left: none; padding-left: 0; border-top: 2px solid #f0e2b6; padding-top: 10px; }
-  }
-</style>
-</head>
-<body>
-
-<!-- HEADER -->
-<div class="header">
-  <div style="max-width:900px;margin:0 auto;">
-    <div class="header-row">
-      <div>
-        <span class="header-eyebrow">Universidad del Valle de Puebla &middot; CELEX</span>
-        <div class="header-title">&#128218; Banco de Planeaciones SIS</div>
-        <div class="header-sub">Comparte y consulta planeaciones del Modelo SIS &middot; Niveles I&ndash;VI</div>
-      </div>
-      <div id="header-btn">
-        <button class="btn btn-gold" onclick="SIS.goForm()">+ Nueva planeaci&oacute;n</button>
-      </div>
-    </div>
-    <div class="stats">
-      <div class="stat"><span class="stat-n" id="stat-plans">0</span><span class="stat-l">Planeaciones</span></div>
-      <div class="stat"><span class="stat-n" id="stat-teachers">0</span><span class="stat-l">Docentes</span></div>
-      <div class="stat"><span class="stat-n" id="stat-levels">0</span><span class="stat-l">Niveles</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- MAIN -->
-<div class="main">
-  <div class="toast toast-ok" id="toast"></div>
-
-  <!-- LIBRARY VIEW -->
-  <div id="view-lib">
-    <div class="filters">
-      <div>
-        <label class="flabel">&#128269; Buscar</label>
-        <input class="finput" id="f-search" placeholder="Tema, docente..." oninput="SIS.filter()"/>
-      </div>
-      <div>
-        <label class="flabel">Nivel</label>
-        <select class="finput" id="f-level" onchange="SIS.filter()">
-          <option value="">Todos los niveles</option>
-          <option>Nivel I</option><option>Nivel II</option><option>Nivel III</option>
-          <option>Nivel IV</option><option>Nivel V</option><option>Nivel VI</option>
-        </select>
-      </div>
-      <div>
-        <label class="flabel">Docente</label>
-        <select class="finput" id="f-teacher" onchange="SIS.filter()">
-          <option value="">Todos los docentes</option>
-          <option>Rodr&iacute;guez Fern&aacute;ndez Alejandro</option>
-          <option>Arcocha Sotomayor Claudia</option>
-          <option>Ortiz Vargas Claudia</option>
-          <option>Mota Blanco Edgar</option>
-          <option>Atenco Mart&iacute;nez Javier</option>
-          <option>Rosas de la Llave Karina</option>
-          <option>Andrade Parra Martha Irene</option>
-          <option>Ruiz Gonz&aacute;lez Miguel &Aacute;ngel</option>
-          <option>Alarc&oacute;n Morales Samantha</option>
-          <option>Vega Rosas Luis Johany</option>
-          <option>Diaz Felipe Victor Octavio</option>
-          <option>&Aacute;lvarez Torres Yuliana</option>
-          <option>Flores Monroy Bruno</option>
-          <option>Mart&iacute;nez Arenalde Cesar</option>
-          <option>Aburto Morales Montserrat</option>
-          <option>S&aacute;nchez Garfias Mayanit</option>
-          <option>Ya&ntilde;ez Torres Maria Flor</option>
-          <option>Pablo Garc&iacute;a</option>
-          <option>Rivera Gonz&aacute;lez Rosalba</option>
-          <option>Vazquez D&iacute;az Janis</option>
-          <option>Zurita Juarez Araceli</option>
-          <option>De La Cruz Del Valle Oscar Ivan</option>
-          <option>Guzm&aacute;n Osorio Jos&eacute; Antonio</option>
-          <option>Jim&eacute;nez Flores Vanessa</option>
-          <option>Rugerio Ochoa Alejandro Carlos</option>
-          <option>Medel Osorio Gabriel</option>
-          <option>Merino Casta&ntilde;eda Jessica</option>
-          <option>Ramirez Hern&aacute;ndez Miriam Andrea</option>
-          <option>Pineda Jacinto Jessica</option>
-          <option>Herrera Quiroz Lariza</option>
-          <option>Zaira MaríaGonzález Sandoval </option>
-        </select>
-      </div>
-    </div>
-    <div class="cards-grid" id="cards-container">
-      <div class="empty" style="grid-column:1/-1;">
-        <span class="empty-icon">&#128194;</span>
-        <span class="empty-title">A&uacute;n no hay planeaciones guardadas</span>
-        <button class="btn btn-violet" style="margin-top:10px;" onclick="SIS.goForm()">+ Agregar primera planeaci&oacute;n</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- FORM VIEW -->
-  <div id="view-form" style="display:none;">
-    <div class="form-card">
-      <div class="form-title" id="form-title">&#128203; Nueva planeaci&oacute;n</div>
-      <div class="form-grid3">
-        <div class="field">
-          <label>Docente <span class="required">*</span></label>
-          <select id="f-doc">
-            <option value="">&mdash; Selecciona &mdash;</option>
-            <option>Rodr&iacute;guez Fern&aacute;ndez Alejandro</option>
-            <option>Arcocha Sotomayor Claudia</option>
-            <option>Ortiz Vargas Claudia</option>
-            <option>Mota Blanco Edgar</option>
-            <option>Atenco Mart&iacute;nez Javier</option>
-            <option>Rosas de la Llave Karina</option>
-            <option>Andrade Parra Martha Irene</option>
-            <option>Ruiz Gonz&aacute;lez Miguel &Aacute;ngel</option>
-            <option>Alarc&oacute;n Morales Samantha</option>
-            <option>Vega Rosas Luis Johany</option>
-            <option>Diaz Felipe Victor Octavio</option>
-            <option>&Aacute;lvarez Torres Yuliana</option>
-            <option>Flores Monroy Bruno</option>
-            <option>Mart&iacute;nez Arenalde Cesar</option>
-            <option>Aburto Morales Montserrat</option>
-            <option>S&aacute;nchez Garfias Mayanit</option>
-            <option>Ya&ntilde;ez Torres Maria Flor</option>
-            <option>Pablo Garc&iacute;a</option>
-            <option>Rivera Gonz&aacute;lez Rosalba</option>
-            <option>Vazquez D&iacute;az Janis</option>
-            <option>Zurita Juarez Araceli</option>
-            <option>De La Cruz Del Valle Oscar Ivan</option>
-            <option>Guzm&aacute;n Osorio Jos&eacute; Antonio</option>
-            <option>Jim&eacute;nez Flores Vanessa</option>
-            <option>Rugerio Ochoa Alejandro Carlos</option>
-            <option>Medel Osorio Gabriel</option>
-            <option>Merino Casta&ntilde;eda Jessica</option>
-            <option>Ramirez Hern&aacute;ndez Miriam Andrea</option>
-            <option>Pineda Jacinto Jessica</option>
-            <option>Herrera Quiroz Lariza</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Nivel <span class="required">*</span></label>
-          <select id="f-lvl">
-            <option value="">&mdash; Selecciona &mdash;</option>
-            <option>Nivel I</option><option>Nivel II</option><option>Nivel III</option>
-            <option>Nivel IV</option><option>Nivel V</option><option>Nivel VI</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Clase / Grupo</label>
-          <input id="f-grp" placeholder="Ej. A &middot; Lunes 8am"/>
-        </div>
-      </div>
-      <div class="form-grid2">
-        <div class="field">
-          <label>Tema <span class="required">*</span></label>
-          <input id="f-topic" placeholder="Ej. Passive Voice &mdash; Present"/>
-        </div>
-        <div class="field">
-          <label>Fecha</label>
-          <input id="f-date" type="date"/>
-        </div>
-      </div>
-      <div class="field">
-        <label>Objetivo de la sesi&oacute;n <span class="required">*</span></label>
-        <textarea id="f-obj" rows="2" placeholder="&iquest;Qu&eacute; habilidad comunicativa desarrollar&aacute;n los estudiantes?"></textarea>
-      </div>
-    </div>
-
-    <div class="divider"><span>Pasos de la sesi&oacute;n &mdash; 90 min</span></div>
-
-    <div class="step-block">
-      <div class="step-head"><span class="step-name">1 &mdash; Warm up</span><span class="step-time">10 min</span></div>
-      <div class="step-body">
-        <div class="field"><label>Descripci&oacute;n</label><textarea id="s-wu-d" rows="3" placeholder="&iquest;Qu&eacute; har&aacute;n los estudiantes?"></textarea></div>
-        <div class="field"><label>Objetivo / Interacci&oacute;n / Recursos</label><textarea id="s-wu-g" rows="3" placeholder="Ej. T&rarr;S &middot; Pase de lista"></textarea></div>
-      </div>
-    </div>
-    <div class="step-block">
-      <div class="step-head"><span class="step-name">2 &mdash; Presentation, vocabulary &amp; context</span><span class="step-time">10&ndash;15 min</span></div>
-      <div class="step-body">
-        <div class="field"><label>Descripci&oacute;n</label><textarea id="s-ctx-d" rows="3" placeholder="&iquest;Qu&eacute; har&aacute;n los estudiantes?"></textarea></div>
-        <div class="field"><label>Objetivo / Interacci&oacute;n / Recursos</label><textarea id="s-ctx-g" rows="3" placeholder="Ej. T&rarr;grupo &middot; Material audiovisual"></textarea></div>
-      </div>
-    </div>
-    <div class="step-block">
-      <div class="step-head"><span class="step-name">3 &mdash; Applied Grammar</span><span class="step-time">10&ndash;15 min</span></div>
-      <div class="step-body">
-        <div class="field"><label>Descripci&oacute;n</label><textarea id="s-gr-d" rows="3" placeholder="&iquest;Qu&eacute; har&aacute;n los estudiantes?"></textarea></div>
-        <div class="field"><label>Objetivo / Interacci&oacute;n / Recursos</label><textarea id="s-gr-g" rows="3" placeholder="Ej. Equipos &middot; Hoja de trabajo"></textarea></div>
-      </div>
-    </div>
-    <div class="step-block">
-      <div class="step-head"><span class="step-name">4 &mdash; Simulation practice</span><span class="step-time">20&ndash;30 min</span></div>
-      <div class="step-body">
-        <div class="field"><label>Descripci&oacute;n</label><textarea id="s-sim-d" rows="3" placeholder="&iquest;Qu&eacute; har&aacute;n los estudiantes?"></textarea></div>
-        <div class="field"><label>Objetivo / Interacci&oacute;n / Recursos</label><textarea id="s-sim-g" rows="3" placeholder="Ej. S-S &middot; Tarjetas de rol"></textarea></div>
-      </div>
-    </div>
-    <div class="step-block">
-      <div class="step-head"><span class="step-name">5 &mdash; Decision making</span><span class="step-time">10&ndash;15 min</span></div>
-      <div class="step-body">
-        <div class="field"><label>Descripci&oacute;n</label><textarea id="s-dec-d" rows="3" placeholder="&iquest;Qu&eacute; har&aacute;n los estudiantes?"></textarea></div>
-        <div class="field"><label>Objetivo / Interacci&oacute;n / Recursos</label><textarea id="s-dec-g" rows="3" placeholder="Ej. S-S &middot; Decisi&oacute;n conjunta"></textarea></div>
-      </div>
-    </div>
-    <div class="step-block">
-      <div class="step-head"><span class="step-name">6 &mdash; Results</span><span class="step-time">10 min</span></div>
-      <div class="step-body">
-        <div class="field"><label>Descripci&oacute;n</label><textarea id="s-res-d" rows="3" placeholder="&iquest;Qu&eacute; har&aacute;n los estudiantes?"></textarea></div>
-        <div class="field"><label>Objetivo / Interacci&oacute;n / Recursos</label><textarea id="s-res-g" rows="3" placeholder="Ej. Grupal &middot; Presentaci&oacute;n oral"></textarea></div>
-      </div>
-    </div>
-
-    <div class="action-row">
-      <button class="btn btn-violet" onclick="SIS.save()">&#128190; Guardar planeaci&oacute;n</button>
-      <button class="btn btn-outline" onclick="SIS.goLib()">Cancelar</button>
-    </div>
-  </div>
-
-  <!-- DETAIL VIEW -->
-  <div id="view-detail" style="display:none;">
-    <div class="action-row" style="margin-bottom:16px;">
-      <button class="btn btn-outline btn-sm" onclick="SIS.goLib()">&#8592; Volver</button>
-      <button class="btn btn-violet btn-sm" onclick="SIS.goEdit()">&#9998; Editar</button>
-      <button class="btn btn-red btn-sm" onclick="SIS.del()">&#128465; Eliminar</button>
-    </div>
-    <div class="detail-hero">
-      <div id="d-badges" style="margin-bottom:10px;"></div>
-      <div class="detail-topic" id="d-topic"></div>
-      <div class="detail-teacher" id="d-teacher"></div>
-      <div class="detail-obj-box">
-        <span class="detail-obj-label">Objetivo</span>
-        <div class="detail-obj-text" id="d-obj"></div>
-      </div>
-    </div>
-    <div id="d-steps"></div>
-  </div>
-
-</div><!-- /main -->
-
-<script>
-var WH = 'https://script.google.com/macros/s/AKfycbwshvc64VGc9F5VHbUjCrA54hoaaNbsOYWmUOHsaecNqhfwrU2dl4JXTdo8roFjo1Y8jQ/exec';
-var SK = 'celex_sis_v5';
-var STEPS = [
-  {id:'wu',  label:'1 &mdash; Warm up',                           time:'10 min'},
-  {id:'ctx', label:'2 &mdash; Presentation, vocabulary &amp; context', time:'10&ndash;15 min'},
-  {id:'gr',  label:'3 &mdash; Applied Grammar',                   time:'10&ndash;15 min'},
-  {id:'sim', label:'4 &mdash; Simulation practice',               time:'20&ndash;30 min'},
-  {id:'dec', label:'5 &mdash; Decision making',                   time:'10&ndash;15 min'},
-  {id:'res', label:'6 &mdash; Results',                           time:'10 min'}
-];
-var LVL_BADGE = {
-  'Nivel I':'badge-I','Nivel II':'badge-II','Nivel III':'badge-III',
-  'Nivel IV':'badge-IV','Nivel V':'badge-V','Nivel VI':'badge-VI'
-};
-
-function loadPlans(){ try{ var r=localStorage.getItem(SK); return r?JSON.parse(r):[]; }catch(e){ return []; } }
-function savePlans(p){ try{ localStorage.setItem(SK,JSON.stringify(p)); }catch(e){} }
-function esc(s){ if(!s)return''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function toast(msg, type){
-  var el=document.getElementById('toast');
-  el.className='toast show toast-'+(type||'ok');
-  el.textContent=msg;
-  setTimeout(function(){ el.className='toast'; }, 4000);
-}
-function updateStats(){
-  var plans=loadPlans();
-  document.getElementById('stat-plans').textContent=plans.length;
-  document.getElementById('stat-teachers').textContent=[...new Set(plans.map(function(p){return p.teacher;}))].length;
-  document.getElementById('stat-levels').textContent=[...new Set(plans.map(function(p){return p.level;}))].length;
-}
-
-var currentId = null;
-
-var SIS = {
-  goLib: function(){
-    document.getElementById('view-lib').style.display='';
-    document.getElementById('view-form').style.display='none';
-    document.getElementById('view-detail').style.display='none';
-    document.getElementById('header-btn').innerHTML='<button class="btn btn-gold" onclick="SIS.goForm()">+ Nueva planeaci&oacute;n</button>';
-    currentId=null;
-    this.renderCards();
-    updateStats();
-  },
-  goForm: function(id){
-    currentId = id || null;
-    document.getElementById('view-lib').style.display='none';
-    document.getElementById('view-form').style.display='';
-    document.getElementById('view-detail').style.display='none';
-    document.getElementById('header-btn').innerHTML='<button class="btn btn-ghost" onclick="SIS.goLib()">&#8592; Volver</button>';
-    document.getElementById('form-title').innerHTML = id ? '&#9998; Editar planeaci&oacute;n' : '&#128203; Nueva planeaci&oacute;n';
-
-    // Clear form
-    ['f-doc','f-lvl','f-grp','f-topic','f-date','f-obj'].forEach(function(fid){ document.getElementById(fid).value=''; });
-    STEPS.forEach(function(s){ document.getElementById('s-'+s.id+'-d').value=''; document.getElementById('s-'+s.id+'-g').value=''; });
-
-    if(id){
-      var plan = loadPlans().find(function(p){ return p.id===id; });
-      if(plan){
-        document.getElementById('f-doc').value = plan.teacher;
-        document.getElementById('f-lvl').value = plan.level;
-        document.getElementById('f-grp').value = plan.group || '';
-        document.getElementById('f-topic').value = plan.topic;
-        document.getElementById('f-date').value = plan.date || '';
-        document.getElementById('f-obj').value = plan.objective;
-        STEPS.forEach(function(s){
-          document.getElementById('s-'+s.id+'-d').value = (plan.steps&&plan.steps[s.id]&&plan.steps[s.id].d)||'';
-          document.getElementById('s-'+s.id+'-g').value = (plan.steps&&plan.steps[s.id]&&plan.steps[s.id].g)||'';
-        });
-      }
-    }
-  },
-  goDetail: function(id){
-    var plan = loadPlans().find(function(p){ return p.id===id; });
-    if(!plan) return;
-    currentId = id;
-    document.getElementById('view-lib').style.display='none';
-    document.getElementById('view-form').style.display='none';
-    document.getElementById('view-detail').style.display='';
-    document.getElementById('header-btn').innerHTML='<button class="btn btn-ghost" onclick="SIS.goLib()">&#8592; Volver</button>';
-
-    var bc = LVL_BADGE[plan.level]||'badge-gray';
-    var badges = '<span class="badge '+bc+'">'+esc(plan.level)+'</span>';
-    if(plan.group) badges += '<span class="badge badge-gray">'+esc(plan.group)+'</span>';
-    if(plan.date) badges += '<span class="badge" style="background:rgba(201,168,76,.2);color:#c9a84c;">'+esc(plan.date)+'</span>';
-    document.getElementById('d-badges').innerHTML = badges;
-    document.getElementById('d-topic').textContent = plan.topic;
-    document.getElementById('d-teacher').textContent = '👩‍🏫 ' + plan.teacher;
-    document.getElementById('d-obj').textContent = plan.objective;
-
-    var stepsHtml = '';
-    STEPS.forEach(function(s){
-      var d = (plan.steps&&plan.steps[s.id]&&plan.steps[s.id].d)||'';
-      var g = (plan.steps&&plan.steps[s.id]&&plan.steps[s.id].g)||'';
-      stepsHtml += '<div class="detail-step">';
-      stepsHtml += '<div class="step-head"><span class="step-name">'+s.label+'</span><span class="step-time">'+s.time+'</span></div>';
-      stepsHtml += '<div class="detail-step-body">';
-      stepsHtml += '<div><span class="col-label" style="color:#5b4d8a;">Descripci&oacute;n</span><div class="col-val" style="color:'+(d?'#444':'#bbb')+';font-style:'+(d?'normal':'italic')+';">'+(d?esc(d):'Sin descripci&oacute;n')+'</div></div>';
-      stepsHtml += '<div class="detail-col-right"><span class="col-label" style="color:#6b4a00;">Objetivo / Interacci&oacute;n / Recursos</span><div class="col-val" style="color:'+(g?'#444':'#bbb')+';font-style:'+(g?'normal':'italic')+';">'+(g?esc(g):'Sin datos')+'</div></div>';
-      stepsHtml += '</div></div>';
-    });
-    document.getElementById('d-steps').innerHTML = stepsHtml;
-  },
-  goEdit: function(){
-    if(currentId) this.goForm(currentId);
-  },
-  del: function(){
-    if(!currentId) return;
-    var plans = loadPlans();
-    var plan = plans.find(function(p){ return p.id===currentId; });
-    if(!plan) return;
-
-    var input = prompt('Para eliminar esta planeación, escribe exactamente el nombre del docente que la creó:\n\n"'+plan.teacher+'"');
-    if(input===null) return; // cancelado
-
-    var normalize = function(s){ return s.trim().toLowerCase().replace(/\s+/g,' '); };
-    if(normalize(input) !== normalize(plan.teacher)){
-      toast('⚠️ El nombre no coincide. Solo el docente que creó esta planeación puede eliminarla.', 'err');
-      return;
-    }
-
-    if(!confirm('¿Confirmas eliminar "'+plan.topic+'"? Esta acción no se puede deshacer.')) return;
-    savePlans(plans.filter(function(p){ return p.id!==currentId; }));
-    toast('Planeación eliminada.', 'ok');
-    this.goLib();
-  },
-  save: function(){
-    var teacher = document.getElementById('f-doc').value;
-    var level   = document.getElementById('f-lvl').value;
-    var topic   = document.getElementById('f-topic').value.trim();
-    var obj     = document.getElementById('f-obj').value.trim();
-    if(!teacher||!level||!topic||!obj){ toast('Completa los campos obligatorios (*)','err'); return; }
-
-    var steps = {};
-    STEPS.forEach(function(s){
-      steps[s.id] = {
-        d: document.getElementById('s-'+s.id+'-d').value.trim(),
-        g: document.getElementById('s-'+s.id+'-g').value.trim()
-      };
-    });
-
-    var plan = {
-      id:      currentId || String(Date.now()),
-      teacher: teacher,
-      level:   level,
-      group:   document.getElementById('f-grp').value.trim(),
-      topic:   topic,
-      date:    document.getElementById('f-date').value,
-      objective: obj,
-      steps:   steps
-    };
-
-    var plans = loadPlans();
-    if(currentId){
-      plans = plans.map(function(p){ return p.id===currentId ? plan : p; });
-    } else {
-      plans.push(plan);
-    }
-    savePlans(plans);
-
-    // Send to Google Sheets
-    try {
-      fetch(WH, {
-        method: 'POST', mode: 'no-cors',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({
-          id: plan.id, teacher: plan.teacher, level: plan.level,
-          topic: plan.topic, objective: plan.objective,
-          classGroup: plan.group||'', date: plan.date||'',
-          warmup_desc:  steps.wu.d,  warmup_goal:  steps.wu.g,
-          context_desc: steps.ctx.d, context_goal: steps.ctx.g,
-          grammar_desc: steps.gr.d,  grammar_goal: steps.gr.g,
-          sim_desc:     steps.sim.d, sim_goal:     steps.sim.g,
-          decision_desc:steps.dec.d, decision_goal:steps.dec.g,
-          results_desc: steps.res.d, results_goal: steps.res.g
-        })
-      });
-    } catch(ex){}
-
-    toast('✅ Planeación guardada y enviada a Google Sheets.', 'ok');
-    this.goLib();
-  },
-  filter: function(){
-    this.renderCards();
-  },
-  renderCards: function(){
-    var search  = (document.getElementById('f-search')||{value:''}).value.toLowerCase();
-    var level   = (document.getElementById('f-level')||{value:''}).value;
-    var teacher = (document.getElementById('f-teacher')||{value:''}).value;
-    var plans   = loadPlans().filter(function(p){
-      return (!level   || p.level===level)
-          && (!teacher || p.teacher===teacher)
-          && (!search  || p.topic.toLowerCase().includes(search) || p.teacher.toLowerCase().includes(search));
-    });
-
-    var container = document.getElementById('cards-container');
-    if(!plans.length){
-      container.innerHTML = '<div class="empty" style="grid-column:1/-1;">'
-        +'<span class="empty-icon">&#128194;</span>'
-        +'<span class="empty-title">'+(loadPlans().length===0?'A&uacute;n no hay planeaciones guardadas':'Sin resultados para este filtro')+'</span>'
-        +(loadPlans().length===0?'<button class="btn btn-violet" style="margin-top:10px;" onclick="SIS.goForm()">+ Agregar primera planeaci&oacute;n</button>':'')
-        +'</div>';
-      return;
-    }
-
-    var html = '';
-    plans.forEach(function(p){
-      var bc = LVL_BADGE[p.level]||'badge-gray';
-      html += '<div class="pcard" onclick="SIS.goDetail(\''+p.id+'\')">';
-      html += '<div class="pcard-bar"></div>';
-      html += '<div class="pcard-body">';
-      html += '<div><span class="badge '+bc+'">'+esc(p.level)+'</span>';
-      if(p.date) html += '<span class="badge badge-gray">'+esc(p.date)+'</span>';
-      html += '</div>';
-      html += '<div style="font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:4px;">'+esc(p.topic)+'</div>';
-      html += '<div style="font-size:12px;color:#555;margin-bottom:6px;">&#128105;&#8205;&#127979; '+esc(p.teacher)+'</div>';
-      html += '<div style="font-size:12px;color:#666;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">'+esc(p.objective)+'</div>';
-      html += '</div>';
-      html += '<div class="pcard-foot">Ver planeaci&oacute;n completa &rarr;</div>';
-      html += '</div>';
-    });
-    container.innerHTML = html;
-  }
-};
-
-// Init
-updateStats();
-SIS.renderCards();
-</script>
-</body>
-</html>

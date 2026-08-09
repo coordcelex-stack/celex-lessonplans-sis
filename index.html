@@ -1,87 +1,692 @@
-UNIVERSIDAD DEL VALLE DE PUEBLA · CELEX
-📚 Banco de Planeaciones SIS
-Comparte y consulta planeaciones del Modelo SIS con todo el equipo docente.
-+ Nueva planeación
-0
-Esta semana
-0
-Docentes activos
-0
-Niveles cubiertos
-SEMANA ACTIVA
-📅 Cargando...
-⟳ Conectando...
-Todas 0
-Starter A1 0
-Elementary A2 0
-Pre-int B1 0
-Intermediate B1+ 0
-Upper int B2 0
-Lower adv B2+ 0
-🔍 BUSCAR
-NIVEL
-            Todos los niveles
-            Starter A1
-            Elementary A2
-            Pre-intermediate B1
-            Intermediate B1+
-            Upper intermediate B2
-            Lower advanced B2+
-          
-DOCENTE
-            Todos los docentes
-            Alejandro Carlos Rugerio Ochoa
-            Alejandro Rodríguez Fernández
-            Araceli Zurita Juarez
-            Astrid Castillo Soto
-            Bruno Flores Monroy
-            Cesar Martínez Arenalde
-            Claudia Arcocha Sotomayor
-            Claudia Ortiz Vargas
-            Daniela Hernández Moreno
-            Diana Claudia Cossio Chavero
-            Harold Eliu Gutiérrez Ramos
-            Janis Vazquez Díaz
-            Javier Atenco Martínez
-            Jessica Merino Castañeda
-            Jessica Pineda Jacinto
-            José Antonio Guzmán Osorio
-            Karina Rosas de la Llave
-            Larisa Herrera Quiroz
-            Luis Johany Vega Rosas
-            Maria Flor Yañez Torres
-            Martha Irene Andrade Parra
-            Mayanit Sánchez Garfias
-            Miguel Ángel Ruiz González
-            Miriam Andrea Ramirez Hernández
-            Miriam Serrano Hernández
-            Oscar Ivan De La Cruz Del Valle
-            Pablo García
-            Rosalba Rivera González
-            Rosalba Salazar Ponce
-            Samantha Alarcón Morales
-            Vanessa Jiménez Flores
-            Victor Octavio Diaz Felipe
-            Yuliana Álvarez Torres
-            Zaira María González Sandoval
-            Adriana Emilia Flores Guzmán
-            Mar Montebello Correa
-            Yulissa Pérez Cortés
-            Diana Xicotencatl Díaz
-            Héctor Rubén Luna Martínez
-            Verónica Torres Soriano
-            Brayan Eduardo Alarcón Hernández
-            Esperanza Anouska Guds
-            Brenda Mariana Sandoval Román
-            Citlali Abigail Contreras Rodríguez
-            Uriel Joshue Guerrero Cortés
-            Sandra Rodríguez López
-            Edgar Mota Blanco
-            Diana Fernanda Vázquez Contreras
-            Juan Guillermo Torres Martínez
-            Berenice Escalona Méndez
-            Sergio García Sánchez
-            Guadalupe Durana Hernández
-            Paola García Solís
-          
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Banco de Planeaciones SIS — CELEX UVP</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1a2e;min-height:100vh;}
+.header{background:linear-gradient(135deg,#1a1a2e 0%,#5b4d8a 100%);padding:28px 32px;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:24px 24px;opacity:.04;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#c9a84c;display:block;margin-bottom:6px;}
+.header-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:4px;}
+.header-sub{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:16px;}
+.header-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:14px;}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+.stat{background:rgba(255,255,255,.12);border-radius:8px;padding:8px 16px;text-align:center;}
+.stat-n{font-size:18px;font-weight:800;color:#fff;display:block;}
+.stat-l{font-size:11px;color:rgba(255,255,255,.6);display:block;}
+.week-bar{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.week-label{font-size:10px;font-weight:700;color:#c9a84c;text-transform:uppercase;letter-spacing:.08em;}
+.week-range{font-size:14px;font-weight:600;color:#fff;margin-top:2px;}
+.sync-badge{font-size:11px;border-radius:40px;padding:3px 12px;font-weight:600;}
+.sync-ok{background:rgba(45,122,122,.3);color:#90e0d0;border:1px solid rgba(45,122,122,.4);}
+.sync-err{background:rgba(194,91,63,.25);color:#ffb3a0;border:1px solid rgba(194,91,63,.4);}
+.sync-loading{background:rgba(201,168,76,.2);color:#f0d080;border:1px solid rgba(201,168,76,.4);}
+.btn{border:none;border-radius:40px;padding:9px 22px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .2s;}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
+.btn-violet{background:linear-gradient(135deg,#5b4d8a,#7b6daa);color:#fff;}
+.btn-gold{background:linear-gradient(135deg,#c9a84c,#e0c068);color:#1a1a2e;}
+.btn-outline{background:transparent;color:#5b4d8a;border:1.5px solid #5b4d8a;}
+.btn-danger{background:transparent;color:#c25b3f;border:1.5px solid #c25b3f;}
+.btn-sm{padding:6px 16px;font-size:12px;}
+.tabs{background:#fff;border-bottom:2px solid #c9a84c;display:flex;padding:0 32px;overflow-x:auto;}
+.tab{padding:13px 14px;border:none;background:transparent;font-size:12px;font-weight:600;color:#3d3d5c;cursor:pointer;white-space:nowrap;font-family:inherit;border-bottom:3px solid transparent;margin-bottom:-2px;}
+.tab:hover{color:#5b4d8a;}
+.main{max-width:920px;margin:0 auto;padding:24px 20px;}
+.cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.pcard{background:#fff;border-radius:12px;overflow:hidden;cursor:pointer;border:1.5px solid #e0ddd5;transition:transform .15s,box-shadow .15s;}
+.pcard:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,26,46,.13);}
+.pcard-bar{height:4px;background:linear-gradient(90deg,#5b4d8a,#c9a84c);}
+.pcard-body{padding:16px 18px;}
+.pcard-badges{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;}
+.pcard-topic{font-size:15px;font-weight:800;color:#1a1a2e;margin-bottom:5px;}
+.pcard-teacher{font-size:12px;color:#3d3d5c;margin-bottom:8px;}
+.pcard-obj{font-size:12px;color:#555;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.pcard-foot{padding:9px 18px;border-top:1px solid #e0ddd5;background:#f7f6f2;font-size:11px;color:#888;}
+.badge{border-radius:40px;padding:3px 10px;font-size:11px;font-weight:700;}
+.badge-I{background:#e0f2f2;color:#2d7a7a;}
+.badge-II{background:#ede9f7;color:#5b4d8a;}
+.badge-III{background:#f0e2b6;color:#6b4a00;}
+.badge-IV{background:#faeae6;color:#c25b3f;}
+.badge-V{background:#e0f0f8;color:#2d5c7a;}
+.badge-VI{background:#f3e8ff;color:#5a2d82;}
+.badge-gray{background:#f0eeeb;color:#666;}
+.badge-date{background:#f0e2b6;color:#6b4a00;}
+.filters{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(26,26,46,.07);padding:16px 20px;margin-bottom:18px;}
+.filters-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.flabel{display:block;font-size:11px;font-weight:700;color:#5b4d8a;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
+.finput{width:100%;padding:8px 11px;border:1.5px solid #e0ddd5;border-radius:8px;font-family:inherit;font-size:13px;color:#1a1a2e;background:#fff;}
+.empty{text-align:center;padding:52px 20px;color:#666;}
+.empty-icon{font-size:3rem;display:block;margin-bottom:12px;}
+.form-card{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(26,26,46,.07);padding:24px 26px;margin-bottom:18px;}
+.form-grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 16px;}
+.form-grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:11px;font-weight:700;color:#5b4d8a;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;}
+.field input,.field select,.field textarea{width:100%;padding:9px 12px;border:1.5px solid #e0ddd5;border-radius:8px;font-family:inherit;font-size:13px;color:#1a1a2e;background:#fff;}
+.field textarea{resize:vertical;}
+.required{color:#c25b3f;}
+.divider{display:flex;align-items:center;gap:12px;margin:22px 0 16px;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:#e0ddd5;}
+.divider-label{font-size:11px;font-weight:700;color:#c9a84c;background:#f5f4f0;padding:3px 12px;border:1px solid #f0e2b6;border-radius:40px;white-space:nowrap;}
+.step-card{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(26,26,46,.07);margin-bottom:12px;overflow:hidden;}
+.step-head{background:linear-gradient(135deg,#1a1a2e 0%,#5b4d8a 100%);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;}
+.step-label{font-size:13px;font-weight:700;color:#fff;}
+.step-time{background:rgba(201,168,76,.25);color:#c9a84c;border:1px solid rgba(201,168,76,.4);border-radius:40px;padding:2px 10px;font-size:11px;font-weight:700;}
+.step-body{padding:14px 18px;display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.step-sublabel{font-size:11px;font-weight:700;color:#5b4d8a;text-transform:uppercase;margin-bottom:4px;}
+.detail-hero{background:linear-gradient(135deg,#1a1a2e 0%,#5b4d8a 100%);border-radius:14px;padding:26px 30px;margin-bottom:18px;position:relative;overflow:hidden;}
+.detail-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:24px 24px;opacity:.04;}
+.detail-bar{height:3px;width:48px;background:linear-gradient(90deg,#c9a84c,#f0e2b6);border-radius:2px;margin-bottom:14px;}
+.detail-topic{font-size:20px;font-weight:800;color:#fff;margin:8px 0 5px;}
+.detail-teacher{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:12px;}
+.detail-obj-box{background:rgba(255,255,255,.1);border-radius:8px;padding:12px 15px;}
+.detail-obj-label{font-size:11px;font-weight:700;color:#c9a84c;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.detail-obj-text{font-size:13px;color:rgba(255,255,255,.88);}
+.detail-step-body{padding:14px 18px;display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.detail-col-text{font-size:13px;color:#3d3d5c;}
+.detail-gold-col{border-left:2px solid #f0e2b6;padding-left:14px;}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:12px 22px;border-radius:10px;font-size:13px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;max-width:480px;text-align:center;}
+.toast.show{opacity:1;}
+.toast-ok{background:#e0f2f2;color:#2d7a7a;border-left:4px solid #2d7a7a;}
+.toast-err{background:#faeae6;color:#c25b3f;border-left:4px solid #c25b3f;}
+.sunday-banner{background:linear-gradient(135deg,#1a1a2e,#5b4d8a);border-radius:14px;padding:44px 28px;text-align:center;margin:32px 0;}
+@media(max-width:600px){
+  .cards-grid,.form-grid3,.form-grid2,.filters-grid,.step-body,.detail-step-body{grid-template-columns:1fr;}
+  .main{padding:16px 12px;}
+  .header{padding:20px 16px;}
+  .tabs{padding:0 12px;}
+}
+</style>
+</head>
+<body>
 
+<div class="header">
+  <span class="eyebrow">Universidad del Valle de Puebla · CELEX</span>
+  <div class="header-row">
+    <div>
+      <div class="header-title">📚 Banco de Planeaciones SIS</div>
+      <div class="header-sub">Comparte y consulta planeaciones del Modelo SIS con todo el equipo docente.</div>
+    </div>
+    <div id="header-btn-wrap">
+      <button class="btn btn-gold btn-sm" onclick="SIS.goForm()">+ Nueva planeación</button>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><span class="stat-n" id="stat-plans">0</span><span class="stat-l">Esta semana</span></div>
+    <div class="stat"><span class="stat-n" id="stat-teachers">0</span><span class="stat-l">Docentes activos</span></div>
+    <div class="stat"><span class="stat-n" id="stat-levels">0</span><span class="stat-l">Niveles cubiertos</span></div>
+  </div>
+  <div class="week-bar">
+    <div>
+      <div class="week-label">Semana activa</div>
+      <div class="week-range" id="week-range-label">📅 Cargando...</div>
+    </div>
+    <div class="sync-badge sync-loading" id="sync-badge">⟳ Conectando...</div>
+  </div>
+</div>
+
+<div class="tabs" id="tabs-bar">
+  <button class="tab" onclick="SIS.filterTab('')">Todas <span id="tc-0" style="background:#ede9f7;color:#5b4d8a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
+  <button class="tab" onclick="SIS.filterTab('Starter A1')">Starter A1 <span id="tc-1" style="background:#e0f2f2;color:#2d7a7a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
+  <button class="tab" onclick="SIS.filterTab('Elementary A2')">Elementary A2 <span id="tc-2" style="background:#ede9f7;color:#5b4d8a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
+  <button class="tab" onclick="SIS.filterTab('Pre-intermediate B1')">Pre-int B1 <span id="tc-3" style="background:#f0e2b6;color:#6b4a00;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
+  <button class="tab" onclick="SIS.filterTab('Intermediate B1+')">Intermediate B1+ <span id="tc-4" style="background:#faeae6;color:#c25b3f;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
+  <button class="tab" onclick="SIS.filterTab('Upper intermediate B2')">Upper int B2 <span id="tc-5" style="background:#e0f0f8;color:#2d5c7a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
+  <button class="tab" onclick="SIS.filterTab('Lower advanced B2+')">Lower adv B2+ <span id="tc-6" style="background:#f3e8ff;color:#5a2d82;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
+</div>
+
+<div class="main">
+
+  <div id="sunday-banner" style="display:none;">
+    <div class="sunday-banner">
+      <div style="font-size:3rem;margin-bottom:14px;">📅</div>
+      <h2 style="color:#fff;font-size:1.3rem;font-weight:800;margin:0 0 10px;">Las planeaciones de esta semana están cerradas</h2>
+      <p style="color:rgba(255,255,255,.72);font-size:.9rem;margin:0 0 18px;max-width:440px;margin-left:auto;margin-right:auto;">Los domingos ocultamos las planeaciones de la semana que termina. Las nuevas planeaciones estarán disponibles a partir del <strong style="color:#c9a84c;">lunes</strong>.</p>
+      <div style="background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.4);border-radius:8px;padding:10px 20px;display:inline-block;color:#c9a84c;font-weight:700;font-size:.85rem;">🌅 Vuelve mañana para ver las planeaciones de la nueva semana</div>
+    </div>
+  </div>
+
+  <!-- LIBRARY -->
+  <div id="view-lib">
+    <div class="filters">
+      <div class="filters-grid">
+        <div>
+          <label class="flabel">🔍 Buscar</label>
+          <input class="finput" id="f-search" placeholder="Tema, docente u objetivo..." oninput="SIS.renderCards()"/>
+        </div>
+        <div>
+          <label class="flabel">Nivel</label>
+          <select class="finput" id="f-lvl-filter" onchange="SIS.renderCards()">
+            <option value="">Todos los niveles</option>
+            <option>Starter A1</option>
+            <option>Elementary A2</option>
+            <option>Pre-intermediate B1</option>
+            <option>Intermediate B1+</option>
+            <option>Upper intermediate B2</option>
+            <option>Lower advanced B2+</option>
+          </select>
+        </div>
+        <div>
+          <label class="flabel">Docente</label>
+          <select class="finput" id="f-teacher-filter" onchange="SIS.renderCards()">
+            <option value="">Todos los docentes</option>
+            <option>Alejandro Carlos Rugerio Ochoa</option>
+            <option>Alejandro Rodríguez Fernández</option>
+            <option>Araceli Zurita Juarez</option>
+            <option>Astrid Castillo Soto</option>
+            <option>Bruno Flores Monroy</option>
+            <option>Cesar Martínez Arenalde</option>
+            <option>Claudia Arcocha Sotomayor</option>
+            <option>Claudia Ortiz Vargas</option>
+            <option>Daniela Hernández Moreno</option>
+            <option>Diana Claudia Cossio Chavero</option>
+            <option>Harold Eliu Gutiérrez Ramos</option>
+            <option>Janis Vazquez Díaz</option>
+            <option>Javier Atenco Martínez</option>
+            <option>Jessica Merino Castañeda</option>
+            <option>Jessica Pineda Jacinto</option>
+            <option>José Antonio Guzmán Osorio</option>
+            <option>Karina Rosas de la Llave</option>
+            <option>Larisa Herrera Quiroz</option>
+            <option>Luis Johany Vega Rosas</option>
+            <option>Maria Flor Yañez Torres</option>
+            <option>Martha Irene Andrade Parra</option>
+            <option>Mayanit Sánchez Garfias</option>
+            <option>Miguel Ángel Ruiz González</option>
+            <option>Miriam Andrea Ramirez Hernández</option>
+            <option>Miriam Serrano Hernández</option>
+            <option>Oscar Ivan De La Cruz Del Valle</option>
+            <option>Pablo García</option>
+            <option>Rosalba Rivera González</option>
+            <option>Rosalba Salazar Ponce</option>
+            <option>Samantha Alarcón Morales</option>
+            <option>Vanessa Jiménez Flores</option>
+            <option>Victor Octavio Diaz Felipe</option>
+            <option>Yuliana Álvarez Torres</option>
+            <option>Zaira María González Sandoval</option>
+            <option>Adriana Emilia Flores Guzmán</option>
+            <option>Mar Montebello Correa</option>
+            <option>Yulissa Pérez Cortés</option>
+            <option>Diana Xicotencatl Díaz</option>
+            <option>Héctor Rubén Luna Martínez</option>
+            <option>Verónica Torres Soriano</option>
+            <option>Brayan Eduardo Alarcón Hernández</option>
+            <option>Esperanza Anouska Guds</option>
+            <option>Brenda Mariana Sandoval Román</option>
+            <option>Citlali Abigail Contreras Rodríguez</option>
+            <option>Uriel Joshue Guerrero Cortés</option>
+            <option>Sandra Rodríguez López</option>
+            <option>Edgar Mota Blanco</option>
+            <option>Diana Fernanda Vázquez Contreras</option>
+            <option>Juan Guillermo Torres Martínez</option>
+            <option>Berenice Escalona Méndez</option>
+            <option>Sergio García Sánchez</option>
+            <option>Guadalupe Durana Hernández</option>
+            <option>Paola García Solís</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="cards-grid" id="cards-container"></div>
+  </div>
+
+  <!-- FORM -->
+  <div id="view-form" style="display:none;">
+    <div class="form-card">
+      <div style="font-size:15px;font-weight:700;color:#1a1a2e;margin-bottom:18px;display:flex;align-items:center;gap:8px;">
+        📋 <span id="form-title-text">Nueva planeación</span>
+      </div>
+      <div class="form-grid3">
+        <div class="field">
+          <label>Docente <span class="required">*</span></label>
+          <select id="f-doc">
+            <option value="">— Selecciona —</option>
+            <option>Alejandro Carlos Rugerio Ochoa</option>
+            <option>Alejandro Rodríguez Fernández</option>
+            <option>Araceli Zurita Juarez</option>
+            <option>Astrid Castillo Soto</option>
+            <option>Bruno Flores Monroy</option>
+            <option>Cesar Martínez Arenalde</option>
+            <option>Claudia Arcocha Sotomayor</option>
+            <option>Claudia Ortiz Vargas</option>
+            <option>Daniela Hernández Moreno</option>
+            <option>Diana Claudia Cossio Chavero</option>
+            <option>Harold Eliu Gutiérrez Ramos</option>
+            <option>Janis Vazquez Díaz</option>
+            <option>Javier Atenco Martínez</option>
+            <option>Jessica Merino Castañeda</option>
+            <option>Jessica Pineda Jacinto</option>
+            <option>José Antonio Guzmán Osorio</option>
+            <option>Karina Rosas de la Llave</option>
+            <option>Larisa Herrera Quiroz</option>
+            <option>Luis Johany Vega Rosas</option>
+            <option>Maria Flor Yañez Torres</option>
+            <option>Martha Irene Andrade Parra</option>
+            <option>Mayanit Sánchez Garfias</option>
+            <option>Miguel Ángel Ruiz González</option>
+            <option>Miriam Andrea Ramirez Hernández</option>
+            <option>Miriam Serrano Hernández</option>
+            <option>Oscar Ivan De La Cruz Del Valle</option>
+            <option>Pablo García</option>
+            <option>Rosalba Rivera González</option>
+            <option>Rosalba Salazar Ponce</option>
+            <option>Samantha Alarcón Morales</option>
+            <option>Vanessa Jiménez Flores</option>
+            <option>Victor Octavio Diaz Felipe</option>
+            <option>Yuliana Álvarez Torres</option>
+            <option>Zaira María González Sandoval</option>
+            <option>Adriana Emilia Flores Guzmán</option>
+            <option>Mar Montebello Correa</option>
+            <option>Yulissa Pérez Cortés</option>
+            <option>Diana Xicotencatl Díaz</option>
+            <option>Héctor Rubén Luna Martínez</option>
+            <option>Verónica Torres Soriano</option>
+            <option>Brayan Eduardo Alarcón Hernández</option>
+            <option>Esperanza Anouska Guds</option>
+            <option>Brenda Mariana Sandoval Román</option>
+            <option>Citlali Abigail Contreras Rodríguez</option>
+            <option>Uriel Joshue Guerrero Cortés</option>
+            <option>Sandra Rodríguez López</option>
+            <option>Edgar Mota Blanco</option>
+            <option>Diana Fernanda Vázquez Contreras</option>
+            <option>Juan Guillermo Torres Martínez</option>
+            <option>Berenice Escalona Méndez</option>
+            <option>Sergio García Sánchez</option>
+            <option>Guadalupe Durana Hernández</option>
+            <option>Paola García Solís</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Nivel <span class="required">*</span></label>
+          <select id="f-lvl">
+            <option value="">— Selecciona —</option>
+            <option>Starter A1</option>
+            <option>Elementary A2</option>
+            <option>Pre-intermediate B1</option>
+            <option>Intermediate B1+</option>
+            <option>Upper intermediate B2</option>
+            <option>Lower advanced B2+</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Clase / Grupo</label>
+          <input id="f-grp" placeholder="Ej. A · Lunes 8am"/>
+        </div>
+      </div>
+      <div class="form-grid2">
+        <div class="field">
+          <label>Tema <span class="required">*</span></label>
+          <input id="f-topic" placeholder="Ej. Passive Voice — Present"/>
+        </div>
+        <div class="field">
+          <label>Fecha</label>
+          <input id="f-date" type="date"/>
+        </div>
+      </div>
+      <div class="field">
+        <label>Objetivo de la sesión <span class="required">*</span></label>
+        <textarea id="f-obj" rows="3" placeholder="¿Qué habilidad comunicativa desarrollarán los estudiantes al finalizar la sesión?"></textarea>
+      </div>
+    </div>
+
+    <div class="divider"><span class="divider-label">Pasos de la sesión — 90 min</span></div>
+    <div id="steps-form"></div>
+
+    <div style="display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;">
+      <button class="btn btn-violet" onclick="SIS.save()">💾 Guardar y compartir</button>
+      <button class="btn btn-outline" onclick="SIS.goLib()">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- DETAIL -->
+  <div id="view-detail" style="display:none;">
+    <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;">
+      <button class="btn btn-outline btn-sm" onclick="SIS.goLib()">← Volver</button>
+      <button class="btn btn-violet btn-sm" onclick="SIS.editCurrent()">✏️ Editar</button>
+      <button class="btn btn-danger btn-sm" onclick="SIS.deleteCurrent()">🗑 Eliminar</button>
+    </div>
+    <div id="detail-content"></div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var WH = 'https://script.google.com/macros/s/AKfycbwshvc64VGc9F5VHbUjCrA54hoaaNbsOYWmUOHsaecNqhfwrU2dl4JXTdo8roFjo1Y8jQ/exec';
+var SK = 'celex_sis_v8';
+
+var STEPS = [
+  {id:'wu',  label:'1 — Warm up',                               time:'10 min'},
+  {id:'ctx', label:'2 — Presentation, vocabulary &amp; context', time:'10–15 min'},
+  {id:'gr',  label:'3 — Applied Grammar',                       time:'10–15 min'},
+  {id:'sim', label:'4 — Simulation practice',                   time:'20–30 min'},
+  {id:'dec', label:'5 — Decision making',                       time:'10–15 min'},
+  {id:'res', label:'6 — Results',                               time:'10 min'}
+];
+
+var LEVELS = [
+  'Starter A1','Elementary A2','Pre-intermediate B1',
+  'Intermediate B1+','Upper intermediate B2','Lower advanced B2+'
+];
+
+var LVL_BADGE = {
+  'Starter A1':           'badge-I',
+  'Elementary A2':        'badge-II',
+  'Pre-intermediate B1':  'badge-III',
+  'Intermediate B1+':     'badge-IV',
+  'Upper intermediate B2':'badge-V',
+  'Lower advanced B2+':   'badge-VI'
+};
+
+// ── SEMANA ────────────────────────────────────────────────────
+function getWeekKey() {
+  var d = new Date();
+  if (d.getDay() === 0) d.setDate(d.getDate() + 1);
+  var jan4 = new Date(d.getFullYear(), 0, 4);
+  var wn = Math.ceil(((d - jan4) / 86400000 + jan4.getDay() + 1) / 7);
+  return d.getFullYear() + '-W' + String(wn).padStart(2,'0');
+}
+function getWeekRange(wk) {
+  var p = wk.split('-W');
+  var jan4 = new Date(+p[0], 0, 4);
+  var ws = new Date(jan4);
+  ws.setDate(jan4.getDate() - jan4.getDay() + 1 + (+p[1]-1)*7);
+  var we = new Date(ws); we.setDate(ws.getDate()+5);
+  var o = {day:'numeric',month:'short'};
+  return ws.toLocaleDateString('es-MX',o) + ' – ' + we.toLocaleDateString('es-MX',o);
+}
+var isSunday = new Date().getDay() === 0;
+var WEEK_KEY = getWeekKey();
+
+// ── STORAGE ───────────────────────────────────────────────────
+function loadPlans() {
+  try { var r=localStorage.getItem(SK); return r?JSON.parse(r):[]; } catch(e){ return []; }
+}
+function savePlans(p) {
+  try { localStorage.setItem(SK, JSON.stringify(p)); } catch(e){}
+}
+
+// ── SHEETS ────────────────────────────────────────────────────
+function fetchPlans(cb) {
+  fetch(WH + '?action=getAll')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if (Array.isArray(data) && data.length > 0) { savePlans(data); cb(data, false); }
+      else cb(loadPlans(), true);
+    })
+    .catch(function(){ cb(loadPlans(), true); });
+}
+function sendPlan(plan) {
+  fetch(WH, {
+    method:'POST', mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      action:'save', id:plan.id, teacher:plan.teacher, level:plan.level,
+      topic:plan.topic, objective:plan.objective,
+      classGroup:plan.group||'', date:plan.date||'', weekKey:WEEK_KEY,
+      warmup_desc:plan.steps.wu.d,   warmup_goal:plan.steps.wu.g,
+      context_desc:plan.steps.ctx.d, context_goal:plan.steps.ctx.g,
+      grammar_desc:plan.steps.gr.d,  grammar_goal:plan.steps.gr.g,
+      sim_desc:plan.steps.sim.d,     sim_goal:plan.steps.sim.g,
+      decision_desc:plan.steps.dec.d,decision_goal:plan.steps.dec.g,
+      results_desc:plan.steps.res.d, results_goal:plan.steps.res.g,
+      timestamp: new Date().toISOString()
+    })
+  }).catch(function(){});
+}
+function deletePlan(id) {
+  fetch(WH, {
+    method:'POST', mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({action:'delete', id:id})
+  }).catch(function(){});
+}
+
+// ── UTILS ─────────────────────────────────────────────────────
+function esc(s){ if(!s)return''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function toast(msg,type){
+  var el=document.getElementById('toast');
+  el.className='toast show toast-'+(type||'ok');
+  el.textContent=msg;
+  setTimeout(function(){ el.className='toast'; },4000);
+}
+function setSyncBadge(state){
+  var b=document.getElementById('sync-badge'); if(!b)return;
+  if(state==='ok'){b.className='sync-badge sync-ok';b.textContent='✓ Sincronizado con el equipo';}
+  else if(state==='err'){b.className='sync-badge sync-err';b.textContent='Sin conexión — caché local';}
+  else{b.className='sync-badge sync-loading';b.textContent='⟳ Conectando...';}
+}
+
+// ── STATS ─────────────────────────────────────────────────────
+function updateStats(plans) {
+  var week = plans.filter(function(p){ return !p.weekKey || p.weekKey===WEEK_KEY; });
+  document.getElementById('stat-plans').textContent    = week.length;
+  document.getElementById('stat-teachers').textContent = [...new Set(week.map(function(p){return p.teacher;}))].length;
+  document.getElementById('stat-levels').textContent   = [...new Set(week.map(function(p){return p.level;}))].length;
+  document.getElementById('tc-0').textContent = week.length;
+  LEVELS.forEach(function(lvl,i){
+    var el = document.getElementById('tc-'+(i+1));
+    if(el) el.textContent = week.filter(function(p){return p.level===lvl;}).length;
+  });
+}
+
+// ── RENDER CARDS ──────────────────────────────────────────────
+var activeTab = '';
+function renderCards() {
+  var plans = loadPlans();
+  var week  = plans.filter(function(p){ return !p.weekKey || p.weekKey===WEEK_KEY; });
+  updateStats(plans);
+  var search = (document.getElementById('f-search')||{value:''}).value.toLowerCase();
+  var lvlF   = activeTab || (document.getElementById('f-lvl-filter')||{value:''}).value;
+  var tchF   = (document.getElementById('f-teacher-filter')||{value:''}).value;
+  var filtered = week.filter(function(p){
+    var s = !search || (p.topic||'').toLowerCase().includes(search)
+      || (p.teacher||'').toLowerCase().includes(search)
+      || (p.objective||'').toLowerCase().includes(search);
+    var l = !lvlF || p.level===lvlF;
+    var t = !tchF || p.teacher===tchF;
+    return s && l && t;
+  });
+  var c = document.getElementById('cards-container');
+  if (!filtered.length) {
+    c.innerHTML = '<div class="empty" style="grid-column:1/-1;">'
+      +'<span class="empty-icon">📂</span>'
+      +'<strong style="display:block;font-size:15px;color:#1a1a2e;margin-bottom:6px;">'
+      +(week.length===0?'Aún no hay planeaciones esta semana':'Sin resultados para este filtro')
+      +'</strong><p style="font-size:13px;">'
+      +(week.length===0?'Sé el primero en compartir una planeación.':'Prueba con otros filtros.')
+      +'</p>'+(week.length===0?'<button class="btn btn-violet" style="margin-top:14px;" onclick="SIS.goForm()">+ Nueva planeación</button>':'')
+      +'</div>';
+    return;
+  }
+  c.innerHTML = filtered.map(function(p){
+    var bc = LVL_BADGE[p.level]||'badge-gray';
+    return '<div class="pcard" onclick="SIS.showDetail(\''+p.id+'\')">'
+      +'<div class="pcard-bar"></div>'
+      +'<div class="pcard-body">'
+      +'<div class="pcard-badges"><span class="badge '+bc+'">'+esc(p.level)+'</span>'
+      +(p.date?'<span class="badge badge-date">'+esc(p.date)+'</span>':'')+'</div>'
+      +'<div class="pcard-topic">'+esc(p.topic||'Sin tema')+'</div>'
+      +'<div class="pcard-teacher">👩‍🏫 '+esc(p.teacher)+'</div>'
+      +'<div class="pcard-obj">'+esc(p.objective||'Sin objetivo registrado')+'</div>'
+      +'</div><div class="pcard-foot">Ver planeación completa →</div></div>';
+  }).join('');
+}
+
+// ── APP ───────────────────────────────────────────────────────
+var currentId = null;
+
+var SIS = {
+  goLib: function(){
+    document.getElementById('view-lib').style.display='';
+    document.getElementById('view-form').style.display='none';
+    document.getElementById('view-detail').style.display='none';
+    document.getElementById('header-btn-wrap').style.display='';
+    document.getElementById('tabs-bar').style.display='';
+    renderCards();
+  },
+
+  goForm: function(id){
+    document.getElementById('view-lib').style.display='none';
+    document.getElementById('view-form').style.display='';
+    document.getElementById('view-detail').style.display='none';
+    document.getElementById('header-btn-wrap').style.display='none';
+    document.getElementById('tabs-bar').style.display='none';
+    var sh='';
+    STEPS.forEach(function(s){
+      sh+='<div class="step-card"><div class="step-head">'
+        +'<span class="step-label">'+s.label+'</span>'
+        +'<span class="step-time">'+s.time+'</span></div>'
+        +'<div class="step-body">'
+        +'<div><div class="step-sublabel">Descripción de la actividad</div>'
+        +'<textarea id="s-'+s.id+'-d" rows="3" placeholder="¿Qué harán los estudiantes?"></textarea></div>'
+        +'<div><div class="step-sublabel">Objetivo, interacción y recursos</div>'
+        +'<textarea id="s-'+s.id+'-g" rows="3" placeholder="Ej. S-S · Vocabulario · Tarjetas de rol"></textarea></div>'
+        +'</div></div>';
+    });
+    document.getElementById('steps-form').innerHTML=sh;
+    if (id) {
+      currentId=id;
+      document.getElementById('form-title-text').textContent='Editar planeación';
+      var plan=loadPlans().find(function(p){return p.id===id;});
+      if(plan){
+        document.getElementById('f-doc').value   = plan.teacher||'';
+        document.getElementById('f-lvl').value   = plan.level||'';
+        document.getElementById('f-grp').value   = plan.group||'';
+        document.getElementById('f-topic').value = plan.topic||'';
+        document.getElementById('f-date').value  = plan.date||'';
+        document.getElementById('f-obj').value   = plan.objective||'';
+        STEPS.forEach(function(s){
+          var st=(plan.steps&&plan.steps[s.id])||{};
+          document.getElementById('s-'+s.id+'-d').value=st.d||'';
+          document.getElementById('s-'+s.id+'-g').value=st.g||'';
+        });
+      }
+    } else {
+      currentId=null;
+      document.getElementById('form-title-text').textContent='Nueva planeación';
+      ['f-doc','f-lvl','f-grp','f-topic','f-obj'].forEach(function(fid){
+        var el=document.getElementById(fid); if(el) el.value='';
+      });
+      document.getElementById('f-date').value=new Date().toISOString().split('T')[0];
+    }
+  },
+
+  save: function(){
+    var teacher  = document.getElementById('f-doc').value;
+    var level    = document.getElementById('f-lvl').value;
+    var topic    = document.getElementById('f-topic').value;
+    var objective= document.getElementById('f-obj').value;
+    if(!teacher||!level||!topic||!objective){
+      toast('Completa los campos obligatorios (*)','err'); return;
+    }
+    // Máximo 5 planeaciones por docente por semana
+    if(!currentId){
+      var existing=loadPlans().filter(function(p){
+        return p.teacher===teacher && p.weekKey===WEEK_KEY;
+      });
+      if(existing.length>=5){
+        toast('Ya tienes 5 planeaciones esta semana. Puedes editar las existentes.','err');
+        return;
+      }
+    }
+    var steps={};
+    STEPS.forEach(function(s){
+      steps[s.id]={
+        d:document.getElementById('s-'+s.id+'-d').value,
+        g:document.getElementById('s-'+s.id+'-g').value
+      };
+    });
+    var plan={
+      id:      currentId||Date.now().toString(),
+      teacher: teacher, level:level,
+      group:   document.getElementById('f-grp').value,
+      topic:   topic,
+      date:    document.getElementById('f-date').value,
+      objective:objective, steps:steps, weekKey:WEEK_KEY
+    };
+    var plans=loadPlans();
+    var idx=plans.findIndex(function(p){return p.id===plan.id;});
+    if(idx>=0) plans[idx]=plan; else plans.push(plan);
+    savePlans(plans);
+    sendPlan(plan);
+    toast('✅ Planeación guardada y compartida con el equipo.');
+    SIS.goLib();
+  },
+
+  showDetail: function(id){
+    currentId=id;
+    var plan=loadPlans().find(function(p){return p.id===id;});
+    if(!plan)return;
+    var bc=LVL_BADGE[plan.level]||'badge-gray';
+    var h='<div class="detail-hero">'
+      +'<div class="detail-bar"></div>'
+      +'<div class="pcard-badges"><span class="badge '+bc+'">'+esc(plan.level)+'</span>'
+      +(plan.group?'<span class="badge badge-gray">'+esc(plan.group)+'</span>':'')
+      +(plan.date?'<span class="badge badge-date">'+esc(plan.date)+'</span>':'')+'</div>'
+      +'<div class="detail-topic">'+esc(plan.topic)+'</div>'
+      +'<div class="detail-teacher">👩‍🏫 '+esc(plan.teacher)+'</div>'
+      +'<div class="detail-obj-box"><div class="detail-obj-label">Objetivo</div>'
+      +'<div class="detail-obj-text">'+esc(plan.objective)+'</div></div></div>';
+    STEPS.forEach(function(s){
+      var st=(plan.steps&&plan.steps[s.id])||{};
+      h+='<div class="step-card">'
+        +'<div class="step-head"><span class="step-label">'+s.label+'</span>'
+        +'<span class="step-time">'+s.time+'</span></div>'
+        +'<div class="detail-step-body">'
+        +'<div><div style="font-size:11px;font-weight:700;color:#5b4d8a;text-transform:uppercase;margin-bottom:5px;">Descripción</div>'
+        +'<div class="detail-col-text">'+(st.d||'<em style="color:#bbb;">Sin descripción</em>')+'</div></div>'
+        +'<div class="detail-gold-col"><div style="font-size:11px;font-weight:700;color:#6b4a00;text-transform:uppercase;margin-bottom:5px;">Objetivo / Interacción / Recursos</div>'
+        +'<div class="detail-col-text">'+(st.g||'<em style="color:#bbb;">Sin datos</em>')+'</div></div>'
+        +'</div></div>';
+    });
+    document.getElementById('detail-content').innerHTML=h;
+    document.getElementById('view-lib').style.display='none';
+    document.getElementById('view-form').style.display='none';
+    document.getElementById('view-detail').style.display='';
+    document.getElementById('header-btn-wrap').style.display='none';
+    document.getElementById('tabs-bar').style.display='none';
+  },
+
+  editCurrent:   function(){ SIS.goForm(currentId); },
+  deleteCurrent: function(){
+    var plan=loadPlans().find(function(p){return p.id===currentId;});
+    if(!plan)return;
+    if(!confirm('¿Eliminar "'+plan.topic+'"? Esta acción no se puede deshacer.'))return;
+    var plans=loadPlans().filter(function(p){return p.id!==currentId;});
+    savePlans(plans); deletePlan(currentId);
+    toast('Planeación eliminada.'); SIS.goLib();
+  },
+  filterTab: function(lvl){
+    activeTab=lvl;
+    if(document.getElementById('f-lvl-filter'))
+      document.getElementById('f-lvl-filter').value=lvl;
+    renderCards();
+  },
+  renderCards: renderCards
+};
+
+// ── INIT ──────────────────────────────────────────────────────
+document.getElementById('week-range-label').textContent = '📅 ' + getWeekRange(WEEK_KEY);
+
+if(isSunday){
+  document.getElementById('sunday-banner').style.display='';
+  document.getElementById('view-lib').style.display='none';
+  document.getElementById('tabs-bar').style.display='none';
+  document.getElementById('header-btn-wrap').style.display='none';
+  setSyncBadge('err');
+  document.getElementById('sync-badge').textContent='Cerrado hoy (domingo)';
+} else {
+  setSyncBadge('loading');
+  fetchPlans(function(plans, offline){
+    setSyncBadge(offline?'err':'ok');
+    renderCards();
+  });
+}
+</script>
+</body>
+</html>

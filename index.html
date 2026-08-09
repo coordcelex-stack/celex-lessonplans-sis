@@ -102,7 +102,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
 </style>
 </head>
 <body>
-
+ 
 <div class="header">
   <span class="eyebrow">Universidad del Valle de Puebla · CELEX</span>
   <div class="header-row">
@@ -127,7 +127,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
     <div class="sync-badge sync-loading" id="sync-badge">⟳ Conectando...</div>
   </div>
 </div>
-
+ 
 <div class="tabs" id="tabs-bar">
   <button class="tab" onclick="SIS.filterTab('')">Todas <span id="tc-0" style="background:#ede9f7;color:#5b4d8a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
   <button class="tab" onclick="SIS.filterTab('Starter A1')">Starter A1 <span id="tc-1" style="background:#e0f2f2;color:#2d7a7a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
@@ -137,9 +137,9 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
   <button class="tab" onclick="SIS.filterTab('Upper intermediate B2')">Upper int B2 <span id="tc-5" style="background:#e0f0f8;color:#2d5c7a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
   <button class="tab" onclick="SIS.filterTab('Lower advanced B2+')">Lower adv B2+ <span id="tc-6" style="background:#f3e8ff;color:#5a2d82;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
 </div>
-
+ 
 <div class="main">
-
+ 
   <div id="sunday-banner" style="display:none;">
     <div class="sunday-banner">
       <div style="font-size:3rem;margin-bottom:14px;">📅</div>
@@ -148,7 +148,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
       <div style="background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.4);border-radius:8px;padding:10px 20px;display:inline-block;color:#c9a84c;font-weight:700;font-size:.85rem;">🌅 Vuelve mañana para ver las planeaciones de la nueva semana</div>
     </div>
   </div>
-
+ 
   <!-- LIBRARY -->
   <div id="view-lib">
     <div class="filters">
@@ -232,7 +232,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
     </div>
     <div class="cards-grid" id="cards-container"></div>
   </div>
-
+ 
   <!-- FORM -->
   <div id="view-form" style="display:none;">
     <div class="form-card">
@@ -331,16 +331,16 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
         <textarea id="f-obj" rows="3" placeholder="¿Qué habilidad comunicativa desarrollarán los estudiantes al finalizar la sesión?"></textarea>
       </div>
     </div>
-
+ 
     <div class="divider"><span class="divider-label">Pasos de la sesión — 90 min</span></div>
     <div id="steps-form"></div>
-
+ 
     <div style="display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;">
       <button class="btn btn-violet" onclick="SIS.save()">💾 Guardar y compartir</button>
       <button class="btn btn-outline" onclick="SIS.goLib()">Cancelar</button>
     </div>
   </div>
-
+ 
   <!-- DETAIL -->
   <div id="view-detail" style="display:none;">
     <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;">
@@ -350,15 +350,15 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
     </div>
     <div id="detail-content"></div>
   </div>
-
+ 
 </div>
-
+ 
 <div class="toast" id="toast"></div>
-
+ 
 <script>
 var WH = 'https://script.google.com/macros/s/AKfycbwshvc64VGc9F5VHbUjCrA54hoaaNbsOYWmUOHsaecNqhfwrU2dl4JXTdo8roFjo1Y8jQ/exec';
 var SK = 'celex_sis_v8';
-
+ 
 var STEPS = [
   {id:'wu',  label:'1 — Warm up',                               time:'10 min'},
   {id:'ctx', label:'2 — Presentation, vocabulary &amp; context', time:'10–15 min'},
@@ -367,12 +367,12 @@ var STEPS = [
   {id:'dec', label:'5 — Decision making',                       time:'10–15 min'},
   {id:'res', label:'6 — Results',                               time:'10 min'}
 ];
-
+ 
 var LEVELS = [
   'Starter A1','Elementary A2','Pre-intermediate B1',
   'Intermediate B1+','Upper intermediate B2','Lower advanced B2+'
 ];
-
+ 
 var LVL_BADGE = {
   'Starter A1':           'badge-I',
   'Elementary A2':        'badge-II',
@@ -381,7 +381,7 @@ var LVL_BADGE = {
   'Upper intermediate B2':'badge-V',
   'Lower advanced B2+':   'badge-VI'
 };
-
+ 
 // ── SEMANA ────────────────────────────────────────────────────
 function getWeekKey() {
   var d = new Date();
@@ -401,7 +401,7 @@ function getWeekRange(wk) {
 }
 var isSunday = new Date().getDay() === 0;
 var WEEK_KEY = getWeekKey();
-
+ 
 // ── STORAGE ───────────────────────────────────────────────────
 function loadPlans() {
   try { var r=localStorage.getItem(SK); return r?JSON.parse(r):[]; } catch(e){ return []; }
@@ -409,7 +409,7 @@ function loadPlans() {
 function savePlans(p) {
   try { localStorage.setItem(SK, JSON.stringify(p)); } catch(e){}
 }
-
+ 
 // ── SHEETS ────────────────────────────────────────────────────
 function fetchPlans(cb) {
   fetch(WH + '?action=getAll')
@@ -445,7 +445,7 @@ function deletePlan(id) {
     body: JSON.stringify({action:'delete', id:id})
   }).catch(function(){});
 }
-
+ 
 // ── UTILS ─────────────────────────────────────────────────────
 function esc(s){ if(!s)return''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function toast(msg,type){
@@ -460,7 +460,7 @@ function setSyncBadge(state){
   else if(state==='err'){b.className='sync-badge sync-err';b.textContent='Sin conexión — caché local';}
   else{b.className='sync-badge sync-loading';b.textContent='⟳ Conectando...';}
 }
-
+ 
 // ── STATS ─────────────────────────────────────────────────────
 function updateStats(plans) {
   var week = plans.filter(function(p){ return !p.weekKey || p.weekKey===WEEK_KEY; });
@@ -473,7 +473,7 @@ function updateStats(plans) {
     if(el) el.textContent = week.filter(function(p){return p.level===lvl;}).length;
   });
 }
-
+ 
 // ── RENDER CARDS ──────────────────────────────────────────────
 var activeTab = '';
 function renderCards() {
@@ -516,10 +516,10 @@ function renderCards() {
       +'</div><div class="pcard-foot">Ver planeación completa →</div></div>';
   }).join('');
 }
-
+ 
 // ── APP ───────────────────────────────────────────────────────
 var currentId = null;
-
+ 
 var SIS = {
   goLib: function(){
     document.getElementById('view-lib').style.display='';
@@ -529,7 +529,7 @@ var SIS = {
     document.getElementById('tabs-bar').style.display='';
     renderCards();
   },
-
+ 
   goForm: function(id){
     document.getElementById('view-lib').style.display='none';
     document.getElementById('view-form').style.display='';
@@ -575,7 +575,7 @@ var SIS = {
       document.getElementById('f-date').value=new Date().toISOString().split('T')[0];
     }
   },
-
+ 
   save: function(){
     var teacher  = document.getElementById('f-doc').value;
     var level    = document.getElementById('f-lvl').value;
@@ -617,7 +617,7 @@ var SIS = {
     toast('✅ Planeación guardada y compartida con el equipo.');
     SIS.goLib();
   },
-
+ 
   showDetail: function(id){
     currentId=id;
     var plan=loadPlans().find(function(p){return p.id===id;});
@@ -651,7 +651,7 @@ var SIS = {
     document.getElementById('header-btn-wrap').style.display='none';
     document.getElementById('tabs-bar').style.display='none';
   },
-
+ 
   editCurrent:   function(){ SIS.goForm(currentId); },
   deleteCurrent: function(){
     var plan=loadPlans().find(function(p){return p.id===currentId;});
@@ -669,10 +669,10 @@ var SIS = {
   },
   renderCards: renderCards
 };
-
+ 
 // ── INIT ──────────────────────────────────────────────────────
 document.getElementById('week-range-label').textContent = '📅 ' + getWeekRange(WEEK_KEY);
-
+ 
 if(isSunday){
   document.getElementById('sunday-banner').style.display='';
   document.getElementById('view-lib').style.display='none';
@@ -690,3 +690,4 @@ if(isSunday){
 </script>
 </body>
 </html>
+ 

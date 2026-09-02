@@ -20,12 +20,12 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
 .week-bar{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
 .week-label{font-size:10px;font-weight:700;color:#c9a84c;text-transform:uppercase;letter-spacing:.08em;}
 .week-range{font-size:14px;font-weight:600;color:#fff;margin-top:2px;}
-.sync-badge{font-size:11px;border-radius:40px;padding:3px 12px;font-weight:600;}
+.sync-badge{font-size:11px;border-radius:40px;padding:3px 12px;font-weight:600;cursor:pointer;}
 .sync-ok{background:rgba(45,122,122,.3);color:#90e0d0;border:1px solid rgba(45,122,122,.4);}
 .sync-err{background:rgba(194,91,63,.25);color:#ffb3a0;border:1px solid rgba(194,91,63,.4);}
 .sync-loading{background:rgba(201,168,76,.2);color:#f0d080;border:1px solid rgba(201,168,76,.4);}
 .btn{border:none;border-radius:40px;padding:9px 22px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .2s;}
-.btn:disabled{opacity:.5;cursor:not-allowed;}
+.btn:hover{opacity:.88;}
 .btn-violet{background:linear-gradient(135deg,#5b4d8a,#7b6daa);color:#fff;}
 .btn-gold{background:linear-gradient(135deg,#c9a84c,#e0c068);color:#1a1a2e;}
 .btn-outline{background:transparent;color:#5b4d8a;border:1.5px solid #5b4d8a;}
@@ -54,12 +54,12 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
 .badge-VI{background:#f3e8ff;color:#5a2d82;}
 .badge-gray{background:#f0eeeb;color:#666;}
 .badge-date{background:#f0e2b6;color:#6b4a00;}
+.badge-week{background:#f0eeeb;color:#888;}
 .filters{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(26,26,46,.07);padding:16px 20px;margin-bottom:18px;}
-.filters-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.filters-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;}
 .flabel{display:block;font-size:11px;font-weight:700;color:#5b4d8a;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
 .finput{width:100%;padding:8px 11px;border:1.5px solid #e0ddd5;border-radius:8px;font-family:inherit;font-size:13px;color:#1a1a2e;background:#fff;}
 .empty{text-align:center;padding:52px 20px;color:#666;}
-.empty-icon{font-size:3rem;display:block;margin-bottom:12px;}
 .form-card{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(26,26,46,.07);padding:24px 26px;margin-bottom:18px;}
 .form-grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 16px;}
 .form-grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;}
@@ -88,16 +88,40 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
 .detail-step-body{padding:14px 18px;display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .detail-col-text{font-size:13px;color:#3d3d5c;}
 .detail-gold-col{border-left:2px solid #f0e2b6;padding-left:14px;}
+.audit-panel{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(26,26,46,.07);overflow:hidden;margin-bottom:18px;}
+.audit-head{background:linear-gradient(135deg,#1a1a2e,#5b4d8a);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.audit-head-title{font-size:14px;font-weight:700;color:#fff;}
+.audit-head-sub{font-size:11px;color:rgba(255,255,255,.65);}
+.audit-body{padding:18px 20px;}
+.audit-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
+.audit-stat{border-radius:10px;padding:14px;text-align:center;}
+.audit-stat-n{font-size:22px;font-weight:800;display:block;margin-bottom:3px;}
+.audit-stat-l{font-size:11px;display:block;}
+.audit-ok{background:#e0f2f2;color:#2d7a7a;}
+.audit-warn{background:#f0e2b6;color:#6b4a00;}
+.audit-err{background:#faeae6;color:#c25b3f;}
+.audit-info{background:#ede9f7;color:#5b4d8a;}
+.audit-table{width:100%;border-collapse:collapse;font-size:12px;}
+.audit-table th{background:#1a1a2e;color:#c9a84c;padding:8px 12px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;}
+.audit-table td{padding:8px 12px;border-bottom:1px solid #f0eeeb;vertical-align:middle;}
+.audit-table tr:hover td{background:#f7f6f2;}
+.pip-dot{width:13px;height:13px;border-radius:50%;display:inline-block;margin-right:2px;}
+.pip-filled{background:#2d7a7a;}
+.pip-empty{background:#e0ddd5;}
+.tag-ok{background:#e0f2f2;color:#2d7a7a;border-radius:40px;padding:2px 10px;font-size:11px;font-weight:700;}
+.tag-warn{background:#f0e2b6;color:#6b4a00;border-radius:40px;padding:2px 10px;font-size:11px;font-weight:700;}
+.tag-err{background:#faeae6;color:#c25b3f;border-radius:40px;padding:2px 10px;font-size:11px;font-weight:700;}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:12px 22px;border-radius:10px;font-size:13px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;max-width:480px;text-align:center;}
 .toast.show{opacity:1;}
 .toast-ok{background:#e0f2f2;color:#2d7a7a;border-left:4px solid #2d7a7a;}
 .toast-err{background:#faeae6;color:#c25b3f;border-left:4px solid #c25b3f;}
-.sunday-banner{background:linear-gradient(135deg,#1a1a2e,#5b4d8a);border-radius:14px;padding:44px 28px;text-align:center;margin:32px 0;}
-@media(max-width:600px){
-  .cards-grid,.form-grid3,.form-grid2,.filters-grid,.step-body,.detail-step-body{grid-template-columns:1fr;}
-  .main{padding:16px 12px;}
-  .header{padding:20px 16px;}
-  .tabs{padding:0 12px;}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+@media(max-width:640px){
+  .cards-grid,.form-grid3,.form-grid2,.filters-grid,.step-body,.detail-step-body,.audit-summary{grid-template-columns:1fr;}
+  .main{padding:14px 10px;}
+  .header{padding:18px 14px;}
+  .tabs{padding:0 10px;}
 }
 </style>
 </head>
@@ -108,46 +132,42 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
   <div class="header-row">
     <div>
       <div class="header-title">📚 Banco de Planeaciones SIS</div>
-      <div class="header-sub">Comparte y consulta planeaciones del Modelo SIS con todo el equipo docente.</div>
+      <div class="header-sub">Planeaciones en vivo — todos los docentes ven y comparten en tiempo real.</div>
     </div>
-    <div id="header-btn-wrap">
+    <div id="header-btn-wrap" style="display:flex;gap:8px;flex-wrap:wrap;">
       <button class="btn btn-gold btn-sm" onclick="SIS.goForm()">+ Nueva planeación</button>
+      <button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25);" onclick="SIS.goAudit()">📊 Auditoría</button>
+      <button class="btn btn-sm" style="background:rgba(255,255,255,.1);color:#c9a84c;border:1px solid rgba(201,168,76,.4);" onclick="SIS.refresh()" title="Actualizar ahora">↻</button>
     </div>
   </div>
   <div class="stats">
-    <div class="stat"><span class="stat-n" id="stat-plans">0</span><span class="stat-l">Esta semana</span></div>
-    <div class="stat"><span class="stat-n" id="stat-teachers">0</span><span class="stat-l">Docentes activos</span></div>
-    <div class="stat"><span class="stat-n" id="stat-levels">0</span><span class="stat-l">Niveles cubiertos</span></div>
+    <div class="stat"><span class="stat-n" id="stat-plans">—</span><span class="stat-l">Total planeaciones</span></div>
+    <div class="stat"><span class="stat-n" id="stat-week">—</span><span class="stat-l">Esta semana</span></div>
+    <div class="stat"><span class="stat-n" id="stat-teachers">—</span><span class="stat-l">Docentes activos</span></div>
+    <div class="stat"><span class="stat-n" id="stat-levels">—</span><span class="stat-l">Niveles cubiertos</span></div>
   </div>
   <div class="week-bar">
     <div>
       <div class="week-label">Semana activa</div>
-      <div class="week-range" id="week-range-label">📅 Cargando...</div>
+      <div class="week-range" id="week-range-label">📅 —</div>
     </div>
-    <div class="sync-badge sync-loading" id="sync-badge">⟳ Conectando...</div>
+    <div class="sync-badge sync-loading" id="sync-badge" onclick="SIS.refresh()">
+      <span class="spinner"></span>Conectando...
+    </div>
   </div>
 </div>
  
 <div class="tabs" id="tabs-bar">
-  <button class="tab" onclick="SIS.filterTab('')">Todas <span id="tc-0" style="background:#ede9f7;color:#5b4d8a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
-  <button class="tab" onclick="SIS.filterTab('Starter A1')">Starter A1 <span id="tc-1" style="background:#e0f2f2;color:#2d7a7a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
-  <button class="tab" onclick="SIS.filterTab('Elementary A2')">Elementary A2 <span id="tc-2" style="background:#ede9f7;color:#5b4d8a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
-  <button class="tab" onclick="SIS.filterTab('Pre-intermediate B1')">Pre-int B1 <span id="tc-3" style="background:#f0e2b6;color:#6b4a00;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
-  <button class="tab" onclick="SIS.filterTab('Intermediate B1+')">Intermediate B1+ <span id="tc-4" style="background:#faeae6;color:#c25b3f;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
-  <button class="tab" onclick="SIS.filterTab('Upper intermediate B2')">Upper int B2 <span id="tc-5" style="background:#e0f0f8;color:#2d5c7a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
-  <button class="tab" onclick="SIS.filterTab('Lower advanced B2+')">Lower adv B2+ <span id="tc-6" style="background:#f3e8ff;color:#5a2d82;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">0</span></button>
+  <button class="tab" onclick="SIS.filterTab('')">Todas <span id="tc-0" style="background:#ede9f7;color:#5b4d8a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">—</span></button>
+  <button class="tab" onclick="SIS.filterTab('Starter A1')">Starter A1 <span id="tc-1" style="background:#e0f2f2;color:#2d7a7a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">—</span></button>
+  <button class="tab" onclick="SIS.filterTab('Elementary A2')">Elementary A2 <span id="tc-2" style="background:#ede9f7;color:#5b4d8a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">—</span></button>
+  <button class="tab" onclick="SIS.filterTab('Pre-intermediate B1')">Pre-int B1 <span id="tc-3" style="background:#f0e2b6;color:#6b4a00;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">—</span></button>
+  <button class="tab" onclick="SIS.filterTab('Intermediate B1+')">Intermediate B1+ <span id="tc-4" style="background:#faeae6;color:#c25b3f;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">—</span></button>
+  <button class="tab" onclick="SIS.filterTab('Upper intermediate B2')">Upper int B2 <span id="tc-5" style="background:#e0f0f8;color:#2d5c7a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">—</span></button>
+  <button class="tab" onclick="SIS.filterTab('Lower advanced B2+')">Lower adv B2+ <span id="tc-6" style="background:#f3e8ff;color:#5a2d82;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">—</span></button>
 </div>
  
 <div class="main">
- 
-  <div id="sunday-banner" style="display:none;">
-    <div class="sunday-banner">
-      <div style="font-size:3rem;margin-bottom:14px;">📅</div>
-      <h2 style="color:#fff;font-size:1.3rem;font-weight:800;margin:0 0 10px;">Las planeaciones de esta semana están cerradas</h2>
-      <p style="color:rgba(255,255,255,.72);font-size:.9rem;margin:0 0 18px;max-width:440px;margin-left:auto;margin-right:auto;">Los domingos ocultamos las planeaciones de la semana que termina. Las nuevas planeaciones estarán disponibles a partir del <strong style="color:#c9a84c;">lunes</strong>.</p>
-      <div style="background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.4);border-radius:8px;padding:10px 20px;display:inline-block;color:#c9a84c;font-weight:700;font-size:.85rem;">🌅 Vuelve mañana para ver las planeaciones de la nueva semana</div>
-    </div>
-  </div>
  
   <!-- LIBRARY -->
   <div id="view-lib">
@@ -156,6 +176,13 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
         <div>
           <label class="flabel">🔍 Buscar</label>
           <input class="finput" id="f-search" placeholder="Tema, docente u objetivo..." oninput="SIS.renderCards()"/>
+        </div>
+        <div>
+          <label class="flabel">Semana</label>
+          <select class="finput" id="f-week-filter" onchange="SIS.renderCards()">
+            <option value="">Todas las semanas</option>
+            <option value="current">Semana actual</option>
+          </select>
         </div>
         <div>
           <label class="flabel">Nivel</label>
@@ -230,15 +257,18 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
         </div>
       </div>
     </div>
-    <div class="cards-grid" id="cards-container"></div>
+    <div class="cards-grid" id="cards-container">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:#888;">
+        <span class="spinner" style="border-color:rgba(91,77,138,.3);border-top-color:#5b4d8a;"></span>
+        Cargando planeaciones...
+      </div>
+    </div>
   </div>
  
   <!-- FORM -->
   <div id="view-form" style="display:none;">
     <div class="form-card">
-      <div style="font-size:15px;font-weight:700;color:#1a1a2e;margin-bottom:18px;display:flex;align-items:center;gap:8px;">
-        📋 <span id="form-title-text">Nueva planeación</span>
-      </div>
+      <div style="font-size:15px;font-weight:700;color:#1a1a2e;margin-bottom:18px;">📋 <span id="form-title-text">Nueva planeación</span></div>
       <div class="form-grid3">
         <div class="field">
           <label>Docente <span class="required">*</span></label>
@@ -331,12 +361,10 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
         <textarea id="f-obj" rows="3" placeholder="¿Qué habilidad comunicativa desarrollarán los estudiantes al finalizar la sesión?"></textarea>
       </div>
     </div>
- 
     <div class="divider"><span class="divider-label">Pasos de la sesión — 90 min</span></div>
     <div id="steps-form"></div>
- 
     <div style="display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;">
-      <button class="btn btn-violet" onclick="SIS.save()">💾 Guardar y compartir</button>
+      <button class="btn btn-violet" id="btn-save" onclick="SIS.save()">💾 Guardar y compartir</button>
       <button class="btn btn-outline" onclick="SIS.goLib()">Cancelar</button>
     </div>
   </div>
@@ -351,13 +379,20 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
     <div id="detail-content"></div>
   </div>
  
-</div>
+  <!-- AUDIT -->
+  <div id="view-audit" style="display:none;">
+    <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;">
+      <button class="btn btn-outline btn-sm" onclick="SIS.goLib()">← Volver</button>
+      <button class="btn btn-violet btn-sm" onclick="SIS.runAudit()">↻ Actualizar auditoría</button>
+    </div>
+    <div id="audit-content"></div>
+  </div>
  
+</div>
 <div class="toast" id="toast"></div>
  
 <script>
 var WH = 'https://script.google.com/macros/s/AKfycbwshvc64VGc9F5VHbUjCrA54hoaaNbsOYWmUOHsaecNqhfwrU2dl4JXTdo8roFjo1Y8jQ/exec';
-var SK = 'celex_sis_v8';
  
 var STEPS = [
   {id:'wu',  label:'1 — Warm up',                               time:'10 min'},
@@ -368,82 +403,108 @@ var STEPS = [
   {id:'res', label:'6 — Results',                               time:'10 min'}
 ];
  
-var LEVELS = [
-  'Starter A1','Elementary A2','Pre-intermediate B1',
-  'Intermediate B1+','Upper intermediate B2','Lower advanced B2+'
-];
+var LEVELS = ['Starter A1','Elementary A2','Pre-intermediate B1','Intermediate B1+','Upper intermediate B2','Lower advanced B2+'];
  
 var LVL_BADGE = {
-  'Starter A1':           'badge-I',
-  'Elementary A2':        'badge-II',
-  'Pre-intermediate B1':  'badge-III',
-  'Intermediate B1+':     'badge-IV',
-  'Upper intermediate B2':'badge-V',
-  'Lower advanced B2+':   'badge-VI'
+  'Starter A1':'badge-I','Elementary A2':'badge-II',
+  'Pre-intermediate B1':'badge-III','Intermediate B1+':'badge-IV',
+  'Upper intermediate B2':'badge-V','Lower advanced B2+':'badge-VI'
 };
+ 
+var ALL_TEACHERS = [
+  'Alejandro Carlos Rugerio Ochoa','Alejandro Rodríguez Fernández','Araceli Zurita Juarez',
+  'Astrid Castillo Soto','Bruno Flores Monroy','Cesar Martínez Arenalde',
+  'Claudia Arcocha Sotomayor','Claudia Ortiz Vargas','Daniela Hernández Moreno',
+  'Diana Claudia Cossio Chavero','Harold Eliu Gutiérrez Ramos','Janis Vazquez Díaz',
+  'Javier Atenco Martínez','Jessica Merino Castañeda','Jessica Pineda Jacinto',
+  'José Antonio Guzmán Osorio','Karina Rosas de la Llave','Larisa Herrera Quiroz',
+  'Luis Johany Vega Rosas','Maria Flor Yañez Torres','Martha Irene Andrade Parra',
+  'Mayanit Sánchez Garfias','Miguel Ángel Ruiz González','Miriam Andrea Ramirez Hernández',
+  'Miriam Serrano Hernández','Oscar Ivan De La Cruz Del Valle','Pablo García',
+  'Rosalba Rivera González','Rosalba Salazar Ponce','Samantha Alarcón Morales',
+  'Vanessa Jiménez Flores','Victor Octavio Diaz Felipe','Yuliana Álvarez Torres',
+  'Zaira María González Sandoval','Adriana Emilia Flores Guzmán','Mar Montebello Correa',
+  'Yulissa Pérez Cortés','Diana Xicotencatl Díaz','Héctor Rubén Luna Martínez',
+  'Verónica Torres Soriano','Brayan Eduardo Alarcón Hernández','Esperanza Anouska Guds',
+  'Brenda Mariana Sandoval Román','Citlali Abigail Contreras Rodríguez',
+  'Uriel Joshue Guerrero Cortés','Sandra Rodríguez López','Edgar Mota Blanco',
+  'Diana Fernanda Vázquez Contreras','Juan Guillermo Torres Martínez',
+  'Berenice Escalona Méndez','Sergio García Sánchez','Guadalupe Durana Hernández','Paola García Solís'
+];
  
 // ── SEMANA ────────────────────────────────────────────────────
 function getWeekKey() {
   var d = new Date();
-  if (d.getDay() === 0) d.setDate(d.getDate() + 1);
-  var jan4 = new Date(d.getFullYear(), 0, 4);
-  var wn = Math.ceil(((d - jan4) / 86400000 + jan4.getDay() + 1) / 7);
-  return d.getFullYear() + '-W' + String(wn).padStart(2,'0');
+  if (d.getDay()===0) d.setDate(d.getDate()+1);
+  var jan4 = new Date(d.getFullYear(),0,4);
+  var wn = Math.ceil(((d-jan4)/86400000+jan4.getDay()+1)/7);
+  return d.getFullYear()+'-W'+String(wn).padStart(2,'0');
 }
 function getWeekRange(wk) {
-  var p = wk.split('-W');
-  var jan4 = new Date(+p[0], 0, 4);
-  var ws = new Date(jan4);
-  ws.setDate(jan4.getDate() - jan4.getDay() + 1 + (+p[1]-1)*7);
-  var we = new Date(ws); we.setDate(ws.getDate()+5);
-  var o = {day:'numeric',month:'short'};
-  return ws.toLocaleDateString('es-MX',o) + ' – ' + we.toLocaleDateString('es-MX',o);
+  var p=wk.split('-W');
+  var jan4=new Date(+p[0],0,4);
+  var ws=new Date(jan4);
+  ws.setDate(jan4.getDate()-jan4.getDay()+1+(+p[1]-1)*7);
+  var we=new Date(ws); we.setDate(ws.getDate()+5);
+  var o={day:'numeric',month:'short'};
+  return ws.toLocaleDateString('es-MX',o)+' – '+we.toLocaleDateString('es-MX',o);
 }
-var isSunday = new Date().getDay() === 0;
 var WEEK_KEY = getWeekKey();
  
-// ── STORAGE ───────────────────────────────────────────────────
-function loadPlans() {
-  try { var r=localStorage.getItem(SK); return r?JSON.parse(r):[]; } catch(e){ return []; }
-}
-function savePlans(p) {
-  try { localStorage.setItem(SK, JSON.stringify(p)); } catch(e){}
-}
+// ── DATOS EN MEMORIA (sin localStorage) ──────────────────────
+var PLANS = [];
+var SYNC_TIMER = null;
  
-// ── SHEETS ────────────────────────────────────────────────────
-function fetchPlans(cb) {
-  fetch(WH + '?action=getAll')
+// ── GOOGLE SHEETS — FUENTE ÚNICA DE VERDAD ────────────────────
+function fetchAll(cb) {
+  fetch(WH+'?action=getAll&t='+Date.now())
     .then(function(r){ return r.json(); })
     .then(function(data){
-      if (Array.isArray(data) && data.length > 0) { savePlans(data); cb(data, false); }
-      else cb(loadPlans(), true);
+      if(Array.isArray(data)){ PLANS=data; cb(false); }
+      else cb(true);
     })
-    .catch(function(){ cb(loadPlans(), true); });
+    .catch(function(){ cb(true); });
 }
-function sendPlan(plan) {
+ 
+function pushPlan(plan, cb) {
   fetch(WH, {
     method:'POST', mode:'no-cors',
     headers:{'Content-Type':'application/json'},
     body: JSON.stringify({
-      action:'save', id:plan.id, teacher:plan.teacher, level:plan.level,
+      action:'save',
+      id:plan.id, teacher:plan.teacher, level:plan.level,
       topic:plan.topic, objective:plan.objective,
-      classGroup:plan.group||'', date:plan.date||'', weekKey:WEEK_KEY,
+      classGroup:plan.group||'', date:plan.date||'',
+      weekKey:WEEK_KEY,
       warmup_desc:plan.steps.wu.d,   warmup_goal:plan.steps.wu.g,
       context_desc:plan.steps.ctx.d, context_goal:plan.steps.ctx.g,
       grammar_desc:plan.steps.gr.d,  grammar_goal:plan.steps.gr.g,
       sim_desc:plan.steps.sim.d,     sim_goal:plan.steps.sim.g,
       decision_desc:plan.steps.dec.d,decision_goal:plan.steps.dec.g,
       results_desc:plan.steps.res.d, results_goal:plan.steps.res.g,
-      timestamp: new Date().toISOString()
+      timestamp:new Date().toISOString()
     })
+  }).then(function(){ if(cb) cb(true); }).catch(function(){ if(cb) cb(false); });
+}
+ 
+function removePlan(id) {
+  fetch(WH,{
+    method:'POST',mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'delete',id:id})
   }).catch(function(){});
 }
-function deletePlan(id) {
-  fetch(WH, {
-    method:'POST', mode:'no-cors',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({action:'delete', id:id})
-  }).catch(function(){});
+ 
+// Auto-refresh cada 30 segundos
+function startSync() {
+  if(SYNC_TIMER) clearInterval(SYNC_TIMER);
+  SYNC_TIMER = setInterval(function(){
+    fetchAll(function(err){
+      setSyncBadge(err?'err':'ok');
+      renderCards();
+      updateStats();
+    });
+  }, 30000);
 }
  
 // ── UTILS ─────────────────────────────────────────────────────
@@ -456,60 +517,74 @@ function toast(msg,type){
 }
 function setSyncBadge(state){
   var b=document.getElementById('sync-badge'); if(!b)return;
-  if(state==='ok'){b.className='sync-badge sync-ok';b.textContent='✓ Sincronizado con el equipo';}
-  else if(state==='err'){b.className='sync-badge sync-err';b.textContent='Sin conexión — caché local';}
-  else{b.className='sync-badge sync-loading';b.textContent='⟳ Conectando...';}
+  if(state==='ok'){
+    var t=new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});
+    b.className='sync-badge sync-ok';
+    b.innerHTML='✓ Actualizado '+t;
+  } else if(state==='err'){
+    b.className='sync-badge sync-err';
+    b.innerHTML='⚠ Sin conexión — reintentando';
+  } else {
+    b.className='sync-badge sync-loading';
+    b.innerHTML='<span class="spinner"></span>Conectando...';
+  }
 }
  
 // ── STATS ─────────────────────────────────────────────────────
-function updateStats(plans) {
-  var week = plans.filter(function(p){ return !p.weekKey || p.weekKey===WEEK_KEY; });
-  document.getElementById('stat-plans').textContent    = week.length;
-  document.getElementById('stat-teachers').textContent = [...new Set(week.map(function(p){return p.teacher;}))].length;
-  document.getElementById('stat-levels').textContent   = [...new Set(week.map(function(p){return p.level;}))].length;
-  document.getElementById('tc-0').textContent = week.length;
+function updateStats() {
+  var week = PLANS.filter(function(p){ return !p.weekKey||p.weekKey===WEEK_KEY; });
+  document.getElementById('stat-plans').textContent    = PLANS.length;
+  document.getElementById('stat-week').textContent     = week.length;
+  document.getElementById('stat-teachers').textContent = [...new Set(PLANS.map(function(p){return p.teacher;}))].length;
+  document.getElementById('stat-levels').textContent   = [...new Set(PLANS.map(function(p){return p.level;}))].length;
+  document.getElementById('tc-0').textContent = PLANS.length;
   LEVELS.forEach(function(lvl,i){
-    var el = document.getElementById('tc-'+(i+1));
-    if(el) el.textContent = week.filter(function(p){return p.level===lvl;}).length;
+    var el=document.getElementById('tc-'+(i+1));
+    if(el) el.textContent=PLANS.filter(function(p){return p.level===lvl;}).length;
   });
 }
  
 // ── RENDER CARDS ──────────────────────────────────────────────
 var activeTab = '';
 function renderCards() {
-  var plans = loadPlans();
-  var week  = plans.filter(function(p){ return !p.weekKey || p.weekKey===WEEK_KEY; });
-  updateStats(plans);
-  var search = (document.getElementById('f-search')||{value:''}).value.toLowerCase();
-  var lvlF   = activeTab || (document.getElementById('f-lvl-filter')||{value:''}).value;
-  var tchF   = (document.getElementById('f-teacher-filter')||{value:''}).value;
-  var filtered = week.filter(function(p){
-    var s = !search || (p.topic||'').toLowerCase().includes(search)
-      || (p.teacher||'').toLowerCase().includes(search)
-      || (p.objective||'').toLowerCase().includes(search);
-    var l = !lvlF || p.level===lvlF;
-    var t = !tchF || p.teacher===tchF;
-    return s && l && t;
+  var search  = (document.getElementById('f-search')||{value:''}).value.toLowerCase();
+  var weekF   = (document.getElementById('f-week-filter')||{value:''}).value;
+  var lvlF    = activeTab || (document.getElementById('f-lvl-filter')||{value:''}).value;
+  var tchF    = (document.getElementById('f-teacher-filter')||{value:''}).value;
+ 
+  var filtered = PLANS.filter(function(p){
+    if(weekF==='current' && p.weekKey && p.weekKey!==WEEK_KEY) return false;
+    var s=!search||(p.topic||'').toLowerCase().includes(search)||(p.teacher||'').toLowerCase().includes(search)||(p.objective||'').toLowerCase().includes(search);
+    var l=!lvlF||p.level===lvlF;
+    var t=!tchF||p.teacher===tchF;
+    return s&&l&&t;
   });
-  var c = document.getElementById('cards-container');
-  if (!filtered.length) {
-    c.innerHTML = '<div class="empty" style="grid-column:1/-1;">'
-      +'<span class="empty-icon">📂</span>'
+ 
+  // Ordenar: más recientes primero
+  filtered.sort(function(a,b){ return (b.timestamp||'').localeCompare(a.timestamp||''); });
+ 
+  var c=document.getElementById('cards-container');
+  if(!filtered.length){
+    c.innerHTML='<div class="empty" style="grid-column:1/-1;">'
+      +'<span style="font-size:3rem;display:block;margin-bottom:12px;">📂</span>'
       +'<strong style="display:block;font-size:15px;color:#1a1a2e;margin-bottom:6px;">'
-      +(week.length===0?'Aún no hay planeaciones esta semana':'Sin resultados para este filtro')
+      +(PLANS.length===0?'Aún no hay planeaciones':'Sin resultados para este filtro')
       +'</strong><p style="font-size:13px;">'
-      +(week.length===0?'Sé el primero en compartir una planeación.':'Prueba con otros filtros.')
-      +'</p>'+(week.length===0?'<button class="btn btn-violet" style="margin-top:14px;" onclick="SIS.goForm()">+ Nueva planeación</button>':'')
+      +(PLANS.length===0?'Sé el primero en compartir una planeación.':'Prueba con otros filtros o cambia la semana.')
+      +'</p>'+(PLANS.length===0?'<button class="btn btn-violet" style="margin-top:14px;" onclick="SIS.goForm()">+ Nueva planeación</button>':'')
       +'</div>';
     return;
   }
-  c.innerHTML = filtered.map(function(p){
-    var bc = LVL_BADGE[p.level]||'badge-gray';
-    return '<div class="pcard" onclick="SIS.showDetail(\''+p.id+'\')">'
+  c.innerHTML=filtered.map(function(p){
+    var bc=LVL_BADGE[p.level]||'badge-gray';
+    return '<div class="pcard" onclick="SIS.showDetail(\''+esc(p.id)+'\')">'
       +'<div class="pcard-bar"></div>'
       +'<div class="pcard-body">'
-      +'<div class="pcard-badges"><span class="badge '+bc+'">'+esc(p.level)+'</span>'
-      +(p.date?'<span class="badge badge-date">'+esc(p.date)+'</span>':'')+'</div>'
+      +'<div class="pcard-badges">'
+      +'<span class="badge '+bc+'">'+esc(p.level)+'</span>'
+      +(p.date?'<span class="badge badge-date">'+esc(p.date)+'</span>':'')
+      +(p.weekKey?'<span class="badge badge-week">'+esc(p.weekKey)+'</span>':'')
+      +'</div>'
       +'<div class="pcard-topic">'+esc(p.topic||'Sin tema')+'</div>'
       +'<div class="pcard-teacher">👩‍🏫 '+esc(p.teacher)+'</div>'
       +'<div class="pcard-obj">'+esc(p.objective||'Sin objetivo registrado')+'</div>'
@@ -518,22 +593,20 @@ function renderCards() {
 }
  
 // ── APP ───────────────────────────────────────────────────────
-var currentId = null;
+var currentId=null;
  
-var SIS = {
-  goLib: function(){
+var SIS={
+  goLib:function(){
+    ['view-form','view-detail','view-audit'].forEach(function(id){document.getElementById(id).style.display='none';});
     document.getElementById('view-lib').style.display='';
-    document.getElementById('view-form').style.display='none';
-    document.getElementById('view-detail').style.display='none';
-    document.getElementById('header-btn-wrap').style.display='';
+    document.getElementById('header-btn-wrap').style.display='flex';
     document.getElementById('tabs-bar').style.display='';
     renderCards();
   },
  
-  goForm: function(id){
-    document.getElementById('view-lib').style.display='none';
+  goForm:function(id){
+    ['view-lib','view-detail','view-audit'].forEach(function(vid){document.getElementById(vid).style.display='none';});
     document.getElementById('view-form').style.display='';
-    document.getElementById('view-detail').style.display='none';
     document.getElementById('header-btn-wrap').style.display='none';
     document.getElementById('tabs-bar').style.display='none';
     var sh='';
@@ -549,51 +622,40 @@ var SIS = {
         +'</div></div>';
     });
     document.getElementById('steps-form').innerHTML=sh;
-    if (id) {
+    if(id){
       currentId=id;
       document.getElementById('form-title-text').textContent='Editar planeación';
-      var plan=loadPlans().find(function(p){return p.id===id;});
+      var plan=PLANS.find(function(p){return p.id===id;});
       if(plan){
-        document.getElementById('f-doc').value   = plan.teacher||'';
-        document.getElementById('f-lvl').value   = plan.level||'';
-        document.getElementById('f-grp').value   = plan.group||'';
-        document.getElementById('f-topic').value = plan.topic||'';
-        document.getElementById('f-date').value  = plan.date||'';
-        document.getElementById('f-obj').value   = plan.objective||'';
+        document.getElementById('f-doc').value   =plan.teacher||'';
+        document.getElementById('f-lvl').value   =plan.level||'';
+        document.getElementById('f-grp').value   =plan.group||plan.classGroup||'';
+        document.getElementById('f-topic').value =plan.topic||'';
+        document.getElementById('f-date').value  =plan.date||'';
+        document.getElementById('f-obj').value   =plan.objective||'';
         STEPS.forEach(function(s){
           var st=(plan.steps&&plan.steps[s.id])||{};
-          document.getElementById('s-'+s.id+'-d').value=st.d||'';
-          document.getElementById('s-'+s.id+'-g').value=st.g||'';
+          // Compatibilidad con campos planos de Sheets
+          if(!st.d) st.d=plan[s.id+'_desc']||'';
+          if(!st.g) st.g=plan[s.id+'_goal']||'';
+          document.getElementById('s-'+s.id+'-d').value=st.d;
+          document.getElementById('s-'+s.id+'-g').value=st.g;
         });
       }
     } else {
       currentId=null;
       document.getElementById('form-title-text').textContent='Nueva planeación';
-      ['f-doc','f-lvl','f-grp','f-topic','f-obj'].forEach(function(fid){
-        var el=document.getElementById(fid); if(el) el.value='';
-      });
+      ['f-doc','f-lvl','f-grp','f-topic','f-obj'].forEach(function(fid){var el=document.getElementById(fid);if(el)el.value='';});
       document.getElementById('f-date').value=new Date().toISOString().split('T')[0];
     }
   },
  
-  save: function(){
-    var teacher  = document.getElementById('f-doc').value;
-    var level    = document.getElementById('f-lvl').value;
-    var topic    = document.getElementById('f-topic').value;
-    var objective= document.getElementById('f-obj').value;
-    if(!teacher||!level||!topic||!objective){
-      toast('Completa los campos obligatorios (*)','err'); return;
-    }
-    // Máximo 5 planeaciones por docente por semana
-    if(!currentId){
-      var existing=loadPlans().filter(function(p){
-        return p.teacher===teacher && p.weekKey===WEEK_KEY;
-      });
-      if(existing.length>=5){
-        toast('Ya tienes 5 planeaciones esta semana. Puedes editar las existentes.','err');
-        return;
-      }
-    }
+  save:function(){
+    var teacher =document.getElementById('f-doc').value;
+    var level   =document.getElementById('f-lvl').value;
+    var topic   =document.getElementById('f-topic').value;
+    var objective=document.getElementById('f-obj').value;
+    if(!teacher||!level||!topic||!objective){toast('Completa los campos obligatorios (*)','err');return;}
     var steps={};
     STEPS.forEach(function(s){
       steps[s.id]={
@@ -602,31 +664,43 @@ var SIS = {
       };
     });
     var plan={
-      id:      currentId||Date.now().toString(),
-      teacher: teacher, level:level,
-      group:   document.getElementById('f-grp').value,
-      topic:   topic,
-      date:    document.getElementById('f-date').value,
-      objective:objective, steps:steps, weekKey:WEEK_KEY
+      id:currentId||Date.now().toString(),
+      teacher:teacher,level:level,
+      group:document.getElementById('f-grp').value,
+      topic:topic,date:document.getElementById('f-date').value,
+      objective:objective,steps:steps,weekKey:WEEK_KEY,
+      timestamp:new Date().toISOString()
     };
-    var plans=loadPlans();
-    var idx=plans.findIndex(function(p){return p.id===plan.id;});
-    if(idx>=0) plans[idx]=plan; else plans.push(plan);
-    savePlans(plans);
-    sendPlan(plan);
-    toast('✅ Planeación guardada y compartida con el equipo.');
-    SIS.goLib();
+    // Actualizar localmente de inmediato
+    var idx=PLANS.findIndex(function(p){return p.id===plan.id;});
+    if(idx>=0) PLANS[idx]=plan; else PLANS.push(plan);
+    // Enviar a Sheets
+    var btn=document.getElementById('btn-save');
+    if(btn){btn.textContent='Guardando...';btn.disabled=true;}
+    pushPlan(plan,function(ok){
+      if(btn){btn.textContent='💾 Guardar y compartir';btn.disabled=false;}
+      toast(ok?'✅ Planeación guardada y compartida con el equipo.':'✅ Guardada localmente. Verifica la conexión.');
+      SIS.goLib();
+      // Recargar desde Sheets para confirmar
+      setTimeout(function(){
+        fetchAll(function(err){
+          setSyncBadge(err?'err':'ok');
+          updateStats();
+          renderCards();
+        });
+      },2000);
+    });
   },
  
-  showDetail: function(id){
+  showDetail:function(id){
     currentId=id;
-    var plan=loadPlans().find(function(p){return p.id===id;});
+    var plan=PLANS.find(function(p){return p.id===id;});
     if(!plan)return;
     var bc=LVL_BADGE[plan.level]||'badge-gray';
     var h='<div class="detail-hero">'
       +'<div class="detail-bar"></div>'
       +'<div class="pcard-badges"><span class="badge '+bc+'">'+esc(plan.level)+'</span>'
-      +(plan.group?'<span class="badge badge-gray">'+esc(plan.group)+'</span>':'')
+      +(plan.group||plan.classGroup?'<span class="badge badge-gray">'+esc(plan.group||plan.classGroup)+'</span>':'')
       +(plan.date?'<span class="badge badge-date">'+esc(plan.date)+'</span>':'')+'</div>'
       +'<div class="detail-topic">'+esc(plan.topic)+'</div>'
       +'<div class="detail-teacher">👩‍🏫 '+esc(plan.teacher)+'</div>'
@@ -634,9 +708,14 @@ var SIS = {
       +'<div class="detail-obj-text">'+esc(plan.objective)+'</div></div></div>';
     STEPS.forEach(function(s){
       var st=(plan.steps&&plan.steps[s.id])||{};
+      if(!st.d) st.d=plan[s.id+'_desc']||plan['warmup_desc']&&s.id==='wu'?plan['warmup_desc']:'';
+      if(!st.g) st.g=plan[s.id+'_goal']||'';
+      // Mapeo correcto de campos planos
+      var fieldMap={wu:'warmup',ctx:'context',gr:'grammar',sim:'sim',dec:'decision',res:'results'};
+      if(!st.d) st.d=plan[fieldMap[s.id]+'_desc']||'';
+      if(!st.g) st.g=plan[fieldMap[s.id]+'_goal']||'';
       h+='<div class="step-card">'
-        +'<div class="step-head"><span class="step-label">'+s.label+'</span>'
-        +'<span class="step-time">'+s.time+'</span></div>'
+        +'<div class="step-head"><span class="step-label">'+s.label+'</span><span class="step-time">'+s.time+'</span></div>'
         +'<div class="detail-step-body">'
         +'<div><div style="font-size:11px;font-weight:700;color:#5b4d8a;text-transform:uppercase;margin-bottom:5px;">Descripción</div>'
         +'<div class="detail-col-text">'+(st.d||'<em style="color:#bbb;">Sin descripción</em>')+'</div></div>'
@@ -645,48 +724,103 @@ var SIS = {
         +'</div></div>';
     });
     document.getElementById('detail-content').innerHTML=h;
-    document.getElementById('view-lib').style.display='none';
-    document.getElementById('view-form').style.display='none';
+    ['view-lib','view-form','view-audit'].forEach(function(vid){document.getElementById(vid).style.display='none';});
     document.getElementById('view-detail').style.display='';
     document.getElementById('header-btn-wrap').style.display='none';
     document.getElementById('tabs-bar').style.display='none';
   },
  
-  editCurrent:   function(){ SIS.goForm(currentId); },
-  deleteCurrent: function(){
-    var plan=loadPlans().find(function(p){return p.id===currentId;});
+  editCurrent:function(){SIS.goForm(currentId);},
+  deleteCurrent:function(){
+    var plan=PLANS.find(function(p){return p.id===currentId;});
     if(!plan)return;
     if(!confirm('¿Eliminar "'+plan.topic+'"? Esta acción no se puede deshacer.'))return;
-    var plans=loadPlans().filter(function(p){return p.id!==currentId;});
-    savePlans(plans); deletePlan(currentId);
-    toast('Planeación eliminada.'); SIS.goLib();
+    PLANS=PLANS.filter(function(p){return p.id!==currentId;});
+    removePlan(currentId);
+    toast('Planeación eliminada.');
+    SIS.goLib();
   },
-  filterTab: function(lvl){
+ 
+  filterTab:function(lvl){
     activeTab=lvl;
-    if(document.getElementById('f-lvl-filter'))
-      document.getElementById('f-lvl-filter').value=lvl;
+    if(document.getElementById('f-lvl-filter'))document.getElementById('f-lvl-filter').value=lvl;
     renderCards();
   },
-  renderCards: renderCards
+ 
+  refresh:function(){
+    setSyncBadge('loading');
+    fetchAll(function(err){
+      setSyncBadge(err?'err':'ok');
+      updateStats();
+      renderCards();
+      if(!err) toast('Planeaciones actualizadas.');
+    });
+  },
+ 
+  goAudit:function(){
+    ['view-lib','view-form','view-detail'].forEach(function(id){document.getElementById(id).style.display='none';});
+    document.getElementById('view-audit').style.display='';
+    document.getElementById('header-btn-wrap').style.display='none';
+    document.getElementById('tabs-bar').style.display='none';
+    SIS.runAudit();
+  },
+ 
+  runAudit:function(){
+    var week=PLANS.filter(function(p){return !p.weekKey||p.weekKey===WEEK_KEY;});
+    var byTeacher={};
+    ALL_TEACHERS.forEach(function(t){byTeacher[t]=[];});
+    week.forEach(function(p){if(byTeacher[p.teacher])byTeacher[p.teacher].push(p);});
+    var total=ALL_TEACHERS.length;
+    var conPlanes=ALL_TEACHERS.filter(function(t){return byTeacher[t].length>0;}).length;
+    var sinPlanes=total-conPlanes;
+    var completos=ALL_TEACHERS.filter(function(t){return byTeacher[t].length>=5;}).length;
+    function dots(n){
+      var h='<span style="display:inline-flex;gap:3px;">';
+      for(var i=0;i<5;i++) h+='<span class="pip-dot '+(i<n?'pip-filled':'pip-empty')+'"></span>';
+      return h+'</span>';
+    }
+    function tag(n){
+      if(n===0) return '<span class="tag-err">Sin planeaciones</span>';
+      if(n<5)   return '<span class="tag-warn">'+n+'/5</span>';
+      return '<span class="tag-ok">✓ '+n+' planeaciones</span>';
+    }
+    var sorted=ALL_TEACHERS.slice().sort(function(a,b){return byTeacher[a].length-byTeacher[b].length;});
+    var rows=sorted.map(function(t){
+      var ps=byTeacher[t];
+      var dates=ps.map(function(p){return p.date||'—';}).join(', ');
+      return '<tr><td style="font-weight:600;">'+esc(t)+'</td><td>'+dots(Math.min(ps.length,5))+'</td><td>'+tag(ps.length)+'</td><td style="color:#888;font-size:11px;">'+esc(dates)+'</td></tr>';
+    }).join('');
+    var html='<div class="audit-panel">'
+      +'<div class="audit-head"><div>'
+      +'<div class="audit-head-title">📊 Auditoría de planeaciones — Semana actual</div>'
+      +'<div class="audit-head-sub">'+getWeekRange(WEEK_KEY)+' · '+total+' docentes registrados</div>'
+      +'</div></div>'
+      +'<div class="audit-body">'
+      +'<div class="audit-summary">'
+      +'<div class="audit-stat audit-info"><span class="audit-stat-n">'+total+'</span><span class="audit-stat-l">Total docentes</span></div>'
+      +'<div class="audit-stat audit-ok"><span class="audit-stat-n">'+conPlanes+'</span><span class="audit-stat-l">Con planeaciones</span></div>'
+      +'<div class="audit-stat audit-err"><span class="audit-stat-n">'+sinPlanes+'</span><span class="audit-stat-l">Sin planeaciones</span></div>'
+      +'<div class="audit-stat audit-warn"><span class="audit-stat-n">'+completos+'</span><span class="audit-stat-l">Con 5 o más</span></div>'
+      +'</div>'
+      +'<table class="audit-table"><thead><tr>'
+      +'<th>Docente</th><th>Progreso (5)</th><th>Estado</th><th>Fechas</th>'
+      +'</tr></thead><tbody>'+rows+'</tbody></table>'
+      +'</div></div>';
+    document.getElementById('audit-content').innerHTML=html;
+  },
+ 
+  renderCards:renderCards
 };
  
 // ── INIT ──────────────────────────────────────────────────────
-document.getElementById('week-range-label').textContent = '📅 ' + getWeekRange(WEEK_KEY);
- 
-if(isSunday){
-  document.getElementById('sunday-banner').style.display='';
-  document.getElementById('view-lib').style.display='none';
-  document.getElementById('tabs-bar').style.display='none';
-  document.getElementById('header-btn-wrap').style.display='none';
-  setSyncBadge('err');
-  document.getElementById('sync-badge').textContent='Cerrado hoy (domingo)';
-} else {
-  setSyncBadge('loading');
-  fetchPlans(function(plans, offline){
-    setSyncBadge(offline?'err':'ok');
-    renderCards();
-  });
-}
+document.getElementById('week-range-label').textContent='📅 '+getWeekRange(WEEK_KEY);
+setSyncBadge('loading');
+fetchAll(function(err){
+  setSyncBadge(err?'err':'ok');
+  updateStats();
+  renderCards();
+  startSync(); // auto-refresh cada 30 segundos
+});
 </script>
 </body>
 </html>

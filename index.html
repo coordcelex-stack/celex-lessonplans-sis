@@ -126,7 +126,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
 </style>
 </head>
 <body>
- 
+
 <div class="header">
   <span class="eyebrow">Universidad del Valle de Puebla · CELEX</span>
   <div class="header-row">
@@ -156,7 +156,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
     </div>
   </div>
 </div>
- 
+
 <div class="tabs" id="tabs-bar">
   <button class="tab" onclick="SIS.filterTab('')">Todas <span id="tc-0" style="background:#ede9f7;color:#5b4d8a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">—</span></button>
   <button class="tab" onclick="SIS.filterTab('Starter A1')">Starter A1 <span id="tc-1" style="background:#e0f2f2;color:#2d7a7a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">—</span></button>
@@ -166,9 +166,9 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
   <button class="tab" onclick="SIS.filterTab('Upper intermediate B2')">Upper int B2 <span id="tc-5" style="background:#e0f0f8;color:#2d5c7a;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">—</span></button>
   <button class="tab" onclick="SIS.filterTab('Lower advanced B2+')">Lower adv B2+ <span id="tc-6" style="background:#f3e8ff;color:#5a2d82;border-radius:40px;padding:1px 7px;font-size:10px;margin-left:3px;">—</span></button>
 </div>
- 
+
 <div class="main">
- 
+
   <!-- LIBRARY -->
   <div id="view-lib">
     <div class="filters">
@@ -200,59 +200,68 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
           <label class="flabel">Docente</label>
           <select class="finput" id="f-teacher-filter" onchange="SIS.renderCards()">
             <option value="">Todos los docentes</option>
-            <option>Alejandro Carlos Rugerio Ochoa</option>
-            <option>Alejandro Rodríguez Fernández</option>
             <option>Araceli Zurita Juarez</option>
-            <option>Astrid Castillo Soto</option>
-            <option>Bruno Flores Monroy</option>
-            <option>Cesar Martínez Arenalde</option>
-            <option>Claudia Arcocha Sotomayor</option>
-            <option>Claudia Ortiz Vargas</option>
-            <option>Daniela Hernández Moreno</option>
-            <option>Diana Claudia Cossio Chavero</option>
-            <option>Harold Eliu Gutiérrez Ramos</option>
-            <option>Janis Vazquez Díaz</option>
-            <option>Javier Atenco Martínez</option>
-            <option>Jessica Merino Castañeda</option>
-            <option>Jessica Pineda Jacinto</option>
-            <option>José Antonio Guzmán Osorio</option>
-            <option>Karina Rosas de la Llave</option>
             <option>Larisa Herrera Quiroz</option>
-            <option>Luis Johany Vega Rosas</option>
-            <option>Maria Flor Yañez Torres</option>
-            <option>Martha Irene Andrade Parra</option>
-            <option>Mayanit Sánchez Garfias</option>
-            <option>Miguel Ángel Ruiz González</option>
-            <option>Miriam Andrea Ramirez Hernández</option>
-            <option>Miriam Serrano Hernández</option>
-            <option>Oscar Ivan De La Cruz Del Valle</option>
-            <option>Pablo García</option>
+            <option>Olivia Janneth Palacios Castillo</option>
+            <option>Jessica Pineda Jacinto</option>
             <option>Rosalba Rivera González</option>
-            <option>Rosalba Salazar Ponce</option>
-            <option>Samantha Alarcón Morales</option>
-            <option>Vanessa Jiménez Flores</option>
-            <option>Victor Octavio Diaz Felipe</option>
-            <option>Yuliana Álvarez Torres</option>
-            <option>Zaira María González Sandoval</option>
-            <option>Adriana Emilia Flores Guzmán</option>
-            <option>Mar Montebello Correa</option>
-            <option>Yulissa Pérez Cortés</option>
-            <option>Diana Xicotencatl Díaz</option>
-            <option>Héctor Rubén Luna Martínez</option>
-            <option>Verónica Torres Soriano</option>
-            <option>Brayan Eduardo Alarcón Hernández</option>
-            <option>Esperanza Anouska Guds</option>
-            <option>Brenda Mariana Sandoval Román</option>
-            <option>Citlali Abigail Contreras Rodríguez</option>
-            <option>Uriel Joshue Guerrero Cortés</option>
-            <option>Sandra Rodríguez López</option>
-            <option>Edgar Mota Blanco</option>
             <option>Diana Fernanda Vázquez Contreras</option>
-            <option>Juan Guillermo Torres Martínez</option>
-            <option>Berenice Escalona Méndez</option>
-            <option>Sergio García Sánchez</option>
+            <option>Janis Vazquez Díaz</option>
+            <option>César Gibran Vázquez Manzano</option>
+            <option>Brayan Eduardo Alarcón Hernández</option>
+            <option>Samantha Alarcón Morales</option>
+            <option>Yuliana Álvarez Torres</option>
+            <option>Martha Irene Andrade Parra</option>
+            <option>Esperanza Anouska Guds</option>
+            <option>María Bertha Aponte Babines</option>
+            <option>Claudia Arcocha Sotomayor</option>
+            <option>Luis Ángel Atemiz Tavera</option>
+            <option>Javier Atenco Martínez</option>
+            <option>Genaro Cabrera Rodriguez</option>
+            <option>Astrid Castillo Soto</option>
+            <option>Citlali Abigail Contreras Rodríguez</option>
+            <option>Diana Claudia Cossio Chavero</option>
+            <option>Óscar Iván De La Cruz Del Valle</option>
+            <option>Victor Octavio Diaz Felipe</option>
             <option>Guadalupe Durana Hernández</option>
-            <option>Paola García Solís</option>
+            <option>Berenice Escalona Méndez</option>
+            <option>Rodrigo Fernandez Diez Salazar</option>
+            <option>Vivian Iveth Figueroa Alvear</option>
+            <option>Adriana Emilia Flores Guzmán</option>
+            <option>Bruno Flores Monroy</option>
+            <option>Pablo García</option>
+            <option>Sergio García Sánchez</option>
+            <option>Paola Garcia Solis</option>
+            <option>Zaira María González Sandoval</option>
+            <option>Uriel Joshue Guerrero Cortés</option>
+            <option>Harold Eliu Gutiérrez Ramos</option>
+            <option>José Antonio Guzmán Osorio</option>
+            <option>Daniela Hernández Moreno</option>
+            <option>Vanessa Jiménez Flores</option>
+            <option>Héctor Rubén Luna Martínez</option>
+            <option>Cesar Martínez Arenalde</option>
+            <option>Nicole Martínezbuenabad Chavarín</option>
+            <option>Jessica Merino Castañeda</option>
+            <option>Carmen María Meza Mariño</option>
+            <option>Mar Montebello Correa</option>
+            <option>Edgar Mota Blanco</option>
+            <option>Claudia Ortiz Vargas</option>
+            <option>Yulissa Pérez Cortés</option>
+            <option>Miriam Andrea Ramirez Hernández</option>
+            <option>Alejandro Rodríguez Fernández</option>
+            <option>Sandra Rodríguez López</option>
+            <option>Rosalba Salazar Ponce</option>
+            <option>Karina Rosas de la Llave</option>
+            <option>Alejandro Carlos Rugerio Ochoa</option>
+            <option>Miguel Ángel Ruiz González</option>
+            <option>Mayanit Sánchez Garfias</option>
+            <option>Brenda Mariana Sandoval Román</option>
+            <option>Miriam Serrano Hernández</option>
+            <option>Juan Guillermo Torres Martínez</option>
+            <option>Luis Johany Vega Rosas</option>
+            <option>Diana Xicotencatl Díaz</option>
+            <option>Maria Flor Yañez Torres</option>
+            <option>Irving Jonathan Zenteno León</option>
           </select>
         </div>
       </div>
@@ -264,7 +273,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
       </div>
     </div>
   </div>
- 
+
   <!-- FORM -->
   <div id="view-form" style="display:none;">
     <div class="form-card">
@@ -274,59 +283,68 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
           <label>Docente <span class="required">*</span></label>
           <select id="f-doc">
             <option value="">— Selecciona —</option>
-            <option>Alejandro Carlos Rugerio Ochoa</option>
-            <option>Alejandro Rodríguez Fernández</option>
             <option>Araceli Zurita Juarez</option>
-            <option>Astrid Castillo Soto</option>
-            <option>Bruno Flores Monroy</option>
-            <option>Cesar Martínez Arenalde</option>
-            <option>Claudia Arcocha Sotomayor</option>
-            <option>Claudia Ortiz Vargas</option>
-            <option>Daniela Hernández Moreno</option>
-            <option>Diana Claudia Cossio Chavero</option>
-            <option>Harold Eliu Gutiérrez Ramos</option>
-            <option>Janis Vazquez Díaz</option>
-            <option>Javier Atenco Martínez</option>
-            <option>Jessica Merino Castañeda</option>
-            <option>Jessica Pineda Jacinto</option>
-            <option>José Antonio Guzmán Osorio</option>
-            <option>Karina Rosas de la Llave</option>
             <option>Larisa Herrera Quiroz</option>
-            <option>Luis Johany Vega Rosas</option>
-            <option>Maria Flor Yañez Torres</option>
-            <option>Martha Irene Andrade Parra</option>
-            <option>Mayanit Sánchez Garfias</option>
-            <option>Miguel Ángel Ruiz González</option>
-            <option>Miriam Andrea Ramirez Hernández</option>
-            <option>Miriam Serrano Hernández</option>
-            <option>Oscar Ivan De La Cruz Del Valle</option>
-            <option>Pablo García</option>
+            <option>Olivia Janneth Palacios Castillo</option>
+            <option>Jessica Pineda Jacinto</option>
             <option>Rosalba Rivera González</option>
-            <option>Rosalba Salazar Ponce</option>
-            <option>Samantha Alarcón Morales</option>
-            <option>Vanessa Jiménez Flores</option>
-            <option>Victor Octavio Diaz Felipe</option>
-            <option>Yuliana Álvarez Torres</option>
-            <option>Zaira María González Sandoval</option>
-            <option>Adriana Emilia Flores Guzmán</option>
-            <option>Mar Montebello Correa</option>
-            <option>Yulissa Pérez Cortés</option>
-            <option>Diana Xicotencatl Díaz</option>
-            <option>Héctor Rubén Luna Martínez</option>
-            <option>Verónica Torres Soriano</option>
-            <option>Brayan Eduardo Alarcón Hernández</option>
-            <option>Esperanza Anouska Guds</option>
-            <option>Brenda Mariana Sandoval Román</option>
-            <option>Citlali Abigail Contreras Rodríguez</option>
-            <option>Uriel Joshue Guerrero Cortés</option>
-            <option>Sandra Rodríguez López</option>
-            <option>Edgar Mota Blanco</option>
             <option>Diana Fernanda Vázquez Contreras</option>
-            <option>Juan Guillermo Torres Martínez</option>
-            <option>Berenice Escalona Méndez</option>
-            <option>Sergio García Sánchez</option>
+            <option>Janis Vazquez Díaz</option>
+            <option>César Gibran Vázquez Manzano</option>
+            <option>Brayan Eduardo Alarcón Hernández</option>
+            <option>Samantha Alarcón Morales</option>
+            <option>Yuliana Álvarez Torres</option>
+            <option>Martha Irene Andrade Parra</option>
+            <option>Esperanza Anouska Guds</option>
+            <option>María Bertha Aponte Babines</option>
+            <option>Claudia Arcocha Sotomayor</option>
+            <option>Luis Ángel Atemiz Tavera</option>
+            <option>Javier Atenco Martínez</option>
+            <option>Genaro Cabrera Rodriguez</option>
+            <option>Astrid Castillo Soto</option>
+            <option>Citlali Abigail Contreras Rodríguez</option>
+            <option>Diana Claudia Cossio Chavero</option>
+            <option>Óscar Iván De La Cruz Del Valle</option>
+            <option>Victor Octavio Diaz Felipe</option>
             <option>Guadalupe Durana Hernández</option>
-            <option>Paola García Solís</option>
+            <option>Berenice Escalona Méndez</option>
+            <option>Rodrigo Fernandez Diez Salazar</option>
+            <option>Vivian Iveth Figueroa Alvear</option>
+            <option>Adriana Emilia Flores Guzmán</option>
+            <option>Bruno Flores Monroy</option>
+            <option>Pablo García</option>
+            <option>Sergio García Sánchez</option>
+            <option>Paola Garcia Solis</option>
+            <option>Zaira María González Sandoval</option>
+            <option>Uriel Joshue Guerrero Cortés</option>
+            <option>Harold Eliu Gutiérrez Ramos</option>
+            <option>José Antonio Guzmán Osorio</option>
+            <option>Daniela Hernández Moreno</option>
+            <option>Vanessa Jiménez Flores</option>
+            <option>Héctor Rubén Luna Martínez</option>
+            <option>Cesar Martínez Arenalde</option>
+            <option>Nicole Martínezbuenabad Chavarín</option>
+            <option>Jessica Merino Castañeda</option>
+            <option>Carmen María Meza Mariño</option>
+            <option>Mar Montebello Correa</option>
+            <option>Edgar Mota Blanco</option>
+            <option>Claudia Ortiz Vargas</option>
+            <option>Yulissa Pérez Cortés</option>
+            <option>Miriam Andrea Ramirez Hernández</option>
+            <option>Alejandro Rodríguez Fernández</option>
+            <option>Sandra Rodríguez López</option>
+            <option>Rosalba Salazar Ponce</option>
+            <option>Karina Rosas de la Llave</option>
+            <option>Alejandro Carlos Rugerio Ochoa</option>
+            <option>Miguel Ángel Ruiz González</option>
+            <option>Mayanit Sánchez Garfias</option>
+            <option>Brenda Mariana Sandoval Román</option>
+            <option>Miriam Serrano Hernández</option>
+            <option>Juan Guillermo Torres Martínez</option>
+            <option>Luis Johany Vega Rosas</option>
+            <option>Diana Xicotencatl Díaz</option>
+            <option>Maria Flor Yañez Torres</option>
+            <option>Irving Jonathan Zenteno León</option>
           </select>
         </div>
         <div class="field">
@@ -368,7 +386,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
       <button class="btn btn-outline" onclick="SIS.goLib()">Cancelar</button>
     </div>
   </div>
- 
+
   <!-- DETAIL -->
   <div id="view-detail" style="display:none;">
     <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;">
@@ -378,7 +396,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
     </div>
     <div id="detail-content"></div>
   </div>
- 
+
   <!-- AUDIT -->
   <div id="view-audit" style="display:none;">
     <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;">
@@ -387,13 +405,13 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
     </div>
     <div id="audit-content"></div>
   </div>
- 
+
 </div>
 <div class="toast" id="toast"></div>
- 
+
 <script>
-var WH = 'https://script.google.com/macros/s/AKfycbwshvc64VGc9F5VHbUjCrA54hoaaNbsOYWmUOHsaecNqhfwrU2dl4JXTdo8roFjo1Y8jQ/exec';
- 
+var WH = 'https://script.google.com/macros/s/AKfycbycRhbtrQm4Zu8rcSJn8jdgVA53vL1hZmtlxOqSvGAsA_5bJDNfvb6NXX46vo38IVlVNw/exec';
+
 var STEPS = [
   {id:'wu',  label:'1 — Warm up',                               time:'10 min'},
   {id:'ctx', label:'2 — Presentation, vocabulary &amp; context', time:'10–15 min'},
@@ -402,36 +420,80 @@ var STEPS = [
   {id:'dec', label:'5 — Decision making',                       time:'10–15 min'},
   {id:'res', label:'6 — Results',                               time:'10 min'}
 ];
- 
+
 var LEVELS = ['Starter A1','Elementary A2','Pre-intermediate B1','Intermediate B1+','Upper intermediate B2','Lower advanced B2+'];
- 
+
 var LVL_BADGE = {
   'Starter A1':'badge-I','Elementary A2':'badge-II',
   'Pre-intermediate B1':'badge-III','Intermediate B1+':'badge-IV',
   'Upper intermediate B2':'badge-V','Lower advanced B2+':'badge-VI'
 };
- 
+
 var ALL_TEACHERS = [
-  'Alejandro Carlos Rugerio Ochoa','Alejandro Rodríguez Fernández','Araceli Zurita Juarez',
-  'Astrid Castillo Soto','Bruno Flores Monroy','Cesar Martínez Arenalde',
-  'Claudia Arcocha Sotomayor','Claudia Ortiz Vargas','Daniela Hernández Moreno',
-  'Diana Claudia Cossio Chavero','Harold Eliu Gutiérrez Ramos','Janis Vazquez Díaz',
-  'Javier Atenco Martínez','Jessica Merino Castañeda','Jessica Pineda Jacinto',
-  'José Antonio Guzmán Osorio','Karina Rosas de la Llave','Larisa Herrera Quiroz',
-  'Luis Johany Vega Rosas','Maria Flor Yañez Torres','Martha Irene Andrade Parra',
-  'Mayanit Sánchez Garfias','Miguel Ángel Ruiz González','Miriam Andrea Ramirez Hernández',
-  'Miriam Serrano Hernández','Oscar Ivan De La Cruz Del Valle','Pablo García',
-  'Rosalba Rivera González','Rosalba Salazar Ponce','Samantha Alarcón Morales',
-  'Vanessa Jiménez Flores','Victor Octavio Diaz Felipe','Yuliana Álvarez Torres',
-  'Zaira María González Sandoval','Adriana Emilia Flores Guzmán','Mar Montebello Correa',
-  'Yulissa Pérez Cortés','Diana Xicotencatl Díaz','Héctor Rubén Luna Martínez',
-  'Verónica Torres Soriano','Brayan Eduardo Alarcón Hernández','Esperanza Anouska Guds',
-  'Brenda Mariana Sandoval Román','Citlali Abigail Contreras Rodríguez',
-  'Uriel Joshue Guerrero Cortés','Sandra Rodríguez López','Edgar Mota Blanco',
-  'Diana Fernanda Vázquez Contreras','Juan Guillermo Torres Martínez',
-  'Berenice Escalona Méndez','Sergio García Sánchez','Guadalupe Durana Hernández','Paola García Solís'
+  'Araceli Zurita Juarez',
+  'Larisa Herrera Quiroz',
+  'Olivia Janneth Palacios Castillo',
+  'Jessica Pineda Jacinto',
+  'Rosalba Rivera González',
+  'Diana Fernanda Vázquez Contreras',
+  'Janis Vazquez Díaz',
+  'César Gibran Vázquez Manzano',
+  'Brayan Eduardo Alarcón Hernández',
+  'Samantha Alarcón Morales',
+  'Yuliana Álvarez Torres',
+  'Martha Irene Andrade Parra',
+  'Esperanza Anouska Guds',
+  'María Bertha Aponte Babines',
+  'Claudia Arcocha Sotomayor',
+  'Luis Ángel Atemiz Tavera',
+  'Javier Atenco Martínez',
+  'Genaro Cabrera Rodriguez',
+  'Astrid Castillo Soto',
+  'Citlali Abigail Contreras Rodríguez',
+  'Diana Claudia Cossio Chavero',
+  'Óscar Iván De La Cruz Del Valle',
+  'Victor Octavio Diaz Felipe',
+  'Guadalupe Durana Hernández',
+  'Berenice Escalona Méndez',
+  'Rodrigo Fernandez Diez Salazar',
+  'Vivian Iveth Figueroa Alvear',
+  'Adriana Emilia Flores Guzmán',
+  'Bruno Flores Monroy',
+  'Pablo García',
+  'Sergio García Sánchez',
+  'Paola Garcia Solis',
+  'Zaira María González Sandoval',
+  'Uriel Joshue Guerrero Cortés',
+  'Harold Eliu Gutiérrez Ramos',
+  'José Antonio Guzmán Osorio',
+  'Daniela Hernández Moreno',
+  'Vanessa Jiménez Flores',
+  'Héctor Rubén Luna Martínez',
+  'Cesar Martínez Arenalde',
+  'Nicole Martínezbuenabad Chavarín',
+  'Jessica Merino Castañeda',
+  'Carmen María Meza Mariño',
+  'Mar Montebello Correa',
+  'Edgar Mota Blanco',
+  'Claudia Ortiz Vargas',
+  'Yulissa Pérez Cortés',
+  'Miriam Andrea Ramirez Hernández',
+  'Alejandro Rodríguez Fernández',
+  'Sandra Rodríguez López',
+  'Rosalba Salazar Ponce',
+  'Karina Rosas de la Llave',
+  'Alejandro Carlos Rugerio Ochoa',
+  'Miguel Ángel Ruiz González',
+  'Mayanit Sánchez Garfias',
+  'Brenda Mariana Sandoval Román',
+  'Miriam Serrano Hernández',
+  'Juan Guillermo Torres Martínez',
+  'Luis Johany Vega Rosas',
+  'Diana Xicotencatl Díaz',
+  'Maria Flor Yañez Torres',
+  'Irving Jonathan Zenteno León'
 ];
- 
+
 // ── SEMANA ────────────────────────────────────────────────────
 function getWeekKey() {
   var d = new Date();
@@ -450,11 +512,11 @@ function getWeekRange(wk) {
   return ws.toLocaleDateString('es-MX',o)+' – '+we.toLocaleDateString('es-MX',o);
 }
 var WEEK_KEY = getWeekKey();
- 
+
 // ── DATOS EN MEMORIA (sin localStorage) ──────────────────────
 var PLANS = [];
 var SYNC_TIMER = null;
- 
+
 // ── GOOGLE SHEETS — FUENTE ÚNICA DE VERDAD ────────────────────
 function fetchAll(cb) {
   fetch(WH+'?action=getAll&t='+Date.now())
@@ -465,7 +527,7 @@ function fetchAll(cb) {
     })
     .catch(function(){ cb(true); });
 }
- 
+
 function pushPlan(plan, cb) {
   fetch(WH, {
     method:'POST', mode:'no-cors',
@@ -486,7 +548,7 @@ function pushPlan(plan, cb) {
     })
   }).then(function(){ if(cb) cb(true); }).catch(function(){ if(cb) cb(false); });
 }
- 
+
 function removePlan(id) {
   fetch(WH,{
     method:'POST',mode:'no-cors',
@@ -494,7 +556,7 @@ function removePlan(id) {
     body:JSON.stringify({action:'delete',id:id})
   }).catch(function(){});
 }
- 
+
 // Auto-refresh cada 30 segundos
 function startSync() {
   if(SYNC_TIMER) clearInterval(SYNC_TIMER);
@@ -506,7 +568,7 @@ function startSync() {
     });
   }, 30000);
 }
- 
+
 // ── UTILS ─────────────────────────────────────────────────────
 function esc(s){ if(!s)return''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function toast(msg,type){
@@ -529,7 +591,7 @@ function setSyncBadge(state){
     b.innerHTML='<span class="spinner"></span>Conectando...';
   }
 }
- 
+
 // ── STATS ─────────────────────────────────────────────────────
 function updateStats() {
   var week = PLANS.filter(function(p){ return !p.weekKey||p.weekKey===WEEK_KEY; });
@@ -543,7 +605,7 @@ function updateStats() {
     if(el) el.textContent=PLANS.filter(function(p){return p.level===lvl;}).length;
   });
 }
- 
+
 // ── RENDER CARDS ──────────────────────────────────────────────
 var activeTab = '';
 function renderCards() {
@@ -551,7 +613,7 @@ function renderCards() {
   var weekF   = (document.getElementById('f-week-filter')||{value:''}).value;
   var lvlF    = activeTab || (document.getElementById('f-lvl-filter')||{value:''}).value;
   var tchF    = (document.getElementById('f-teacher-filter')||{value:''}).value;
- 
+
   var filtered = PLANS.filter(function(p){
     if(weekF==='current' && p.weekKey && p.weekKey!==WEEK_KEY) return false;
     var s=!search||(p.topic||'').toLowerCase().includes(search)||(p.teacher||'').toLowerCase().includes(search)||(p.objective||'').toLowerCase().includes(search);
@@ -559,10 +621,10 @@ function renderCards() {
     var t=!tchF||p.teacher===tchF;
     return s&&l&&t;
   });
- 
+
   // Ordenar: más recientes primero
   filtered.sort(function(a,b){ return (b.timestamp||'').localeCompare(a.timestamp||''); });
- 
+
   var c=document.getElementById('cards-container');
   if(!filtered.length){
     c.innerHTML='<div class="empty" style="grid-column:1/-1;">'
@@ -591,10 +653,10 @@ function renderCards() {
       +'</div><div class="pcard-foot">Ver planeación completa →</div></div>';
   }).join('');
 }
- 
+
 // ── APP ───────────────────────────────────────────────────────
 var currentId=null;
- 
+
 var SIS={
   goLib:function(){
     ['view-form','view-detail','view-audit'].forEach(function(id){document.getElementById(id).style.display='none';});
@@ -603,7 +665,7 @@ var SIS={
     document.getElementById('tabs-bar').style.display='';
     renderCards();
   },
- 
+
   goForm:function(id){
     ['view-lib','view-detail','view-audit'].forEach(function(vid){document.getElementById(vid).style.display='none';});
     document.getElementById('view-form').style.display='';
@@ -649,7 +711,7 @@ var SIS={
       document.getElementById('f-date').value=new Date().toISOString().split('T')[0];
     }
   },
- 
+
   save:function(){
     var teacher =document.getElementById('f-doc').value;
     var level   =document.getElementById('f-lvl').value;
@@ -691,7 +753,7 @@ var SIS={
       },2000);
     });
   },
- 
+
   showDetail:function(id){
     currentId=id;
     var plan=PLANS.find(function(p){return p.id===id;});
@@ -729,7 +791,7 @@ var SIS={
     document.getElementById('header-btn-wrap').style.display='none';
     document.getElementById('tabs-bar').style.display='none';
   },
- 
+
   editCurrent:function(){SIS.goForm(currentId);},
   deleteCurrent:function(){
     var plan=PLANS.find(function(p){return p.id===currentId;});
@@ -740,13 +802,13 @@ var SIS={
     toast('Planeación eliminada.');
     SIS.goLib();
   },
- 
+
   filterTab:function(lvl){
     activeTab=lvl;
     if(document.getElementById('f-lvl-filter'))document.getElementById('f-lvl-filter').value=lvl;
     renderCards();
   },
- 
+
   refresh:function(){
     setSyncBadge('loading');
     fetchAll(function(err){
@@ -756,7 +818,7 @@ var SIS={
       if(!err) toast('Planeaciones actualizadas.');
     });
   },
- 
+
   goAudit:function(){
     ['view-lib','view-form','view-detail'].forEach(function(id){document.getElementById(id).style.display='none';});
     document.getElementById('view-audit').style.display='';
@@ -764,7 +826,7 @@ var SIS={
     document.getElementById('tabs-bar').style.display='none';
     SIS.runAudit();
   },
- 
+
   runAudit:function(){
     var week=PLANS.filter(function(p){return !p.weekKey||p.weekKey===WEEK_KEY;});
     var byTeacher={};
@@ -808,10 +870,10 @@ var SIS={
       +'</div></div>';
     document.getElementById('audit-content').innerHTML=html;
   },
- 
+
   renderCards:renderCards
 };
- 
+
 // ── INIT ──────────────────────────────────────────────────────
 document.getElementById('week-range-label').textContent='📅 '+getWeekRange(WEEK_KEY);
 setSyncBadge('loading');
@@ -824,4 +886,3 @@ fetchAll(function(err){
 </script>
 </body>
 </html>
- 

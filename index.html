@@ -170,7 +170,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
 <div class="main">
 
   <!-- LIBRARY -->
-  <div id="view-lib">
+  <div id="view-lib" style="display:block;">
     <div class="filters">
       <div class="filters-grid">
         <div>
@@ -659,31 +659,44 @@ var currentId=null;
 
 var SIS={
   goLib:function(){
-    ['view-form','view-detail','view-audit'].forEach(function(id){document.getElementById(id).style.display='none';});
-    document.getElementById('view-lib').style.display='';
-    document.getElementById('header-btn-wrap').style.display='flex';
-    document.getElementById('tabs-bar').style.display='';
+    ['view-form','view-detail','view-audit'].forEach(function(id){
+      var el=document.getElementById(id); if(el) el.style.display='none';
+    });
+    var vl=document.getElementById('view-lib'); if(vl) vl.style.display='block';
+    var hw=document.getElementById('header-btn-wrap'); if(hw) hw.style.display='flex';
+    var tb=document.getElementById('tabs-bar'); if(tb) tb.style.display='flex';
     renderCards();
   },
 
   goForm:function(id){
-    ['view-lib','view-detail','view-audit'].forEach(function(vid){document.getElementById(vid).style.display='none';});
-    document.getElementById('view-form').style.display='';
-    document.getElementById('header-btn-wrap').style.display='none';
-    document.getElementById('tabs-bar').style.display='none';
+    // Mostrar form, ocultar todo lo demás
+    var views = ['view-lib','view-detail','view-audit','view-form'];
+    views.forEach(function(vid){
+      var el = document.getElementById(vid);
+      if(el) el.style.display = (vid==='view-form') ? 'block' : 'none';
+    });
+    var hw = document.getElementById('header-btn-wrap');
+    var tb = document.getElementById('tabs-bar');
+    if(hw) hw.style.display='none';
+    if(tb) tb.style.display='none';
+
+    // Construir pasos
     var sh='';
     STEPS.forEach(function(s){
-      sh+='<div class="step-card"><div class="step-head">'
-        +'<span class="step-label">'+s.label+'</span>'
-        +'<span class="step-time">'+s.time+'</span></div>'
-        +'<div class="step-body">'
-        +'<div><div class="step-sublabel">Descripción de la actividad</div>'
-        +'<textarea id="s-'+s.id+'-d" rows="3" placeholder="¿Qué harán los estudiantes?"></textarea></div>'
-        +'<div><div class="step-sublabel">Objetivo, interacción y recursos</div>'
-        +'<textarea id="s-'+s.id+'-g" rows="3" placeholder="Ej. S-S · Vocabulario · Tarjetas de rol"></textarea></div>'
-        +'</div></div>';
+      sh += '<div class="step-card">'
+        + '<div class="step-head">'
+        + '<span class="step-label">' + s.label + '</span>'
+        + '<span class="step-time">' + s.time + '</span>'
+        + '</div>'
+        + '<div class="step-body">'
+        + '<div><div class="step-sublabel">Descripción de la actividad</div>'
+        + '<textarea id="s-' + s.id + '-d" rows="3" placeholder="¿Qué harán los estudiantes?"></textarea></div>'
+        + '<div><div class="step-sublabel">Objetivo, interacción y recursos</div>'
+        + '<textarea id="s-' + s.id + '-g" rows="3" placeholder="Ej. S-S · Vocabulario · Tarjetas de rol"></textarea></div>'
+        + '</div></div>';
     });
-    document.getElementById('steps-form').innerHTML=sh;
+    var sf = document.getElementById('steps-form');
+    if(sf) sf.innerHTML = sh;
     if(id){
       currentId=id;
       document.getElementById('form-title-text').textContent='Editar planeación';

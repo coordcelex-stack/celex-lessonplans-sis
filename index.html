@@ -8,8 +8,8 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1a2e;min-height:100vh;}
 .header{background:linear-gradient(135deg,#1a1a2e 0%,#5b4d8a 100%);padding:28px 32px;position:relative;overflow:hidden;}
-.header::before{content:'';position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:24px 24px;opacity:.04;}
-.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#c9a84c;display:block;margin-bottom:6px;}
+.header::before{content:'';position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:24px 24px;opacity:.04;pointer-events:none;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#c9a84c;display:block;margin-bottom:6px;} .header>*{position:relative;z-index:2;}
 .header-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:4px;}
 .header-sub{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:16px;}
 .header-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:14px;}
@@ -134,7 +134,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
       <div class="header-title">📚 Banco de Planeaciones SIS</div>
       <div class="header-sub">Planeaciones en vivo — todos los docentes ven y comparten en tiempo real.</div>
     </div>
-    <div id="header-btn-wrap" style="display:flex;gap:8px;flex-wrap:wrap;">
+    <div id="header-btn-wrap" style="display:flex;gap:8px;flex-wrap:wrap;position:relative;z-index:10;">
       <button class="btn btn-gold btn-sm" onclick="SIS.goForm()">+ Nueva planeación</button>
       <button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25);" onclick="SIS.goAudit()">📊 Auditoría</button>
       <button class="btn btn-sm" style="background:rgba(255,255,255,.1);color:#c9a84c;border:1px solid rgba(201,168,76,.4);" onclick="SIS.refresh()" title="Actualizar ahora">↻</button>
@@ -266,12 +266,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1
         </div>
       </div>
     </div>
-    <div class="cards-grid" id="cards-container">
-      <div style="grid-column:1/-1;text-align:center;padding:40px;color:#888;">
-        <span class="spinner" style="border-color:rgba(91,77,138,.3);border-top-color:#5b4d8a;"></span>
-        Cargando planeaciones...
-      </div>
-    </div>
+    <div class="cards-grid" id="cards-container"></div>
   </div>
 
   <!-- FORM -->
